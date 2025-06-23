@@ -5,7 +5,7 @@ body {
 }
 
 .logo{
-    font-family: Permanent Marker;
+    font-family: Didot, Didot LT STD, Hoefler Text, Garamond, Calisto MT, Times New Roman, serif;
     text-decoration: none;
     color:black;
 }
@@ -21,8 +21,8 @@ body {
     border-radius: 15px;
 }
 
-.formulario h1{
-    font-family: "Permanent Marker";
+.formulario h2{
+    font-family: Franklin Gothic, Arial Bold;
     color:rgb(27, 141, 216) ;
     text-align: center;
     padding: 20px 0;
@@ -137,6 +137,22 @@ body::-webkit-scrollbar-thumb:hover{
     font-size: 14px;
 }
 
-h1{
-    font-family: Permanent Marker;
+.card-container{
+    width: 85%;
+    height: 80%;
+    overflow: hidden;
+    border: 2px solid #2c2c2c40;
+    margin: 0 auto;
+    size: cover;
+    margin-bottom: 1cm;
+    margin-top: 1cm;
+}
+
+.glass{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }

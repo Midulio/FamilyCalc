@@ -1,0 +1,116 @@
+body{
+    font-family: Goudy Old Style, Garamond, Big Caslon, Times New Roman, serif;
+    margin: 0;
+    background-color: #04354d;
+}
+
+::-webkit-scrollbar { width: 0px; height: 9px;}
+::-webkit-scrollbar-button { width: 0px; height: 0px;}
+::-webkit-scrollbar-thumb { background: transparent; border: 0px none #fff; border-radius: 10px;}
+::-webkit-scrollbar-thumb:hover { background: #3a77a1;}
+::-webkit-scrollbar-thumb:active { background: #8dd0d8;}
+::-webkit-scrollbar-track {background: transparent;border: 0px solid #aaa; border-radius: 5px;}
+::-webkit-scrollbar-track:hover { background: #e4e4e4;}
+::-webkit-scrollbar-track:active { background: #d2d2d2;}
+::-webkit-scrollbar-corner { background: transparent;}
+
+.scrollcontainer{
+    width: fit-content;
+    height: fit-content;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    margin: 0 auto;
+}
+
+.pos-botones {
+    display: grid;
+    grid-template-areas:
+    "top-left top-right"
+    "bottom-left bottom-right";
+    gap: 20%;
+    height: 500px;
+    width: 1500px;
+}
+
+.top-left {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.top-right {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.bottom-left {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.bottom-right {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.botones{
+    height: 225px;
+    width: 550px;
+    border-radius: 20px;
+    padding: 0;
+    justify-content: start;
+}
+
+.botones img{
+    margin-top: 2mm;
+    
+}
+
+#btn-verticales{
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.texto-interior{
+    margin:1em;
+}
+
+.logo{
+    font-family: Didot, Didot LT STD, Hoefler Text, Garamond, Calisto MT, Times New Roman, serif;
+    text-decoration: none;
+    color:black;
+}
+
+#boton-menor{
+    width: 250px;
+}
+
+a.botones p{
+    border-bottom: solid 1px;
+    margin: 0;
+    padding: 2px;
+    background-color: #04354d;
+    font-family: Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif;
+}
+
+.glass{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.navbar{
+    border-radius: 2px;
+}
+
+a h3:hover{
+    transform: scale(1.15);
+	transition: transform .3s;
+	transition-delay: .1s;
+}

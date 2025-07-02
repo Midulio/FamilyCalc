@@ -33,7 +33,7 @@ if($resultado && $resultado->num_rows > 0){
         <td><?= $r['calle'] ?></td>
         <td><?= $r['numero'] ?></td>
        <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>">Actualizar</a></td>
-        <td><a href="#">Eliminar</a></td>
+        <td><a href="eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>">Eliminar</a></td>
     </tr>
 <?php
     endwhile;

@@ -1,0 +1,133 @@
+body{
+    font-family: Space Grotesk;
+    margin: 0;
+    background-color: rgb(221, 229, 250);
+}
+
+.glass{
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+::-webkit-scrollbar { width: 0px; height: 9px;}
+::-webkit-scrollbar-button { width: 0px; height: 0px;}
+::-webkit-scrollbar-thumb { background: transparent; border: 0px none #fff; border-radius: 10px;}
+::-webkit-scrollbar-thumb:hover { background: #3a77a1;}
+::-webkit-scrollbar-thumb:active { background: #8dd0d8;}
+::-webkit-scrollbar-track {background: transparent;border: 0px solid #aaa; border-radius: 5px;}
+::-webkit-scrollbar-track:hover { background: #e4e4e4;}
+::-webkit-scrollbar-track:active { background: #d2d2d2;}
+::-webkit-scrollbar-corner { background: transparent;}
+
+nav{
+    background-color: rgb(71, 103, 194);
+    width: 100%;
+}
+
+.logo{
+    font-family: Permanent Marker;
+    text-decoration: none;
+    color: #CFD3F2;
+}
+
+.menu{
+    background-color: rgb(71, 103, 194);
+    border: none;
+    padding: 4px;
+}
+
+.menu:hover{
+    background-color: rgb(144, 165, 223);
+    border: none;
+}
+
+.interiorMenu{
+    background-color: rgb(71, 103, 194);
+    padding: 0;
+}
+
+.interiorMenu a{
+    color: #CFD3F2;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    padding: 18px 30px;
+}
+
+.interiorMenu a:hover{
+    background-color: #cfd3f267;
+}
+
+.interiorMenu img{
+    margin-right: 20px;
+}
+
+.contactos{
+    width: 3.6rem;
+    height: 3.6rem;
+    background-color: rgb(71, 104, 194);
+    border-radius: 10px;
+}
+
+.contactos img{
+    transform: translate(-50%, -20%);
+}
+
+.contactos-box{
+    position: absolute;
+    transform: translate(0%, 695%);
+}
+
+section{
+    width: 80%;
+    height: 45rem;
+    margin: 5em auto;
+    background-color:rgb(128, 141, 255);
+    border-radius: 35px;
+}
+
+section h2{
+    border-bottom: solid 1px  #CFD3F2;;
+    padding: 1rem;
+    font-size: 25px;
+    color: #CFD3F2;
+    text-align: center;
+} 
+
+form{
+    height: 90%;
+}
+
+input{
+    display: flex;
+    width: 80%;
+    margin: 0 auto 2rem;
+    height: 3rem;
+    border-radius: 5px;
+    border: none;
+    border-color: white;
+    padding: 1rem;
+}
+
+label{
+    margin: 0 9rem;
+    display: flex;
+}
+
+.enviar{
+    margin: 0 auto;
+    width: 85%;
+    height: 8%;
+    border: none;
+    background-color: white;
+    border-radius: 25px;
+    transform: translate(9%, 50%);
+    font-size: 20px;
+    color: rgb(6, 72, 141);
+}
+
+.enviar:hover{
+    background-color: rgba(255, 255, 255, 0.856);
+    transition: .2s;
+}

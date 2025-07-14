@@ -1,7 +1,14 @@
 body{
-    font-family: Goudy Old Style, Garamond, Big Caslon, Times New Roman, serif;
-    margin: 0;
-    background-color: #04354d;
+    /*margin: 0;*/
+    background-color: #DDE5FA;
+}
+
+.glass{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 ::-webkit-scrollbar { width: 0px; height: 9px;}
@@ -22,95 +29,168 @@ body{
     margin: 0 auto;
 }
 
-.pos-botones {
-    display: grid;
-    grid-template-areas:
-    "top-left top-right"
-    "bottom-left bottom-right";
-    gap: 20%;
-    height: 500px;
-    width: 1500px;
-}
 
-.top-left {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-.top-right {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-}
-
-.bottom-left {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-}
-
-.bottom-right {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.botones{
-    height: 225px;
-    width: 550px;
-    border-radius: 20px;
-    padding: 0;
-    justify-content: start;
-}
-
-.botones img{
-    margin-top: 2mm;
-    
-}
-
-#btn-verticales{
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-}
-
-.texto-interior{
-    margin:1em;
+nav{
+    background-color: #4767C2;
+    width: 100%;
 }
 
 .logo{
-    font-family: Didot, Didot LT STD, Hoefler Text, Garamond, Calisto MT, Times New Roman, serif;
+    font-family: Permanent Marker;
     text-decoration: none;
-    color:black;
+    color: white;
 }
 
-#boton-menor{
-    width: 250px;
+.logo img{
+    height: 45px;
+    margin-right: 1rem;                         
 }
 
-a.botones p{
-    border-bottom: solid 1px;
-    margin: 0;
-    padding: 2px;
-    background-color: #04354d;
-    font-family: Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif;
+.menu{                  
+    background-color: rgb(71, 103, 194);
+    border: none;
+    padding: 4px;
 }
 
-.glass{
-    background: #2c2c2c40;
-    backdrop-filter: blur(0.9rem);
-    -webkit-backdrop-filter: blur(0.9rem);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+.menu:hover{
+    background-color: rgb(144, 165, 223);
+    border: none;
 }
 
-.navbar{
-    border-radius: 2px;
+.interiorMenu{
+    background-color: rgb(71, 103, 194);
+    padding: 0;
 }
 
-a h3:hover{
-    transform: scale(1.15);
-	transition: transform .3s;
-	transition-delay: .1s;
+.interiorMenu a{
+    color: #CFD3F2;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    padding: 18px 30px;
 }
+
+.interiorMenu a:hover{
+    background-color: #cfd3f267;
+}
+
+.interiorMenu img{
+    margin-right: 20px;
+}
+
+.contactos{
+    width: 3.6rem;
+    height: 3.6rem;
+    background-color: rgb(71, 104, 194);
+    border-radius: 10px;
+}
+
+.contactos img{
+    transform: translate(-50%, -20%);
+}
+
+.contactos-box{
+    position: absolute;
+    transform: translate(0%, 695%);
+}
+
+
+.gastos {
+    background-color: white;
+    border-radius: 7px;
+    margin: 6rem 0 4rem;
+    height: 25rem;
+    padding: 0px;
+}
+
+.gastosTitulo{
+    text-align: center;
+    background-color: #4767C2;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    color: white;
+    height: 16%;
+    width: 100%;
+    display: flex;
+}
+
+.gastosTitulo h2{
+    font-size: 50px;
+    font-weight: normal;
+    padding-bottom: 0.2rem;
+}
+
+.gastosTitulo h3{
+    font-weight: normal;
+    border-left: 1px solid rgba(255, 255, 255, 0.26);
+    width: 22%;
+    height: 80%;
+    padding-top: 0.3rem;
+}
+
+.btnChicos{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.btnChicos a{
+    background-color: #4767C2;
+    text-decoration: none;
+    color: white;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 7px;
+    align-content: center;
+}
+
+.btnChicos p{
+    justify-content: space-around;
+    width: 10rem;
+    font-size: 20px;
+    margin: 0.5rem;
+}
+
+.btnChicos img{
+    height: 11rem;
+    width: 11rem;
+}
+
+.resumenGastos{
+    width: 22%;
+    height: 76%;
+    border-left: 1px solid rgba(0, 0, 0, 0.137);
+    position: absolute;
+    top: 20%;
+    left: 78%;
+}
+
+.pos-img  {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #06488d;
+    padding: 0.2rem 0;
+    margin-left: 1.5rem;
+    background: none;
+}
+
+.pos-img img{
+    height: 3rem;
+}
+
+.animacionHover {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.animacionHover{
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.animacionHover:hover{
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}   

@@ -13,7 +13,7 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
-    <nav class="navbar ">
+    <nav class="navbar">
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <button class="btn btn-primary menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><img src="src/list.svg"></button>
             <div class="offcanvas offcanvas-start interiorMenu" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -22,7 +22,7 @@
             </div>
             <div class="offcanvas-body interiorMenu">
                     <a href="index.html"><img src="src/house.svg">Inicio</a>
-                <a href="views/montoYGastos/montoYGastos.html"><img src="src/bank.svg">Monto y gastos</a>
+                <a href="views/gastos/gastos.html"><img src="src/bank.svg">Gastos</a>
                 <a href="#"><img src="src/chart-line.svg">Estadísticas de gastos</a>
                 <a href="views/grupoFamiliar/registrar_casa.html"><img src="src/users.svg">Grupo familiar</a>
                 <a href="#"><img src="src/percent.svg">Impuestos y valores</a>
@@ -43,11 +43,14 @@
         </div>
     </nav>
     <section class="container-sm">
-        <a href="URL_DESTINO.html" class="animacionHover">
+        <a href="views/gastos/gastos.html" class="animacionHover">
             <div class="gastos position-relative">
                 <div class="gastosTitulo position-relative">
                     <h2 class="position-absolute top-50 start-50 translate-middle">Gasto total </h2>
                     <h3 class="position-absolute top-50 end-0 translate-middle-y">Resumen de gastos</h3>
+                </div>
+                <div class="numeroGastos sco">
+                    <p>$ 0<span>ARS</span></p>
                 </div>
                 <div class="position-absolute resumenGastos scrollcontainer">
                     <span class="pos-img position-relative"><img src="src/popcorn.svg" ><p class="position-absolute d-flex top-50 start-50 translate-middle">  $ 0 0 0 </p></span><br>
@@ -72,5 +75,14 @@
             <p>Impuestos y valores</p>
         </div>
     </section>
+    <script>
+    // Leer el gasto total desde localStorage
+    const totalGuardado = localStorage.getItem('gastoTotal');
+
+    if (totalGuardado) {
+        const numeroGastosP = document.querySelector('.numeroGastos p');
+        numeroGastosP.innerHTML = `$ ${parseFloat(totalGuardado).toFixed(2)}<span>ARS</span>`;
+    }
+    </script>
 </body>
 </html>

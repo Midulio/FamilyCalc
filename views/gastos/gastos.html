@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link href="gastos.css" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FamilyCalc</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+
+    <nav class="navbar ">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <button class="btn btn-primary menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><img src="../../src/list.svg"></button>
+            <div class="offcanvas offcanvas-start interiorMenu" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+            <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body interiorMenu">
+                <a href="../../index.html"><img src="../../src/house.svg">Inicio</a>
+                <a href="gastos.html"><img src="../../src/bank.svg">Gastos</a>
+                <a href="#"><img src="../../src/chart-line.svg">Estadísticas de gastos</a>
+                <a href="../views/grupoFamiliar/registrar_casa.html"><img src="../../src/users.svg">Grupo familiar</a>
+                <a href="#"><img src="../../src/percent.svg">Impuestos y valores</a>
+                <a href="#"><img src="../../src/receipt.svg">Resumen de gastos</a>
+                <div class="container-fluid d-flex justify-content-between contactos-box">
+                    <a class="contactos" href="#"><img src="../../src/facebook-logo.svg"></a>
+                    <a class="contactos" href="#"><img src="../../src/instagram-logo.svg"></a>
+                    <a class="contactos" href="#"><img src="../../src/envelope.svg"></a>
+                    <a class="contactos" href="#"><img src="../../src/phone.svg"></a>
+                </div>
+            </div>
+            </div>
+            <a href="../../index.html" class="logo"><h1 class="mb-1 fs-2">FamilyCalc</h1></a>
+            <div>
+                <a href="" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
+                <a href="../../views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="../../src/user-circle.svg"></a>
+            </div>
+        </div>
+    </nav>
+    <section class="container">
+        <div class="scrollcontainer gastoTotal">
+            <h2>Gasto total</h2>
+            <p id="gastoTotal">$ 0<span> ARS</span></p>
+        </div>
+
+        <div class="d-flex ingresoGastos">
+            <div class="formularioGastos scrollcontainer">
+                <h3>Gastos Fijos</h3>
+                <label for="ingresarDesc1">Descripcion</label>
+                <input type="text" id="ingresarDesc1">
+                <label for="ingresarCat1">Categoria</label>
+                <select id="ingresarCat1">
+                    <option value="" selected disabled></option>
+                    <option value="Luz">Luz</option>
+                    <option value="Suscripciones">Suscripciones</option>
+                    <option value="Agua">Agua</option>
+                    <option value="Gas">Gas</option>
+                    <option value="Otros">Otros</option>
+                </select>
+                <label for="ingresarCosto1">Costo</label>
+                <input type="number" id="ingresarCosto1">
+                <button type="button" onclick="agregarGasto('Fijo')">Agregar gasto</button>
+            </div>
+
+            <div class="formularioGastos scrollcontainer">
+                <h3>Gastos Variables</h3>
+                <label for="ingresarDesc2">Descripcion</label>
+                <input type="text" id="ingresarDesc2">
+                <label for="ingresarCat2">Categoria</label>
+                <select id="ingresarCat2">
+                    <option value="" selected disabled></option>
+                    <option value="Comida">Comida</option>
+                    <option value="Compras">Compras</option>
+                    <option value="Salidas">Salidas</option>
+                    <option value="Videojuegos">Videojuegos</option>
+                    <option value="Otros">Otros</option>
+                </select>
+                <label for="ingresarCosto2">Costo</label>
+                <input type="number" id="ingresarCosto2">
+                <button type="button" onclick="agregarGasto('Variable')">Agregar gasto</button>
+            </div>
+        </div>
+        <div class="mt-5">
+            <h3 class="text-center">Lista de Gastos</h3>
+            <table class="table table-bordered table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Costo</th>
+                        <th>Tipo de Gasto</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaGastosBody">
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <script>
+        let totalGastos = 0;
+
+        function agregarGasto(tipo) {
+            let desc, cat, costo;
+
+            if (tipo === 'Fijo') {
+                desc = document.getElementById('ingresarDesc1').value.trim();
+                cat = document.getElementById('ingresarCat1').value;
+                costo = parseFloat(document.getElementById('ingresarCosto1').value);
+            } else {
+                desc = document.getElementById('ingresarDesc2').value.trim();
+                cat = document.getElementById('ingresarCat2').value;
+                costo = parseFloat(document.getElementById('ingresarCosto2').value);
+            }
+
+            if (desc === '' || isNaN(costo) || costo <= 0 || !cat) {
+                alert('Completa correctamente todos los campos.');
+                return;
+            }
+
+            // Agregar a tabla
+            const tablaBody = document.getElementById('tablaGastosBody');
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${desc}</td>
+                <td>${cat}</td>
+                <td>$ ${costo.toFixed(2)}</td>
+                <td>${tipo}</td>
+            `;
+            tablaBody.appendChild(fila);
+
+            // Actualizar total
+            totalGastos += costo;
+            document.getElementById('gastoTotal').innerHTML = `$ ${totalGastos.toFixed(2)}<span> ARS</span>`;
+            // Actualizar el total mostrado
+            document.getElementById('gastoTotal').innerHTML = `$ ${totalGastos.toFixed(2)}<span> ARS</span>`;
+
+            // Guardar el total en localStorage
+            localStorage.setItem('gastoTotal', totalGastos.toFixed(2));
+
+            // Limpiar inputs
+            if (tipo === 'Fijo') {
+                document.getElementById('ingresarDesc1').value = '';
+                document.getElementById('ingresarCat1').value = '';
+                document.getElementById('ingresarCosto1').value = '';
+            } else {
+                document.getElementById('ingresarDesc2').value = '';
+                document.getElementById('ingresarCat2').value = '';
+                document.getElementById('ingresarCosto2').value = '';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,5 +1,10 @@
+@font-face{
+    font-family: "Hero";
+    font-weight: bold;
+    src: url(fonts/Hero-Bold.otf) format('opentype');
+}
+
 body{
-    /*margin: 0;*/
     background-color: #DDE5FA;
 }
 
@@ -29,14 +34,13 @@ body{
     margin: 0 auto;
 }
 
-
 nav{
     background-color: #4767C2;
-    width: 100%;
+    width: 100% !important;
 }
 
 .logo{
-    font-family: Permanent Marker;
+    font-family: Permanent marker;
     text-decoration: none;
     color: white;
 }
@@ -53,7 +57,7 @@ nav{
 }
 
 .menu:hover{
-    background-color: rgb(144, 165, 223);
+    background-color: rgba(144, 165, 223, 0.336);
     border: none;
 }
 
@@ -66,7 +70,7 @@ nav{
     color: #CFD3F2;
     text-decoration: none;
     display: block;
-    font-size: 18px;
+    font-size: 2.2dvh;
     padding: 18px 30px;
 }
 
@@ -75,32 +79,49 @@ nav{
 }
 
 .interiorMenu img{
-    margin-right: 20px;
+    margin-right: 5dvh;
+    width: 4.5dvh;
 }
 
 .contactos{
-    width: 3.6rem;
-    height: 3.6rem;
-    background-color: rgb(71, 104, 194);
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(71, 104, 194, 0.5);
     border-radius: 10px;
 }
 
 .contactos img{
-    transform: translate(-50%, -20%);
+    transform: translate(-45%, -20%);
 }
 
 .contactos-box{
     position: absolute;
-    transform: translate(0%, 695%);
+    margin-top: 38dvh;
 }
-
 
 .gastos {
     background-color: white;
     border-radius: 7px;
-    margin: 6rem 0 4rem;
-    height: 25rem;
+    margin: 6dvh 0 4dvh;
+    height: 45dvh;
     padding: 0px;
+}
+
+.numeroGastos{
+    position: relative;
+    justify-items: center;
+    align-items: center;
+    letter-spacing: 0.8dvh;
+}
+
+.numeroGastos p{
+    font-size: 12dvh;
+    position: absolute;
+    transform: translate(10%, 40%);
+}
+
+.numeroGastos span{
+    font-size: 3dvh;
 }
 
 .gastosTitulo{
@@ -115,12 +136,13 @@ nav{
 }
 
 .gastosTitulo h2{
-    font-size: 50px;
+    font-size: 6dvh;
     font-weight: normal;
     padding-bottom: 0.2rem;
 }
 
 .gastosTitulo h3{
+    font-size: 3dvh;
     font-weight: normal;
     border-left: 1px solid rgba(255, 255, 255, 0.26);
     width: 22%;
@@ -138,22 +160,22 @@ nav{
     background-color: #4767C2;
     text-decoration: none;
     color: white;
-    width: 12rem;
-    height: 12rem;
-    border-radius: 7px;
+    width: 20dvh;
+    height: 20dvh;
+    border-radius: 10px;
     align-content: center;
 }
 
 .btnChicos p{
     justify-content: space-around;
     width: 10rem;
-    font-size: 20px;
-    margin: 0.5rem;
+    font-size: 3dvh;
+    margin: 0.5rem auto;
 }
 
 .btnChicos img{
-    height: 11rem;
-    width: 11rem;
+    height: 11dvh;
+    width: 11dvh;
 }
 
 .resumenGastos{
@@ -168,7 +190,7 @@ nav{
 .pos-img  {
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 3.3dvh;
     color: #06488d;
     padding: 0.2rem 0;
     margin-left: 1.5rem;
@@ -176,7 +198,7 @@ nav{
 }
 
 .pos-img img{
-    height: 3rem;
+    height: 3.5rem;
 }
 
 .animacionHover {
@@ -193,4 +215,48 @@ nav{
     transform: scale(1.02);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-}   
+}
+
+@media screen and (max-width:600px) {
+
+    .gastos {
+    margin: 3dvh 0 5dvh 0;
+    height: 45dvh;
+    padding: 0px;
+    }
+
+    .numeroGastos p{
+    font-size: 5dvh;
+    }
+
+    .numeroGastos span{
+    font-size: 3dvh;
+    }
+
+    .logo img{
+    height: 45px;
+    margin-right: 0;                         
+    }
+
+    .menu{
+    padding: 0.3dvh;
+    }
+
+    .menu img{
+        width: 4dvh;
+    }
+
+    .interiorMenu{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .contactos{
+    background: #2c2c2c00;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 10px;
+    }
+}

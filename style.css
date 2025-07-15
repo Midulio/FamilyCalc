@@ -31,7 +31,6 @@ body{
     height: fit-content;
     overflow-y: scroll;
     scroll-behavior: smooth;
-    margin: 0 auto;
 }
 
 nav{
@@ -102,7 +101,7 @@ nav{
 .gastos {
     background-color: white;
     border-radius: 7px;
-    margin: 6dvh 0 4dvh;
+    margin: 3% 0 4dvh;
     height: 45dvh;
     padding: 0px;
 }
@@ -115,13 +114,13 @@ nav{
 }
 
 .numeroGastos p{
-    font-size: 12dvh;
+    font-size: 8dvh;
     position: absolute;
-    transform: translate(10%, 40%);
+    margin: 1rem 80dvh 0 25%;
 }
 
 .numeroGastos span{
-    font-size: 3dvh;
+    font-size: 2.5dvh;
 }
 
 .gastosTitulo{
@@ -139,6 +138,7 @@ nav{
     font-size: 6dvh;
     font-weight: normal;
     padding-bottom: 0.2rem;
+    margin: 0 45% 0 30%;
 }
 
 .gastosTitulo h3{
@@ -221,16 +221,45 @@ nav{
 
     .gastos {
     margin: 3dvh 0 5dvh 0;
-    height: 45dvh;
+    height: 30dvh;
     padding: 0px;
     }
 
+    .gastosTitulo{
+    height: 20%;
+    }
+
+    .gastosTitulo h2{
+    font-size: 3.5dvh;
+    }
+
+    .gastosTitulo h3{
+    font-size: 2dvh;
+    width: 31%;
+    }
+
+    .resumenGastos{
+    width: 35%;
+    left: 69%;
+    }
+
+    .pos-img  {
+    font-size: 2dvh;
+    padding: 0;
+    margin-left: 0.5rem;
+    }
+
+    .pos-img img{
+    height: 1.5rem;
+    }
+
     .numeroGastos p{
-    font-size: 5dvh;
+    font-size: 3dvh;
+    margin: 0.5rem 40% 0 5%;
     }
 
     .numeroGastos span{
-    font-size: 3dvh;
+    font-size: 1.5dvh;
     }
 
     .logo img{
@@ -244,6 +273,25 @@ nav{
 
     .menu img{
         width: 4dvh;
+    }
+
+    .interiorMenu{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .contactos{
+    background: #2c2c2c00;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 10px;
+    }
+}
+@media screen and (min-width:601px) and (max-width:1000px) {
+    .menu img{
+        width: 8dvh;
     }
 
     .interiorMenu{

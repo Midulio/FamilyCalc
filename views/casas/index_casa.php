@@ -34,8 +34,10 @@ include ("../../conexion.php");
             </div>
             <a href="../../index.html" class="logo"><h3 class="mb-0 fs-4">FamilyCalc</h3></a>
             <div>
-                <a href="#"><img src="../../imagenesYLogos/chatbot.png" alt="Perfil" height="35"></a>
+                 <a href="create.html" class="btn btn-primary">Agregar Casa</a> 
+            <a href="#"><img src="../../imagenesYLogos/chatbot.png" alt="Perfil" height="35"></a>
                 <a href="iniciarSesion.html"><img src="../../imagenesYLogos/perfil.png" alt="Perfil" height="35"></a>
+             
             </div>
         </div>
     </nav>

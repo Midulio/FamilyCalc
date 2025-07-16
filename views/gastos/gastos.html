@@ -45,11 +45,10 @@
     <section class="container">
         <div class="scrollcontainer gastoTotal">
             <h2>Gasto total</h2>
-            <p id="gastoTotal">$ 0<span> ARS</span></p>
+            <p>$ 0<span>ARS</span></p>
         </div>
-
         <div class="d-flex ingresoGastos">
-            <div class="formularioGastos scrollcontainer">
+            <div class="formularioGastos ">
                 <h3>Gastos Fijos</h3>
                 <label for="ingresarDesc1">Descripcion</label>
                 <input type="text" id="ingresarDesc1">
@@ -64,10 +63,21 @@
                 </select>
                 <label for="ingresarCosto1">Costo</label>
                 <input type="number" id="ingresarCosto1">
-                <button type="button" onclick="agregarGasto('Fijo')">Agregar gasto</button>
+                <button type="submit">Agregar gasto</button>
+                <div class="listaGastos">
+                    <div class="tablaTitulo sticky-top">
+                        <p>Descripcion</p>
+                        <p>Categoria</p>
+                        <p>Costo</p>
+                    </div>
+                    <div class="tabla">
+                        <p>Paty</p>
+                        <p>Comida</p>
+                        <p>12000</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="formularioGastos scrollcontainer">
+            <div class="formularioGastos ">
                 <h3>Gastos Variables</h3>
                 <label for="ingresarDesc2">Descripcion</label>
                 <input type="text" id="ingresarDesc2">
@@ -82,79 +92,22 @@
                 </select>
                 <label for="ingresarCosto2">Costo</label>
                 <input type="number" id="ingresarCosto2">
-                <button type="button" onclick="agregarGasto('Variable')">Agregar gasto</button>
+                <button type="submit">Agregar gasto</button>
+                <div class="listaGastos">
+                    <div class="tablaTitulo sticky-top">
+                        <p>Descripcion</p>
+                        <p>Categoria</p>
+                        <p>Costo</p>
+                    </div>
+                    <div class="tabla">
+                        <p>Paty</p>
+                        <p>Comida</p>
+                        <p>12000</p>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mt-5">
-            <h3 class="text-center">Lista de Gastos</h3>
-            <table class="table table-bordered table-striped mt-3">
-                <thead>
-                    <tr>
-                        <th>Descripción</th>
-                        <th>Categoría</th>
-                        <th>Costo</th>
-                        <th>Tipo de Gasto</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaGastosBody">
-                </tbody>
-            </table>
-        </div>
-
     </section>
-
-    <script>
-        let totalGastos = 0;
-
-        function agregarGasto(tipo) {
-            let desc, cat, costo;
-
-            if (tipo === 'Fijo') {
-                desc = document.getElementById('ingresarDesc1').value.trim();
-                cat = document.getElementById('ingresarCat1').value;
-                costo = parseFloat(document.getElementById('ingresarCosto1').value);
-            } else {
-                desc = document.getElementById('ingresarDesc2').value.trim();
-                cat = document.getElementById('ingresarCat2').value;
-                costo = parseFloat(document.getElementById('ingresarCosto2').value);
-            }
-
-            if (desc === '' || isNaN(costo) || costo <= 0 || !cat) {
-                alert('Completa correctamente todos los campos.');
-                return;
-            }
-
-            // Agregar a tabla
-            const tablaBody = document.getElementById('tablaGastosBody');
-            const fila = document.createElement('tr');
-            fila.innerHTML = `
-                <td>${desc}</td>
-                <td>${cat}</td>
-                <td>$ ${costo.toFixed(2)}</td>
-                <td>${tipo}</td>
-            `;
-            tablaBody.appendChild(fila);
-
-            // Actualizar total
-            totalGastos += costo;
-            document.getElementById('gastoTotal').innerHTML = `$ ${totalGastos.toFixed(2)}<span> ARS</span>`;
-            // Actualizar el total mostrado
-            document.getElementById('gastoTotal').innerHTML = `$ ${totalGastos.toFixed(2)}<span> ARS</span>`;
-
-            // Guardar el total en localStorage
-            localStorage.setItem('gastoTotal', totalGastos.toFixed(2));
-
-            // Limpiar inputs
-            if (tipo === 'Fijo') {
-                document.getElementById('ingresarDesc1').value = '';
-                document.getElementById('ingresarCat1').value = '';
-                document.getElementById('ingresarCosto1').value = '';
-            } else {
-                document.getElementById('ingresarDesc2').value = '';
-                document.getElementById('ingresarCat2').value = '';
-                document.getElementById('ingresarCosto2').value = '';
-            }
-        }
-    </script>
 </body>
 </html>

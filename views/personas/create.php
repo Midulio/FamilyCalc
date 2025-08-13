@@ -17,7 +17,7 @@ $resultado = $conexion->query($sql);
 </head>
 <body>
 
-<form action="Registrar_persona.php" method="post">
+<form action="Registrar_personas.php" method="post">
 
     <div class="mb-3">
         <label for="casa" class="form-label">Seleccionar Casa</label>

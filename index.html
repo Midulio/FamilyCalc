@@ -24,7 +24,7 @@
                     <a href="index.html"><img src="src/house.svg">Inicio</a>
                 <a href="views/gastos/gastos.html"><img src="src/bank.svg">Gastos</a>
                 <a href="#"><img src="src/chart-line.svg">Estadísticas de gastos</a>
-                <a href="views/grupoFamiliar/registrar_casa.html"><img src="src/users.svg">Grupo familiar</a>
+                <a href="views/personas/create.php"><img src="src/users.svg">Personas</a>
                 <a href="#"><img src="src/percent.svg">Impuestos y valores</a>
                 <a href="#"><img src="src/receipt.svg">Resumen de gastos</a>
                 <div class="container-fluid d-flex justify-content-between contactos-box">
@@ -65,7 +65,7 @@
             </div>
         </a>
         <div class="btnChicos">
-            <a href="" class="btnChicos animacionHover" id="casas"><img src="src/housewhite.svg"></a>
+            <a href="views/casas/index_casa.php" class="btnChicos animacionHover" id="casas"><img src="src/housewhite.svg"></a>
             <a href="" class="btnChicos animacionHover" id="estadisticas"><img src="src/chart-barwhite.svg"></a>
             <a href="views/Impuestos_valores/imp_val.html" class="btnChicos animacionHover" id="impuestos"><img src="src/currency-dollar-simplewhite.svg"></a>
         </div>
@@ -75,14 +75,7 @@
             <p>Impuestos y valores</p>
         </div>
     </section>
-    <script>
-    // Leer el gasto total desde localStorage
-    const totalGuardado = localStorage.getItem('gastoTotal');
 
-    if (totalGuardado) {
-        const numeroGastosP = document.querySelector('.numeroGastos p');
-        numeroGastosP.innerHTML = `$ ${parseFloat(totalGuardado).toFixed(2)}<span>ARS</span>`;
-    }
-    </script>
 </body>
 </html>
+

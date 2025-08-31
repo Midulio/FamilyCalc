@@ -1,5 +1,5 @@
 <?php
-include ("../../../conexion.php");
+include ("../../conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@ include ("../../../conexion.php");
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <div class="dropdown">
                 <button class="btn btn-light dropdown-toggle" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../../../imagenesYLogos/menu.png" alt="Menú" height="30">
+                    <img src="../../imagenesYLogos/menu.png" alt="Menú" height="30">
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="menuDropdown">
                     <li><a class="dropdown-item" href="index.html">Inicio</a></li>
@@ -32,10 +32,12 @@ include ("../../../conexion.php");
                     <li><a class="dropdown-item" href="#">Resumen de gastos</a></li>
                 </ul>
             </div>
-            <a href="../../../index.html" class="logo"><h3 class="mb-0 fs-4">FamilyCalc</h3></a>
+            <a href="../../index.html" class="logo"><h3 class="mb-0 fs-4">FamilyCalc</h3></a>
             <div>
-                <a href="#"><img src="../../../imagenesYLogos/chatbot.png" alt="Perfil" height="35"></a>
-                <a href="iniciarSesion.html"><img src="../../../imagenesYLogos/perfil.png" alt="Perfil" height="35"></a>
+                 <a href="create.html" class="btn btn-primary">Agregar Casa</a> 
+            <a href="#"><img src="../../imagenesYLogos/chatbot.png" alt="Perfil" height="35"></a>
+                <a href="iniciarSesion.html"><img src="../../imagenesYLogos/perfil.png" alt="Perfil" height="35"></a>
+             
             </div>
         </div>
     </nav>
@@ -59,7 +61,7 @@ if($resultado && $resultado->num_rows > 0){
 ?>
     <tr>
    
-        <td><?= $r['nombre'] ?></td>
+<td><a href="personas/create.html"><?= $r['nombre'] ?></a></td>
         <td><?= $r['calle'] ?></td>
         <td><?= $r['numero'] ?></td>
        <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>"  class="btn btn-primary" >Actualizar</a></td>

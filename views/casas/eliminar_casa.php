@@ -1,5 +1,5 @@
 <?php
-include("../../../conexion.php");
+include("../../conexion.php");
 
 if (!empty($_GET['id_casa'])) {
     $id = intval($_GET['id_casa']); // Convierte a entero, evita parte de la inyección

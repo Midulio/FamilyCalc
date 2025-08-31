@@ -1,5 +1,5 @@
 <?php
-include('../../../conexion.php');
+include('../../conexion.php');
 // Obtener los datos del formulario
 
 $nombre = $_REQUEST['nombre'];
@@ -19,7 +19,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'familycalc') or die("Proble
 mysqli_query($conexion, $sql) or die("Problemas en el select: " . mysqli_error($conexion));
 mysqli_close($conexion);
 
-header("Location: index_casa.php");
+header("Location: create.html");
 
 
 ?>

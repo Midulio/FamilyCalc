@@ -307,4 +307,7 @@ nav{
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
     }
+    .contactos-box{
+    margin-top: 1rem;
+    }
 }

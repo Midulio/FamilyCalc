@@ -1,66 +1,11 @@
 body {
-    font-family: Space Grotesk;
-    margin: 0;
-    background-color: rgb(221, 229, 250);
-}
-
-nav{
-    background-color: rgb(71, 103, 194);
+    margin:0px;
 }
 
 .logo{
     font-family: Permanent Marker;
     text-decoration: none;
-    color: #CFD3F2;
-}
-
-.menu{
-    background-color: rgb(71, 103, 194);
-    border: none;
-    padding: 4px;
-}
-
-.interiorMenu{
-    background-color: rgb(71, 103, 194);
-    padding: 0;
-}
-
-.interiorMenu a{
-    color: #CFD3F2;
-    text-decoration: none;
-    display: block;
-    font-size: 18px;
-    padding: 18px 30px;
-}
-
-.interiorMenu a:hover{
-    background-color: #cfd3f291;
-}
-
-.interiorMenu img{
-    margin-right: 20px;
-}
-
-.contactos{
-    width: 3.6rem;
-    height: 3.6rem;
-    background-color: rgb(71, 104, 194);
-    border-radius: 10px;
-}
-
-.contactos img{
-    transform: translate(-50%, -20%);
-}
-
-.contactos-box{
-    position: absolute;
-    transform: translate(0%, 695%);
-}
-
-
-.menu:hover{
-    background-color: rgb(144, 165, 223);
-    border: none;
+    color:black;
 }
 
 .formulario{
@@ -68,18 +13,18 @@ nav{
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 600px;
-    height: 620px;
-    background-color: rgb(128, 141, 255);
-    border-radius: 25px;
+    width: 500px;
+    height: 500px;
+    background: rgb(248, 248, 248);
+    border-radius: 15px;
 }
 
 .formulario h1{
     font-family: "Permanent Marker";
-    color:#CFD3F2;
+    color:rgb(27, 141, 216) ;
     text-align: center;
     padding: 20px 0;
-    border-bottom: 1px solid rgba(6, 71, 141, 0.322);
+    border-bottom: 1px solid rgba(192, 192, 192, 0.418);
 }
 
 .formulario form{
@@ -89,8 +34,8 @@ nav{
 
 form .username{
     position: relative;
-    border-bottom: 2px solid rgba(6, 71, 141, 0.322);
-    margin: 48px 0;
+    border-bottom: 2px solid #adadad;
+    margin: 30px 0;
 }
 
 .username input{
@@ -98,7 +43,7 @@ form .username{
     width: 100%;
     padding: 0 5px;
     height: 40px;
-    font-size: 20px;
+    font-size: 17px;
     border: none;
     background: none;
     outline: none;
@@ -108,7 +53,7 @@ form .username{
     position: absolute;
     top: 50%;
     left: 5px;
-    color: #CFD3F2;
+    color: #adadad63;
     transform: translateY(-50%);
     font-size: 19px;
     pointer-events: none;
@@ -138,25 +83,25 @@ form .username{
 }
 
 input[type="submit"]{
+    margin-top: 30px;
     width: 100%;
     height: 50px;
-    border: 1px solid rgb(6, 72, 141);
-    background: rgb(6, 72, 141);
+    border: 1px solid rgb(248, 248, 248);
+    background: rgb(27, 141, 216);
     border-radius: 25px;
     font-size: 20px;
     cursor: pointer;
     outline: none;
-    color: #CFD3F2;
 }
 
 input[type="submit"]:hover{
-    border-color: rgb(4, 42, 82);
+    border-color: rgb(27, 141, 216);
     transition: .5s;
 }
 
 .registrarse{
     text-align: center;
-    color: #CFD3F2;
+    color: silver;
     margin: 40px;
 }
 
@@ -186,6 +131,10 @@ body::-webkit-scrollbar-thumb:hover{
 .username input:focus ~ label,
 .username input:not(:placeholder-shown) ~ label {
     top: -5px;
-    color: rgb(6, 72, 141);
+    color: rgb(27, 141, 216);
     font-size: 14px;
+}
+
+h1{
+    font-family: Permanent Marker;
 }

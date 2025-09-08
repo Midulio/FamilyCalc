@@ -39,20 +39,34 @@ nav{
 }
 
 .logo{
-    font-family: Permanent marker;
     text-decoration: none;
     color: white;
+    letter-spacing: 1.5px;
 }
 
-.logo img{
-    height: 45px;
-    margin-right: 1rem;                         
+.family{
+    font-family: montserrat;
+    font-weight: bold;
+    color: #e8eeff;
+    font-size: 3.8dvh;
+}
+
+.calc{
+    font-size: 4.4dvh;
+    font-family: fira sans;
+    font-weight: bold;
+    color: #d0dcff;
+    letter-spacing: 1px;
 }
 
 .menu{                  
     background-color: rgb(71, 103, 194);
     border: none;
     padding: 4px;
+}
+
+.btn img{
+    width: 4.8dvh;
 }
 
 .menu:hover{
@@ -116,7 +130,7 @@ nav{
 .numeroGastos p{
     font-size: 8dvh;
     position: absolute;
-    margin: 1rem 80dvh 0 25%;
+    margin: 2rem 50% 0 30%;
 }
 
 .numeroGastos span{
@@ -138,16 +152,15 @@ nav{
     font-size: 6dvh;
     font-weight: normal;
     padding-bottom: 0.2rem;
-    margin: 0 45% 0 30%;
+    margin: 0 30% 0 30%;
 }
 
 .gastosTitulo h3{
     font-size: 3dvh;
     font-weight: normal;
     border-left: 1px solid rgba(255, 255, 255, 0.26);
-    width: 22%;
+    width: 25%;
     height: 80%;
-    padding-top: 0.3rem;
 }
 
 .btnChicos{
@@ -179,12 +192,12 @@ nav{
 }
 
 .resumenGastos{
-    width: 22%;
+    width: 25%;
     height: 76%;
     border-left: 1px solid rgba(0, 0, 0, 0.137);
     position: absolute;
     top: 20%;
-    left: 78%;
+    left: 75%;
 }
 
 .pos-img  {
@@ -193,7 +206,7 @@ nav{
     font-size: 3.3dvh;
     color: #06488d;
     padding: 0.2rem 0;
-    margin-left: 1.5rem;
+    margin-left: 0.5rem;
     background: none;
 }
 
@@ -219,6 +232,18 @@ nav{
 
 @media screen and (max-width:600px) {
 
+    .contactos-box{
+        margin-top: 22dvh;
+    }
+    
+    .family{
+        font-size: 2.8dvh;
+    }
+
+    .calc{
+        font-size: 3.2dvh;
+    }
+
     .gastos {
     margin: 3dvh 0 5dvh 0;
     height: 30dvh;
@@ -231,6 +256,7 @@ nav{
 
     .gastosTitulo h2{
     font-size: 3.5dvh;
+    margin: 1% 0 0 16%;
     }
 
     .gastosTitulo h3{
@@ -246,7 +272,7 @@ nav{
     .pos-img  {
     font-size: 2dvh;
     padding: 0;
-    margin-left: 0.5rem;
+    margin-left: 0;
     }
 
     .pos-img img{
@@ -262,17 +288,12 @@ nav{
     font-size: 1.5dvh;
     }
 
-    .logo img{
-    height: 45px;
-    margin-right: 0;                         
-    }
-
     .menu{
     padding: 0.3dvh;
     }
 
     .menu img{
-        width: 4dvh;
+        width: 3.9dvh;
     }
 
     .interiorMenu{
@@ -287,11 +308,28 @@ nav{
     backdrop-filter: blur(0.9rem);
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
+    }
+
+    .btnChicos a{
+        width: 14dvh;
+        height: 14dvh;
+        border-radius: 20px;
+    }
+
+    .btnChicos p{
+        width: 5rem;
+        font-size: 2.5dvh;
+        margin: 0;
+    }
+
+    .btnChicos img{
+        height: 8dvh;
+        width: 8dvh;
     }
 }
 @media screen and (min-width:601px) and (max-width:1279px) {
     .menu img{
-        width: 8dvh;
+        width: 5dvh;
     }
 
     .interiorMenu{
@@ -301,13 +339,80 @@ nav{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
+    .interiorMenu img{
+    margin-right: 2dvh;
+    width: 4dvh;
+    }
+
+    .interiorMenu a{
+    font-size: 2dvh;
+    }
+
+    
+    .family{
+        font-size: 3.2dvh;
+    }
+
+    .calc{
+        font-size: 4dvh;
+    }
+
+
     .contactos{
     background: #2c2c2c00;
     backdrop-filter: blur(0.9rem);
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
     }
-    .contactos-box{
-    margin-top: 1rem;
+
+    .numeroGastos p{
+    font-size: 4.5dvh;
+    margin: 2.5rem 40% 0 15%;
+    }
+
+    .gastosTitulo h2{
+    font-size: 4.5dvh;
+    margin: 1% 30% 0 20%;
+    }
+
+    .gastosTitulo h3{
+    font-size: 2dvh;
+    width: 31%;
+    }
+
+    .resumenGastos{
+    width: 31%;
+    left: 69%;
+    }
+
+    .pos-img  {
+    font-size: 2dvh;
+    padding: 0;
+    margin-left: 0;
+    }
+
+    .pos-img p{
+    margin-left: 0.5rem;
+    }
+
+    .pos-img img{
+    height: 4rem;
+    }
+
+    .btnChicos a{
+        width: 17dvh;
+        height: 17dvh;
+        border-radius: 35px;
+    }
+
+    .btnChicos p{
+        width: 15rem;
+        font-size: 3dvh;
+        margin: 0;
+    }
+
+    .btnChicos img{
+        height: 10dvh;
+        width: 10dvh;
     }
 }

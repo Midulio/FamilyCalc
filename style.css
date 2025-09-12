@@ -4,8 +4,45 @@
     src: url(fonts/Hero-Bold.otf) format('opentype');
 }
 
+:root {
+    --interior-menu: #DDE5FA;
+    --texto-menu: #031427ea;
+    --family: #e8eeff;
+    --calc: #d0dcff;
+    --color-fondo-claro: #DDE5FA; /* Color de fondo principal de la sección */
+    --color-barra-navegacion-claro: #000616; /* Color de la barra de navegación */
+    --color-box-claro: #031427ea; /* Color de los botones de la barra de navegación*/
+    --gastos-fondo: #d9ebfc;
+    --gastos-titulo-fondo: #000616;
+    --resumen: #0061c9;
+    --color-texto-claro: #ffffff; /* Color de texto gastos */
+    --botones: #161616e1;
+    --texto-botones: #000616;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+    /* Colores para el tema OSCURO */
+    
+    --interior-menu: #060520;
+    --texto-menu: #dddddd;
+    --family: #111213;
+    --calc: #25272e;
+    --color-fondo-claro: #010016e8; /* Fondo más oscuro */
+    --color-barra-navegacion-claro: #f3f3f3; /* Barra de navegación más oscura */
+    --color-box-claro: #000000dc; /* Botones de la barra en oscuro */
+    --gastos-fondo: #ffffffcb;
+    --gastos-titulo-fondo: #1f2335;
+    --resumen: #0003b6e0;
+    --color-texto-claro: #ecfffd; /* Color de texto gastos */
+    --botones: #0000008c;
+    --texto-botones:#ffffff;
+    }
+}
+
+
 body{
-    background-color: #DDE5FA;
+    background-color: var(--color-fondo-claro);
 }
 
 .glass{
@@ -34,20 +71,19 @@ body{
 }
 
 nav{
-    background-color: #4767C2;
+    background-color: var(--color-barra-navegacion-claro);
     width: 100% !important;
 }
 
 .logo{
     text-decoration: none;
-    color: white;
     letter-spacing: 1.5px;
 }
 
 .family{
     font-family: montserrat;
     font-weight: bold;
-    color: #e8eeff;
+    color: var(--family);
     font-size: 3.8dvh;
 }
 
@@ -55,12 +91,12 @@ nav{
     font-size: 4.4dvh;
     font-family: fira sans;
     font-weight: bold;
-    color: #d0dcff;
+    color: var(--calc);
     letter-spacing: 1px;
 }
 
 .menu{                  
-    background-color: rgb(71, 103, 194);
+    background-color: var(--color-box-claro);
     border: none;
     padding: 4px;
 }
@@ -75,12 +111,12 @@ nav{
 }
 
 .interiorMenu{
-    background-color: rgb(71, 103, 194);
+    background-color: var(--interior-menu);
     padding: 0;
 }
 
 .interiorMenu a{
-    color: #CFD3F2;
+    color: var(--texto-menu);
     text-decoration: none;
     display: block;
     font-size: 2.2dvh;
@@ -91,15 +127,24 @@ nav{
     background-color: #cfd3f267;
 }
 
-.interiorMenu img{
-    margin-right: 5dvh;
-    width: 4.5dvh;
+.interiorMenu .explorar h4{
+    color: var(--texto-menu);
+    font-size: 5dvh;
+    margin-left: 2dvh;
+}
+
+.interiorMenu .explorar img{
+    margin-right: 3dvh;
+    width: 6dvh;
+    background-color: rgba(0, 0, 0, 0.795);
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .contactos{
     width: 4rem;
     height: 4rem;
-    background-color: rgba(71, 104, 194, 0.5);
+    background-color: rgba(0, 0, 0, 0.795);
     border-radius: 10px;
 }
 
@@ -109,15 +154,16 @@ nav{
 
 .contactos-box{
     position: absolute;
-    margin-top: 38dvh;
+    margin-top: 20dvh;
 }
 
 .gastos {
-    background-color: white;
-    border-radius: 7px;
+    background-color: var(--gastos-fondo);
+    border-radius: 20px;
     margin: 3% 0 4dvh;
     height: 45dvh;
     padding: 0px;
+    box-shadow: 0px 4px 10px #00000094;
 }
 
 .numeroGastos{
@@ -139,10 +185,10 @@ nav{
 
 .gastosTitulo{
     text-align: center;
-    background-color: #4767C2;
+    background-color: var(--gastos-titulo-fondo);
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
-    color: white;
+    color: var(--color-texto-claro);
     height: 16%;
     width: 100%;
     display: flex;
@@ -170,12 +216,11 @@ nav{
 }
 
 .btnChicos a{
-    background-color: #4767C2;
+    background-color: var(--botones);
     text-decoration: none;
-    color: white;
     width: 20dvh;
     height: 20dvh;
-    border-radius: 10px;
+    border-radius: 30px;
     align-content: center;
 }
 
@@ -184,6 +229,7 @@ nav{
     width: 10rem;
     font-size: 3dvh;
     margin: 0.5rem auto;
+    color: var(--texto-botones);
 }
 
 .btnChicos img{
@@ -204,14 +250,16 @@ nav{
     display: flex;
     align-items: center;
     font-size: 3.3dvh;
-    color: #06488d;
+    color: var(--resumen);
     padding: 0.2rem 0;
-    margin-left: 0.5rem;
+    margin-top: 0.5rem;
     background: none;
 }
 
 .pos-img img{
     height: 3.5rem;
+    margin-left: 0.5rem;
+    color: var(--resumen);
 }
 
 .animacionHover {
@@ -230,7 +278,7 @@ nav{
     cursor: pointer;
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:649px) {
 
     .contactos-box{
         margin-top: 22dvh;
@@ -270,13 +318,13 @@ nav{
     }
 
     .pos-img  {
-    font-size: 2dvh;
+    font-size: 2.2dvh;
     padding: 0;
-    margin-left: 0;
     }
 
     .pos-img img{
-    height: 1.5rem;
+    height: 25px;
+    margin-left: 0.2rem;
     }
 
     .numeroGastos p{
@@ -303,8 +351,25 @@ nav{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
+    .interiorMenu .explorar h4{
+    font-size: 5.5dvh;
+    margin-left: 3dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 2.7dvh;
+        color: white;
+    }
+
     .contactos{
-    background: #2c2c2c00;
+    background: rgba(0, 0, 0, 0.596);
     backdrop-filter: blur(0.9rem);
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
@@ -313,12 +378,12 @@ nav{
     .btnChicos a{
         width: 14dvh;
         height: 14dvh;
-        border-radius: 20px;
+        border-radius: 100px;
     }
 
     .btnChicos p{
         width: 5rem;
-        font-size: 2.5dvh;
+        font-size: 1.8dvh;
         margin: 0;
     }
 
@@ -327,7 +392,7 @@ nav{
         width: 8dvh;
     }
 }
-@media screen and (min-width:601px) and (max-width:1279px) {
+@media screen and (min-width:650px) and (max-width:1279px) {
     .menu img{
         width: 5dvh;
     }
@@ -339,13 +404,19 @@ nav{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
-    .interiorMenu img{
+    .interiorMenu .explorar img{
     margin-right: 2dvh;
-    width: 4dvh;
+    width: 5.4dvh;
     }
 
-    .interiorMenu a{
-    font-size: 2dvh;
+    .interiorMenu .explorar h4{
+    font-size: 4dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar a{
+    font-size: 2.1dvh;
+    color: white;
     }
 
     
@@ -359,10 +430,14 @@ nav{
 
 
     .contactos{
-    background: #2c2c2c00;
+    background: #2c2c2cb9;
     backdrop-filter: blur(0.9rem);
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
+    }
+
+    .contactos img{
+    transform: translate(-45%, -40%);
     }
 
     .numeroGastos p{
@@ -386,7 +461,7 @@ nav{
     }
 
     .pos-img  {
-    font-size: 2dvh;
+    font-size: 2.4dvh;
     padding: 0;
     margin-left: 0;
     }
@@ -396,13 +471,13 @@ nav{
     }
 
     .pos-img img{
-    height: 4rem;
+    height: 40px;
     }
 
     .btnChicos a{
         width: 17dvh;
         height: 17dvh;
-        border-radius: 35px;
+        border-radius: 95px;
     }
 
     .btnChicos p{
@@ -414,5 +489,66 @@ nav{
     .btnChicos img{
         height: 10dvh;
         width: 10dvh;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 430px) {
+
+    .family{
+        font-size: 6dvh;
+    }
+
+    .calc{
+        font-size: 6.6dvh;
+    }
+
+    .pos-img  {
+    font-size: 4.5dvh;
+    }
+
+    .menu img{
+        width: 10dvh;
+    }
+
+    .gastosTitulo h2{
+    font-size: 5.5dvh;
+    margin: 0 30% 0 30%;
+    }
+
+    .gastosTitulo h3{
+    font-size: 4dvh;
+    width: 31%;
+    }
+
+    .numeroGastos p{
+    font-size: 8dvh;
+    margin: 0.5rem 40% 0 15%;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 10dvh;
+    margin-left: 5dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 13dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 5dvh;
+        color: white;
+    }
+
+    .contactos{
+        height: 4rem;
+        width: 4rem;
+        background: rgba(0, 0, 0, 0.596);
+    }
+
+    .contactos img{
+        transform: translate(-45%, -15%);
     }
 }

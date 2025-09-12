@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FamilyCalc</title>
 </head>
-<body>
+<body class="light-mode">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
     <nav class="navbar">
@@ -29,12 +29,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body interiorMenu">
+                <div class="explorar"> <h4>Explorar</h4>
                     <a href="index.html"><img src="src/house.svg">Inicio</a>
-                <a href="views/gastos/gastos.html"><img src="src/bank.svg">Gastos</a>
-                <a href="#"><img src="src/chart-line.svg">Estadísticas de gastos</a>
-                <a href="views/personas/create.php"><img src="src/users.svg">Personas</a>
-                <a href="views/Impuestos_valores/imp_val.html"><img src="src/percent.svg">Valores de las monedas</a>
-                <a href="#"><img src="src/receipt.svg">Resumen de gastos</a>
+                    <a href="views/gastos/gastos.html"><img src="src/bank.svg">Gastos</a>
+                    <a href="#"><img src="src/chart-line.svg">Estadísticas de gastos</a>
+                    <a href="views/personas/create.php"><img src="src/users.svg">Personas</a>
+                    <a href="views/Impuestos_valores/imp_val.html"><img src="src/percent.svg">Valores de las monedas</a>
+                    <a href="#"><img src="src/receipt.svg">Resumen de gastos</a>
+                </div>
                 <div class="container-fluid d-flex justify-content-between contactos-box">
                     <a class="contactos" href="#"><img src="src/facebook-logo.svg"></a>
                     <a class="contactos" href="#"><img src="src/instagram-logo.svg"></a>
@@ -61,7 +63,7 @@
                     <p>$1000000<span>ARS</span></p>
                 </div>
                 <div class="position-absolute resumenGastos scrollcontainer">
-                    <span class="pos-img position-relative"><img src="src/popcorn.svg" ><p class="position-absolute d-flex top-50 start-50 translate-middle">  $ 85246 </p></span><br>
+                    <span class="pos-img position-relative"><img src="src/popcorn.svg" ><p class="position-absolute d-flex top-50 start-50 translate-middle">  $852460 </p></span><br>
                     <span class="pos-img position-relative"><img src="src/bag.svg"><p class="position-absolute top-50 start-50 translate-middle">  $ 0 0 0 </p></span><br>
                     <span class="pos-img position-relative"><img src="src/first-aid.svg" ><p class="position-absolute top-50 start-50 translate-middle"> $ 0 0 0 </p></span><br>
                     <span class="pos-img position-relative"><img src="src/game-controller.svg" ><p class="position-absolute top-50 start-50 translate-middle">  $ 0 0 0 </p></span><br>
@@ -83,7 +85,6 @@
             <p>Valores de las monedas</p>
         </div>
     </section>
-
 </body>
 </html>
 

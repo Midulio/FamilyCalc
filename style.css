@@ -24,7 +24,7 @@
     :root{
     /* Colores para el tema OSCURO */
     
-    --interior-menu: #060520;
+    --interior-menu: #020114;
     --texto-menu: #dddddd;
     --family: #111213;
     --calc: #25272e;
@@ -34,7 +34,7 @@
     --gastos-fondo: #ffffffcb;
     --gastos-titulo-fondo: #1f2335;
     --resumen: #0003b6e0;
-    --color-texto-claro: #ecfffd; /* Color de texto gastos */
+    --color-texto-claro: #ffffffee; /* Color de texto gastos */
     --botones: #0000008c;
     --texto-botones:#ffffff;
     }
@@ -119,23 +119,27 @@ nav{
     color: var(--texto-menu);
     text-decoration: none;
     display: block;
-    font-size: 2.2dvh;
-    padding: 18px 30px;
+    font-size: 2.1dvh;
+    padding: 12px 0 12px 15px;
+    font-family: "Work Sans";
+    font-weight:normal;
 }
 
 .interiorMenu a:hover{
-    background-color: #cfd3f267;
+    background-color: #10195e67;
 }
 
 .interiorMenu .explorar h4{
     color: var(--texto-menu);
     font-size: 5dvh;
     margin-left: 2dvh;
+    font-family: "Oswald";
+    font-weight: bold;
 }
 
 .interiorMenu .explorar img{
     margin-right: 3dvh;
-    width: 6dvh;
+    width: 7dvh;
     background-color: rgba(0, 0, 0, 0.795);
     padding: 10px;
     border-radius: 20px;
@@ -149,12 +153,12 @@ nav{
 }
 
 .contactos img{
-    transform: translate(-45%, -20%);
+    transform: translate(-5%,0%);
 }
 
 .contactos-box{
     position: absolute;
-    margin-top: 20dvh;
+    margin-top: 5dvh;
 }
 
 .gastos {
@@ -177,9 +181,11 @@ nav{
     font-size: 8dvh;
     position: absolute;
     margin: 2rem 50% 0 30%;
+    font-family: "Exo 2";
 }
 
 .numeroGastos span{
+    font-family: "Exo";
     font-size: 2.5dvh;
 }
 
@@ -196,17 +202,20 @@ nav{
 
 .gastosTitulo h2{
     font-size: 6dvh;
-    font-weight: normal;
-    padding-bottom: 0.2rem;
+    font-weight: bold;
     margin: 0 30% 0 30%;
+    font-family: "Poppins";
+    color: var(--color-texto-claro);
 }
 
 .gastosTitulo h3{
     font-size: 3dvh;
-    font-weight: normal;
+    font-weight: bold;
     border-left: 1px solid rgba(255, 255, 255, 0.26);
     width: 25%;
     height: 80%;
+    font-family: "Poppins";
+    padding: 0.5rem 0 0 0;
 }
 
 .btnChicos{
@@ -226,10 +235,12 @@ nav{
 
 .btnChicos p{
     justify-content: space-around;
-    width: 10rem;
+    width: 100%;
     font-size: 3dvh;
     margin: 0.5rem auto;
     color: var(--texto-botones);
+    font-family: "Quicksand";
+    font-weight: bold;
 }
 
 .btnChicos img{
@@ -254,6 +265,7 @@ nav{
     padding: 0.2rem 0;
     margin-top: 0.5rem;
     background: none;
+    font-family: "Fira Sans";
 }
 
 .pos-img img{
@@ -308,8 +320,9 @@ nav{
     }
 
     .gastosTitulo h3{
-    font-size: 2dvh;
+    font-size: 1.9dvh;
     width: 31%;
+    padding: 0 0 0 0;
     }
 
     .resumenGastos{
@@ -428,16 +441,19 @@ nav{
         font-size: 4dvh;
     }
 
+    .contactos-box{
+        margin-top: 15dvh;
+    }
 
     .contactos{
-    background: #2c2c2cb9;
+    background: rgba(0, 0, 0, 0.596);
     backdrop-filter: blur(0.9rem);
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
     }
 
     .contactos img{
-    transform: translate(-45%, -40%);
+    transform: translate(-5%, -8%);
     }
 
     .numeroGastos p{
@@ -453,6 +469,7 @@ nav{
     .gastosTitulo h3{
     font-size: 2dvh;
     width: 31%;
+    padding: 0.5rem 0.5rem 0 0.5rem;
     }
 
     .resumenGastos{
@@ -516,8 +533,9 @@ nav{
     }
 
     .gastosTitulo h3{
-    font-size: 4dvh;
+    font-size: 3.6dvh;
     width: 31%;
+    padding: 0.1rem 0 0 0;
     }
 
     .numeroGastos p{

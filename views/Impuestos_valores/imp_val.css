@@ -122,6 +122,13 @@ nav{
     font-family: fira sans;
     font-weight: bold;
     color: var(--calc);
+    color: #e8eeff;
+}
+
+.calc{
+    font-family: fira sans;
+    font-weight: bold;
+    color: #d0dcff;
     letter-spacing: 1px;
 }
 
@@ -290,6 +297,7 @@ body{
 
     .menu img{
         width: 3.9dvh;
+        width: 4.5dvh;
     }
 
     .interiorMenu{
@@ -361,6 +369,13 @@ body{
 
     .contactos-box{
         margin-top: 15dvh;
+    .interiorMenu img{
+    margin-right: 2dvh;
+    width: 4dvh;
+    }
+
+    .interiorMenu a{
+    font-size: 2dvh;
     }
 
     .contactos{

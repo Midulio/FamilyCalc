@@ -2,6 +2,43 @@ body{
     background-color: #DDE5FA;
 }
 
+:root {
+    --interior-menu: #DDE5FA;
+    --texto-menu: #031427ea;
+    --family: #e8eeff;
+    --calc: #d0dcff;
+    --color-fondo-claro: #DDE5FA; /* Color de fondo principal de la sección */
+    --color-barra-navegacion-claro: #000616; /* Color de la barra de navegación */
+    --color-box-claro: #031427ea; /* Color de los botones de la barra de navegación*/
+    --titulo: #000616;
+    --valor-contenedor: #a0f4ff23;
+    --sombra-valor-contenedor: #0000002f;
+    --titulos-valores: #212529;
+    --compra-venta: #2c2c2cd5;
+    --precios: #000616;
+    --horarios: #00000085;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+    /* Colores para el tema OSCURO */
+    
+    --interior-menu: #020114; /*Fondo del menú despegable*/
+    --texto-menu: #dddddd; /*Texto del menú despegable*/
+    --color-fondo-claro: #02010ee8; /* Fondo más oscuro */
+    --color-barra-navegacion-claro: #f3f3f3; /* Barra de navegación más oscura */
+    --color-box-claro: #000000dc; /* Botones de la barra en oscuro */
+    --family: #111213;
+    --calc: #25272e;
+    --titulo: #e8e8ff;
+    --valor-contenedor: #42619ba8;
+    --sombra-valor-contenedor: #ffffff15;
+    --titulos-valores: #dbe2ff;
+    --compra-venta: #dfdfdfe5;
+    --precios: #f9f9fab6;
+    --horarios: #f9f9fa8a;
+    }
+}
 
 ::-webkit-scrollbar { width: 0px; height: 9px;}
 ::-webkit-scrollbar-button { width: 0px; height: 0px;}
@@ -23,27 +60,36 @@ body{
 
 .titulo h1{
     font-size: 2.5rem;
-    padding: 1rem;
+    padding: 1.5rem;
+    font-family: poppins;
+    font-weight: bold;
+    letter-spacing: -2px;
+    word-spacing: 15px;
+    color: var(--titulo);
 }
 
 h2{
-    font-size: 0.7rem;
+    font-size: .85rem;
+    color: var(--titulo);
 }
 
 h2 button{
     border-radius: 20px;
-    background-color: rgba(130, 63, 255, 0.74);
+    background-color: rgba(130, 63, 255, 0.596);
     border: none;
     font-weight: bold;
 }
 
 h2 button a{
     text-decoration: none;
-    color: black;
+    color: rgb(0, 0, 0);
 }
 
 h3{
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+    font-family: space grotesk;
+    font-weight: bold;
+    color: var(--titulos-valores);
 }
 
 .scrollcontainer{
@@ -54,14 +100,29 @@ h3{
 }
 
 nav{
-    background-color: #4767C2;
+    background-color: var(--color-barra-navegacion-claro);
     width: 100% !important;
 }
 
 .logo{
-    font-family: Permanent marker;
     text-decoration: none;
     color: white;
+    letter-spacing: 1.5px;
+}
+
+.family{
+    font-family: montserrat;
+    font-weight: bold;
+    color: var(--family);
+    font-size: 3.8dvh;
+}
+
+.calc{
+    font-size: 4.4dvh;
+    font-family: fira sans;
+    font-weight: bold;
+    color: var(--calc);
+    letter-spacing: 1px;
 }
 
 .logo img{
@@ -70,9 +131,13 @@ nav{
 }
 
 .menu{                  
-    background-color: rgb(71, 103, 194);
+    background-color: var(--color-box-claro);
     border: none;
     padding: 4px;
+}
+
+.btn img{
+    width: 4.8dvh;
 }
 
 .menu:hover{
@@ -81,41 +146,54 @@ nav{
 }
 
 .interiorMenu{
-    background-color: rgb(71, 103, 194);
+    background-color: var(--interior-menu);
     padding: 0;
 }
 
 .interiorMenu a{
-    color: #CFD3F2;
+    color: var(--texto-menu);
     text-decoration: none;
     display: block;
-    font-size: 2.2dvh;
-    padding: 18px 30px;
+    font-size: 2.1dvh;
+    padding: 12px 0 12px 15px;
+    font-family: "Work Sans";
+    font-weight:normal;
 }
 
 .interiorMenu a:hover{
-    background-color: #cfd3f267;
+    background-color: #10195e67;
 }
 
-.interiorMenu img{
-    margin-right: 5dvh;
-    width: 4.5dvh;
+.interiorMenu .explorar h4{
+    color: var(--texto-menu);
+    font-size: 5dvh;
+    margin-left: 2dvh;
+    font-family: "Oswald";
+    font-weight: bold;
+}
+
+.interiorMenu .explorar img{
+    margin-right: 3dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.795);
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .contactos{
     width: 4rem;
     height: 4rem;
-    background-color: rgba(71, 104, 194, 0.5);
+    background-color: rgba(0, 0, 0, 0.795);
     border-radius: 10px;
 }
 
 .contactos img{
-    transform: translate(-45%, -20%);
+    transform: translate(-5%,0%);
 }
 
 .contactos-box{
     position: absolute;
-    margin-top: 38dvh;
+    margin-top: 5dvh;
 }
 
 .animacionHover {
@@ -134,12 +212,16 @@ nav{
     cursor: pointer;
 }
 
+body{
+    background-color: var(--color-fondo-claro);
+}
+
 .val-container{
-    background: #4768c28f;
+    background: var(--valor-contenedor);
     backdrop-filter: blur(0.4rem);
     -webkit-backdrop-filter: blur(0.10rem);
     border-radius: 10px;
-    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.212);
+    box-shadow: 0px 10px 12px var(--sombra-valor-contenedor);
     text-decoration: none;
     color: rgb(58, 58, 58);
     align-content: center;
@@ -159,13 +241,14 @@ nav{
     text-transform: uppercase;
 }
 .text-xs {
-    font-size: .75rem;
-    line-height: 1rem;
+    font-size: .8rem;
+    line-height: 1.1rem;
+    color: var(--compra-venta);
 }
 
 .dark .dark\:text-gray-200 {
     --un-text-opacity: 1;
-    color: rgba(229, 231, 235, var(--un-text-opacity));
+    color: var(31, 41, 55, var(--un-text-opacity));
 }
 
 .text-gray-800 {
@@ -174,6 +257,12 @@ nav{
 }
 .font-bold {
     font-weight: 700;
+    color: var(--precios);
+}
+
+.text-muted{
+    font-weight: bold;
+    color: var(--horarios) !important;
 }
 
 .row {
@@ -181,12 +270,18 @@ nav{
     margin-left: 0;
 }
 
+@media screen and (max-width:649px) {
 
+    .contactos-box{
+        margin-top: 22dvh;
+    }
+    
+    .family{
+        font-size: 2.8dvh;
+    }
 
-@media screen and (max-width:600px) {
-    .logo img{
-    height: 45px;
-    margin-right: 0;                         
+    .calc{
+        font-size: 3.2dvh;
     }
 
     .menu{
@@ -194,7 +289,7 @@ nav{
     }
 
     .menu img{
-        width: 4dvh;
+        width: 3.9dvh;
     }
 
     .interiorMenu{
@@ -204,17 +299,33 @@ nav{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
+    .interiorMenu .explorar h4{
+    font-size: 5.5dvh;
+    margin-left: 3dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 2.7dvh;
+        color: white;
+    }
+
     .contactos{
-    background: #2c2c2c00;
+    background: rgba(0, 0, 0, 0.596);
     backdrop-filter: blur(0.9rem);
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
     }
 }
-
-@media screen and (min-width:601px) and (max-width:1279px) {
+@media screen and (min-width:650px) and (max-width:1279px) {
     .menu img{
-        width: 8dvh;
+        width: 5dvh;
     }
 
     .interiorMenu{
@@ -224,10 +335,84 @@ nav{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 5.4dvh;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 4dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar a{
+    font-size: 2.1dvh;
+    color: white;
+    }
+
+    
+    .family{
+        font-size: 3.2dvh;
+    }
+
+    .calc{
+        font-size: 4dvh;
+    }
+
+    .contactos-box{
+        margin-top: 15dvh;
+    }
+
     .contactos{
-    background: #2c2c2c00;
+    background: rgba(0, 0, 0, 0.596);
     backdrop-filter: blur(0.9rem);
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
+    }
+
+    .contactos img{
+    transform: translate(-5%, -8%);
+    }
+}
+
+@media (orientation: landscape) and (max-height: 430px) {
+
+    .family{
+        font-size: 6dvh;
+    }
+
+    .calc{
+        font-size: 6.6dvh;
+    }
+
+    .menu img{
+        width: 10dvh;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 10dvh;
+    margin-left: 5dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 13dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 5dvh;
+        color: white;
+    }
+
+    .contactos{
+        height: 4rem;
+        width: 4rem;
+        background: rgba(0, 0, 0, 0.596);
+    }
+
+    .contactos img{
+        transform: translate(-45%, -15%);
     }
 }

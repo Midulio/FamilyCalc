@@ -1,0 +1,574 @@
+@font-face{
+    font-family: "Hero";
+    font-weight: bold;
+    src: url(fonts/Hero-Bold.otf) format('opentype');
+}
+
+:root {
+    --interior-menu: #DDE5FA;
+    --texto-menu: #031427ea;
+    --family: #e8eeff;
+    --calc: #d0dcff;
+    --color-fondo-claro: #DDE5FA; /* Color de fondo principal de la sección */
+    --color-barra-navegacion-claro: #000616; /* Color de la barra de navegación */
+    --color-box-claro: #031427ea; /* Color de los botones de la barra de navegación*/
+    --gastos-fondo: #d9ebfc;
+    --gastos-titulo-fondo: #000616;
+    --resumen: #0061c9;
+    --color-texto-claro: #ffffff; /* Color de texto gastos */
+    --botones: #161616e1;
+    --texto-botones: #000616;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+    /* Colores para el tema OSCURO */
+    
+    --interior-menu: #020114;
+    --texto-menu: #dddddd;
+    --family: #111213;
+    --calc: #25272e;
+    --color-fondo-claro: #010016e8; /* Fondo más oscuro */
+    --color-barra-navegacion-claro: #f3f3f3; /* Barra de navegación más oscura */
+    --color-box-claro: #000000dc; /* Botones de la barra en oscuro */
+    --gastos-fondo: #ffffffcb;
+    --gastos-titulo-fondo: #1f2335;
+    --resumen: #0003b6e0;
+    --color-texto-claro: #ffffffee; /* Color de texto gastos */
+    --botones: #0000008c;
+    --texto-botones:#ffffff;
+    }
+}
+
+
+body{
+    background-color: var(--color-fondo-claro);
+}
+
+.glass{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+::-webkit-scrollbar { width: 0px; height: 9px;}
+::-webkit-scrollbar-button { width: 0px; height: 0px;}
+::-webkit-scrollbar-thumb { background: transparent; border: 0px none #fff; border-radius: 10px;}
+::-webkit-scrollbar-thumb:hover { background: #3a77a1;}
+::-webkit-scrollbar-thumb:active { background: #8dd0d8;}
+::-webkit-scrollbar-track {background: transparent;border: 0px solid #aaa; border-radius: 5px;}
+::-webkit-scrollbar-track:hover { background: #e4e4e4;}
+::-webkit-scrollbar-track:active { background: #d2d2d2;}
+::-webkit-scrollbar-corner { background: transparent;}
+
+.scrollcontainer{
+    width: fit-content;
+    height: fit-content;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+nav{
+    background-color: var(--color-barra-navegacion-claro);
+    width: 100% !important;
+}
+
+.logo{
+    text-decoration: none;
+    letter-spacing: 1.5px;
+}
+
+.family{
+    font-family: montserrat;
+    font-weight: bold;
+    color: var(--family);
+    font-size: 3.8dvh;
+}
+
+.calc{
+    font-size: 4.4dvh;
+    font-family: fira sans;
+    font-weight: bold;
+    color: var(--calc);
+    letter-spacing: 1px;
+}
+
+.menu{                  
+    background-color: var(--color-box-claro);
+    border: none;
+    padding: 4px;
+}
+
+.btn img{
+    width: 4.8dvh;
+}
+
+.menu:hover{
+    background-color: rgba(144, 165, 223, 0.336);
+    border: none;
+}
+
+.interiorMenu{
+    background-color: var(--interior-menu);
+    padding: 0;
+    height: 100%;
+}
+
+.interiorMenu a{
+    color: var(--texto-menu);
+    text-decoration: none;
+    display: block;
+    font-size: 2.1dvh;
+    padding: 12px 0 12px 15px;
+    font-family: "Work Sans";
+    font-weight:normal;
+}
+
+.interiorMenu a:hover{
+    background-color: #10195e67;
+}
+
+.interiorMenu .explorar h4{
+    color: var(--texto-menu);
+    font-size: 5dvh;
+    margin-left: 2dvh;
+    font-family: "Oswald";
+    font-weight: bold;
+}
+
+.interiorMenu .explorar img{
+    margin-right: 3dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.795);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.contactos{
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(0, 0, 0, 0.795);
+    border-radius: 10px;
+}
+
+.contactos img{
+    width: 2.5rem;
+}
+
+.contactos-box{
+    position: absolute;
+    margin-bottom: 1rem;
+}
+
+.gastos {
+    background-color: var(--gastos-fondo);
+    border-radius: 20px;
+    margin: 3% 0 4dvh;
+    height: 45dvh;
+    padding: 0px;
+    box-shadow: 0px 4px 10px #00000094;
+}
+
+.numeroGastos{
+    position: relative;
+    justify-items: center;
+    align-items: center;
+    letter-spacing: 0.8dvh;
+}
+
+.numeroGastos p{
+    font-size: 8dvh;
+    position: absolute;
+    margin: 2rem 50% 0 30%;
+    font-family: "Exo 2";
+}
+
+.numeroGastos span{
+    font-family: "Exo";
+    font-size: 2.5dvh;
+}
+
+.gastosTitulo{
+    text-align: center;
+    background-color: var(--gastos-titulo-fondo);
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    color: var(--color-texto-claro);
+    height: 16%;
+    width: 100%;
+    display: flex;
+}
+
+.gastosTitulo h2{
+    font-size: 6dvh;
+    font-weight: bold;
+    margin: 0 30% 0 30%;
+    font-family: "Poppins";
+    color: var(--color-texto-claro);
+}
+
+.gastosTitulo h3{
+    font-size: 3dvh;
+    font-weight: bold;
+    border-left: 1px solid rgba(255, 255, 255, 0.26);
+    width: 25%;
+    height: 80%;
+    font-family: "Poppins";
+    padding: 0.5rem 0 0 0;
+}
+
+.btnChicos{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.btnChicos a{
+    background-color: var(--botones);
+    text-decoration: none;
+    width: 20dvh;
+    height: 20dvh;
+    border-radius: 30px;
+    align-content: center;
+}
+
+.btnChicos p{
+    justify-content: space-around;
+    width: 100%;
+    font-size: 3dvh;
+    margin: 0.5rem auto;
+    color: var(--texto-botones);
+    font-family: "Quicksand";
+    font-weight: bold;
+}
+
+.btnChicos img{
+    height: 11dvh;
+    width: 11dvh;
+}
+
+.resumenGastos{
+    width: 25%;
+    height: 76%;
+    border-left: 1px solid rgba(0, 0, 0, 0.137);
+    position: absolute;
+    top: 20%;
+    left: 75%;
+}
+
+.pos-img  {
+    display: flex;
+    align-items: center;
+    font-size: 3.3dvh;
+    color: var(--resumen);
+    padding: 0.2rem 0;
+    margin-top: 0.5rem;
+    background: none;
+    font-family: "Fira Sans";
+}
+
+.pos-img img{
+    height: 3.5rem;
+    margin-left: 0.5rem;
+    color: var(--resumen);
+}
+
+.animacionHover {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.animacionHover{
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.animacionHover:hover{
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+@media screen and (max-width:649px) {
+
+    .contactos-box{
+        margin-top: 22dvh;
+    }
+    
+    .family{
+        font-size: 2.8dvh;
+    }
+
+    .calc{
+        font-size: 3.2dvh;
+    }
+
+    .gastos {
+    margin: 3dvh 0 5dvh 0;
+    height: 30dvh;
+    padding: 0px;
+    }
+
+    .gastosTitulo{
+    height: 20%;
+    }
+
+    .gastosTitulo h2{
+    font-size: 3.5dvh;
+    margin: 1% 0 0 16%;
+    }
+
+    .gastosTitulo h3{
+    font-size: 1.9dvh;
+    width: 31%;
+    padding: 0 0 0 0;
+    }
+
+    .resumenGastos{
+    width: 35%;
+    left: 69%;
+    }
+
+    .pos-img  {
+    font-size: 2.2dvh;
+    padding: 0;
+    }
+
+    .pos-img img{
+    height: 25px;
+    margin-left: 0.2rem;
+    }
+
+    .numeroGastos p{
+    font-size: 3dvh;
+    margin: 0.5rem 40% 0 5%;
+    }
+
+    .numeroGastos span{
+    font-size: 1.5dvh;
+    }
+
+    .menu{
+    padding: 0.3dvh;
+    }
+
+    .menu img{
+        width: 3.9dvh;
+    }
+
+    .interiorMenu{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 5.5dvh;
+    margin-left: 3dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 2.7dvh;
+        color: white;
+    }
+
+    .contactos{
+    background: rgba(0, 0, 0, 0.596);
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 10px;
+    }
+
+    .btnChicos a{
+        width: 14dvh;
+        height: 14dvh;
+        border-radius: 100px;
+    }
+
+    .btnChicos p{
+        width: 5rem;
+        font-size: 1.8dvh;
+        margin: 0;
+    }
+
+    .btnChicos img{
+        height: 8dvh;
+        width: 8dvh;
+    }
+}
+@media screen and (min-width:650px) and (max-width:1279px) {
+    .menu img{
+        width: 5dvh;
+    }
+
+    .interiorMenu{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 5.4dvh;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 4dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar a{
+    font-size: 2.1dvh;
+    color: white;
+    }
+
+    
+    .family{
+        font-size: 3.2dvh;
+    }
+
+    .calc{
+        font-size: 4dvh;
+    }
+
+    .contactos-box{
+        margin-top: 15dvh;
+    }
+
+    .contactos{
+    background: rgba(0, 0, 0, 0.596);
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 10px;
+    }
+
+    .contactos img{
+    transform: translate(-5%, -8%);
+    }
+
+    .numeroGastos p{
+    font-size: 4.5dvh;
+    margin: 2.5rem 40% 0 15%;
+    }
+
+    .gastosTitulo h2{
+    font-size: 4.5dvh;
+    margin: 1% 30% 0 20%;
+    }
+
+    .gastosTitulo h3{
+    font-size: 2dvh;
+    width: 31%;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    }
+
+    .resumenGastos{
+    width: 31%;
+    left: 69%;
+    }
+
+    .pos-img  {
+    font-size: 2.4dvh;
+    padding: 0;
+    margin-left: 0;
+    }
+
+    .pos-img p{
+    margin-left: 0.5rem;
+    }
+
+    .pos-img img{
+    height: 40px;
+    }
+
+    .btnChicos a{
+        width: 17dvh;
+        height: 17dvh;
+        border-radius: 95px;
+    }
+
+    .btnChicos p{
+        width: 15rem;
+        font-size: 3dvh;
+        margin: 0;
+    }
+
+    .btnChicos img{
+        height: 10dvh;
+        width: 10dvh;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 430px) {
+
+    .family{
+        font-size: 6dvh;
+    }
+
+    .calc{
+        font-size: 6.6dvh;
+    }
+
+    .pos-img  {
+    font-size: 4.5dvh;
+    }
+
+    .menu img{
+        width: 10dvh;
+    }
+
+    .gastosTitulo h2{
+    font-size: 5.5dvh;
+    margin: 0 30% 0 30%;
+    }
+
+    .gastosTitulo h3{
+    font-size: 3.6dvh;
+    width: 31%;
+    padding: 0.1rem 0 0 0;
+    }
+
+    .numeroGastos p{
+    font-size: 8dvh;
+    margin: 0.5rem 40% 0 15%;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 10dvh;
+    margin-left: 5dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 13dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 5dvh;
+        color: white;
+    }
+
+    .contactos{
+        height: 4rem;
+        width: 4rem;
+        background: rgba(0, 0, 0, 0.596);
+    }
+
+    .contactos img{
+        transform: translate(-45%, -15%);
+    }
+}

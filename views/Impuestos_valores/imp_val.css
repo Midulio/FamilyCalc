@@ -122,7 +122,6 @@ nav{
     font-family: fira sans;
     font-weight: bold;
     color: var(--calc);
-    color: #e8eeff;
 }
 
 .calc{
@@ -430,4 +429,5 @@ body{
     .contactos img{
         transform: translate(-45%, -15%);
     }
+
 }

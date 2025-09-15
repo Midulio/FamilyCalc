@@ -122,12 +122,6 @@ nav{
     font-family: fira sans;
     font-weight: bold;
     color: var(--calc);
-}
-
-.calc{
-    font-family: fira sans;
-    font-weight: bold;
-    color: #d0dcff;
     letter-spacing: 1px;
 }
 
@@ -431,3 +425,4 @@ body{
     }
 
 }
+

@@ -34,7 +34,7 @@ include ("../../conexion.php");
             </div>
             <a href="../../index.html" class="logo"><h3 class="mb-0 fs-4">FamilyCalc</h3></a>
             <div>
-                 <a href="create.html" class="btn btn-primary">Agregar Casa</a> 
+                 <a href="create.php" class="btn btn-primary">Agregar pesonas</a> 
             <a href="#"><img src="../../imagenesYLogos/chatbot.png" alt="Perfil" height="35"></a>
                 <a href="iniciarSesion.html"><img src="../../imagenesYLogos/perfil.png" alt="Perfil" height="35"></a>
              
@@ -45,13 +45,13 @@ include ("../../conexion.php");
 
     <table class="table table-hover">
         <tr><br>
+            <td>Casa</td>
             <td>Nombre</td>
-            <td>Calle</td>
-            <td>Numero</td>
-          
+            <td>Apellido</td>
+            <td>Sexo</td>
         </tr>
     <?php
-$sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo FROM persona as p inner join casa as c on p.id_casa = c.id_casa";
+$sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo,id_persona FROM persona as p inner join casa as c on p.id_casa = c.id_casa";
 $stmt = $conexion->prepare($sql);
 $stmt->execute();
 $resultado = $stmt->get_result();
@@ -65,7 +65,7 @@ if($resultado && $resultado->num_rows > 0){
         <td><?= $r['apellido'] ?></td>
         <td><?= $r['sexo'] ?></td>
        <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>"  class="btn btn-primary" >Actualizar</a></td>
-        <td><a href="eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>" class="btn btn-danger">Eliminar</a></td>
+        <td><a href="eliminar_persona.php?id_persona=<?= $r['id_persona'] ?>" class="btn btn-danger">Eliminar</a></td>
     </tr>
 <?php
     endwhile;

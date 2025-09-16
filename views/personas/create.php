@@ -46,11 +46,17 @@ $resultado = $conexion->query($sql);
     </div>
 
     <div class="mb-3">
-        <label>Sexo</label>
-        <input type="text" name="sexo" />
+          <label>Sexo</label>
+     <select name="sexo">
+     <option>Masculino</option>
+     <option>Femenino</option>
+      <option>Otro</option>
+    </select >
+      
     </div>
 
     <button type="submit" class="btn btn-primary">Registrar Persona</button>
+     <a href="index_personas.php" class="btn btn-secondary">Tabla Persona</a> 
 </form>
 
 </body>

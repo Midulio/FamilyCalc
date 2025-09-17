@@ -1,132 +1,74 @@
 <?php
-// Conexión para obtener casas
-include('../../conexion.php');
-
-$conexion = mysqli_connect('localhost', 'root', '', 'familycalc') or die("Error en conexión");
-
-$sql = "SELECT id_casa, nombre FROM casa";
-$resultado = $conexion->query($sql);
+include ("../../conexion.php");
 ?>
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Agregar Persona</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </head>
 <body>
+   <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="../../imagenesYLogos/menu.png" alt="Menú" height="30">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="menuDropdown">
+                    <li><a class="dropdown-item" href="index.html">Inicio</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="montoYGastos.html">Monto y gastos</a></li> 
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Estadísticas de gastos</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Meta de compra</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Impuestos y valores</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Resumen de gastos</a></li>
+                </ul>
+            </div>
+            <a href="../../index.html" class="logo"><h3 class="mb-0 fs-4">FamilyCalc</h3></a>
+            <div>
+                 <a href="create.php" class="btn btn-primary">Agregar pesonas</a> 
+            <a href="#"><img src="../../imagenesYLogos/chatbot.png" alt="Perfil" height="35"></a>
+                <a href="iniciarSesion.html"><img src="../../imagenesYLogos/perfil.png" alt="Perfil" height="35"></a>
+             
+            </div>
+        </div>
+    </nav>
 
-<form action="Registrar_personas.php" method="post">
 
-    <div class="mb-3">
-        <label for="casa" class="form-label ">Seleccionar Casa</label>
-        <select name="id_casa" id="casa" class="form-select w-25" required>
-            <option value="" disabled selected>-- Elegí una casa --</option>
-            <?php
-            if ($resultado->num_rows > 0) {
-                while ($row = $resultado->fetch_assoc()) {
-                    echo '<option value="'. $row['id_casa'] .'">'. htmlspecialchars($row['nombre']) .'</option>';
-                }
-            } else {
-                echo '<option disabled>No hay casas disponibles</option>';
-            }
-            ?>
-        </select>
-    </div>
+    <table class="table table-hover">
+        <tr><br>
+            <td>Casa</td>
+            <td>Nombre</td>
+            <td>Apellido</td>
+            <td>Sexo</td>
+        </tr>
+    <?php
+$sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo,id_persona FROM persona as p inner join casa as c on p.id_casa = c.id_casa";
+$stmt = $conexion->prepare($sql);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
-    <div class="mb-3">
-        <label>Nombre</label>
-        <input type="text" name="nombre"  />
-    </div>
-
-    <div class="mb-3">
-        <label>Apellido</label>
-        <input type="text" name="apellido"  />
-    </div>
-
-    <div class="mb-3">
-    <label for="sexo" class="form-label">Sexo</label>
-    <select name="sexo" id="sexo" class="form-select w-25" required>
-        <option value="" disabled selected>-- Selecciona un sexo --</option>
-        <option value="Masculino">Masculino</option>
-        <option value="Femenino">Femenino</option>
-        <option value="Otro">Otro</option>
-    </select>
-</div>
-
-      
-    </div>
-
-    <button type="submit" class="btn btn-primary">Registrar Persona</button>
-     <a href="index_personas.php" class="btn btn-secondary">Tabla Persona</a> 
-</form>
-
-</body>
-</html>
+if($resultado && $resultado->num_rows > 0){
+    while($r = $resultado->fetch_assoc()):
+?>
+    <tr>
+    <td><?= $r['nombre_casa'] ?></td>
+<td><?= $r['nombre_persona'] ?></td>
+        <td><?= $r['apellido'] ?></td>
+        <td><?= $r['sexo'] ?></td>
+       <td><a href="update_persona.php?upd=<?= $r['id_persona'] ?>"  class="btn btn-primary" >Actualizar</a></td>
+        <td><a href="eliminar_persona.php?id_persona=<?= $r['id_persona'] ?>" class="btn btn-danger">Eliminar</a></td>
+    </tr>
 <?php
-// Conexión para obtener casas
-include('../../conexion.php');
-
-$conexion = mysqli_connect('localhost', 'root', '', 'familycalc') or die("Error en conexión");
-
-$sql = "SELECT id_casa, nombre FROM casa";
-$resultado = $conexion->query($sql);
+    endwhile;
+}
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <title>Agregar Persona</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
-</head>
-<body>
-
-<form action="Registrar_personas.php" method="post">
-
-    <div class="mb-3">
-        <label for="casa" class="form-label ">Seleccionar Casa</label>
-        <select name="id_casa" id="casa" class="form-select w-25" required>
-            <option value="" disabled selected>-- Elegí una casa --</option>
-            <?php
-            if ($resultado->num_rows > 0) {
-                while ($row = $resultado->fetch_assoc()) {
-                    echo '<option value="'. $row['id_casa'] .'">'. htmlspecialchars($row['nombre']) .'</option>';
-                }
-            } else {
-                echo '<option disabled>No hay casas disponibles</option>';
-            }
-            ?>
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label>Nombre</label>
-        <input type="text" name="nombre"  />
-    </div>
-
-    <div class="mb-3">
-        <label>Apellido</label>
-        <input type="text" name="apellido"  />
-    </div>
-
-    <div class="mb-3">
-    <label for="sexo" class="form-label">Sexo</label>
-    <select name="sexo" id="sexo" class="form-select w-25" required>
-        <option value="" disabled selected>-- Selecciona un sexo --</option>
-        <option value="Masculino">Masculino</option>
-        <option value="Femenino">Femenino</option>
-        <option value="Otro">Otro</option>
-    </select>
-</div>
-
-      
-    </div>
-
-    <button type="submit" class="btn btn-primary">Registrar Persona</button>
-     <a href="index_personas.php" class="btn btn-secondary">Tabla Persona</a> 
-</form>
-
-</body>
-</html>

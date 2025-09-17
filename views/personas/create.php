@@ -20,8 +20,8 @@ $resultado = $conexion->query($sql);
 <form action="Registrar_personas.php" method="post">
 
     <div class="mb-3">
-        <label for="casa" class="form-label">Seleccionar Casa</label>
-        <select name="id_casa" id="casa" class="form-select" required>
+        <label for="casa" class="form-label ">Seleccionar Casa</label>
+        <select name="id_casa" id="casa" class="form-select w-25" required>
             <option value="" disabled selected>-- Elegí una casa --</option>
             <?php
             if ($resultado->num_rows > 0) {
@@ -46,12 +46,15 @@ $resultado = $conexion->query($sql);
     </div>
 
     <div class="mb-3">
-          <label>Sexo</label>
-     <select name="sexo">
-     <option>Masculino</option>
-     <option>Femenino</option>
-      <option>Otro</option>
-    </select >
+    <label for="sexo" class="form-label">Sexo</label>
+    <select name="sexo" id="sexo" class="form-select w-25" required>
+        <option value="" disabled selected>-- Selecciona su sexo --</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Otro">Otro</option>
+    </select>
+</div>
+
       
     </div>
 

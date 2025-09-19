@@ -181,6 +181,60 @@ nav{
     order: 1; /* Hace que el texto del usuario aparezca antes de la imagen */
 }
 
+.interiorMenu{
+    background-color: var(--interior-menu);
+    padding: 0;
+    height: 100%;
+}
+
+.interiorMenu a{
+    color: var(--texto-menu);
+    text-decoration: none;
+    display: block;
+    font-size: 2.1dvh;
+    padding: 12px 0 12px 15px;
+    font-family: "Work Sans";
+    font-weight:normal;
+}
+
+.interiorMenu a:hover{
+    background-color: #10195e67;
+}
+
+.interiorMenu .explorar h4{
+    color: var(--texto-menu);
+    font-size: 5dvh;
+    margin-left: 2dvh;
+    font-family: "Oswald";
+    font-weight: bold;
+}
+
+.interiorMenu .explorar img{
+    margin-right: 3dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.795);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.contactos{
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(0, 0, 0, 0.795);
+    border-radius: 10px;
+}
+
+.contactos img{
+    width: 2.5rem;
+}
+
+.contactos-box{
+    position: absolute;
+    margin-bottom: 1rem;
+}
+
+
 .chat-container {
     width: 100%;
     height: 100%;

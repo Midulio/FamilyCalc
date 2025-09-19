@@ -1,6 +1,48 @@
+@font-face{
+    font-family: "Hero";
+    font-weight: bold;
+    src: url(../../fonts/Hero-Bold.otf) format('opentype');
+}
+
+:root {
+    --interior-menu: #DDE5FA;
+    --texto-menu: #031427ea;
+    --family: #e8eeff;
+    --calc: #d0dcff;
+    --color-fondo-claro: #DDE5FA; /* Color de fondo principal de la sección */
+    --color-barra-navegacion-claro: #000616; /* Color de la barra de navegación */
+    --color-box-claro: #031427ea; /* Color de los botones de la barra de navegación*/
+    --gastos-fondo: #d9ebfc;
+    --gastos-titulo-fondo: #000616;
+    --resumen: #0061c9;
+    --color-texto-claro: #ffffff; /* Color de texto gastos */
+    --botones: #161616e1;
+    --texto-botones: #000616;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+    /* Colores para el tema OSCURO */
+    
+    --interior-menu: #020114;
+    --texto-menu: #dddddd;
+    --family: #111213;
+    --calc: #25272e;
+    --color-fondo-claro: #010016e8; /* Fondo más oscuro */
+    --color-barra-navegacion-claro: #f3f3f3; /* Barra de navegación más oscura */
+    --color-box-claro: #000000dc; /* Botones de la barra en oscuro */
+    --gastos-fondo: #ffffffcb;
+    --gastos-titulo-fondo: #1f2335;
+    --resumen: #0003b6e0;
+    --color-texto-claro: #ffffffee; /* Color de texto gastos */
+    --botones: #0000008c;
+    --texto-botones:#ffffff;
+    }
+}
+
+
 body{
-    /*margin: 0;*/
-    background-color: #DDE5FA;
+    background-color: var(--color-fondo-claro);
 }
 
 .glass{
@@ -26,73 +68,101 @@ body{
     height: fit-content;
     overflow-y: scroll;
     scroll-behavior: smooth;
-    margin: 0 auto;
 }
 
-
 nav{
-    background-color: #4767C2;
-    width: 100%;
+    background-color: var(--color-barra-navegacion-claro);
+    width: 100% !important;
 }
 
 .logo{
-    font-family: Permanent Marker;
     text-decoration: none;
-    color: white;
+    letter-spacing: 1.5px;
 }
 
-.logo img{
-    height: 45px;
-    margin-right: 1rem;                         
+.family{
+    font-family: montserrat;
+    font-weight: bold;
+    color: var(--family);
+    font-size: 3.8dvh;
+}
+
+.calc{
+    font-size: 4.4dvh;
+    font-family: fira sans;
+    font-weight: bold;
+    color: var(--calc);
+    letter-spacing: 1px;
 }
 
 .menu{                  
-    background-color: rgb(71, 103, 194);
+    background-color: var(--color-box-claro);
     border: none;
     padding: 4px;
 }
 
+.btn img{
+    width: 4.8dvh;
+}
+
 .menu:hover{
-    background-color: rgb(144, 165, 223);
+    background-color: rgba(144, 165, 223, 0.336);
     border: none;
 }
 
 .interiorMenu{
-    background-color: rgb(71, 103, 194);
+    background-color: var(--interior-menu);
     padding: 0;
+    height: 100%;
 }
 
 .interiorMenu a{
-    color: #CFD3F2;
+    color: var(--texto-menu);
     text-decoration: none;
     display: block;
-    font-size: 18px;
-    padding: 18px 30px;
+    font-size: 2.1dvh;
+    padding: 12px 0 12px 15px;
+    font-family: "Work Sans";
+    font-weight:normal;
 }
 
 .interiorMenu a:hover{
-    background-color: #cfd3f267;
+    background-color: #10195e67;
 }
 
-.interiorMenu img{
-    margin-right: 20px;
+.interiorMenu .explorar h4{
+    color: var(--texto-menu);
+    font-size: 5dvh;
+    margin-left: 2dvh;
+    font-family: "Oswald";
+    font-weight: bold;
+}
+
+.interiorMenu .explorar img{
+    margin-right: 3dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.795);
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .contactos{
-    width: 3.6rem;
-    height: 3.6rem;
-    background-color: rgb(71, 104, 194);
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(0, 0, 0, 0.795);
     border-radius: 10px;
 }
 
 .contactos img{
-    transform: translate(-50%, -20%);
+    width: 2.5rem;
 }
 
 .contactos-box{
     position: absolute;
-    transform: translate(0%, 695%);
+    margin-bottom: 1rem;
 }
+
 
 .gastoTotal{
     background-color: white;

@@ -113,6 +113,7 @@ nav{
 .interiorMenu{
     background-color: var(--interior-menu);
     padding: 0;
+    height: 100%;
 }
 
 .interiorMenu a{
@@ -146,6 +147,7 @@ nav{
 }
 
 .contactos{
+    position: relative;
     width: 4rem;
     height: 4rem;
     background-color: rgba(0, 0, 0, 0.795);
@@ -153,12 +155,12 @@ nav{
 }
 
 .contactos img{
-    transform: translate(-5%,0%);
+    width: 2.5rem;
 }
 
 .contactos-box{
     position: absolute;
-    margin-top: 5dvh;
+    margin-bottom: 1rem;
 }
 
 .gastos {

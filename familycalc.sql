@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2025 a las 17:21:29
+-- Tiempo de generación: 17-09-2025 a las 01:44:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -27,6 +27,10 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `casa`
 --
 
+CREATE database familycalc;
+
+use familycalc;
+
 CREATE TABLE `casa` (
   `id_casa` int(11) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
@@ -42,7 +46,8 @@ CREATE TABLE `casa` (
 --
 
 INSERT INTO `casa` (`id_casa`, `nombre`, `calle`, `numero`, `localidad`, `provincia`, `id_usuarios`) VALUES
-(1, 'gil', 'aaaaa', 3, 'aaa', 'aaa', NULL);
+(9, 'Gil', '122', 1444, 'launus', 'buenos aires', NULL),
+(10, 'Arce', '333', 444, 'launus', 'buenos aires', NULL);
 
 -- --------------------------------------------------------
 
@@ -83,8 +88,17 @@ CREATE TABLE `persona` (
   `id_casa` int(11) DEFAULT NULL,
   `nombre` varchar(50) DEFAULT NULL,
   `apellido` varchar(50) DEFAULT NULL,
-  `sexo` enum('M','F','Otro') DEFAULT NULL
+  `sexo` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`id_persona`, `id_casa`, `nombre`, `apellido`, `sexo`) VALUES
+(2, 9, 'facundo', 'arce', ''),
+(5, 10, 'Joaquin', 'Gil', ''),
+(6, 10, 'tizi', 'midulia ', 'Femenino');
 
 -- --------------------------------------------------------
 
@@ -166,7 +180,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `casa`
 --
 ALTER TABLE `casa`
-  MODIFY `id_casa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_casa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -184,7 +198,7 @@ ALTER TABLE `movimientos`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

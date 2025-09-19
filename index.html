@@ -108,14 +108,37 @@
     </div>
     </section>
     <script>
-        window.addEventListener("DOMContentLoaded", () => { // Espera a que el DOM esté completamente cargado.
-        const tooltip = document.getElementById("bot-tooltip"); // Obtiene el elemento tooltip por su ID.
+        window.addEventListener("DOMContentLoaded", () => {  // Espera a que el DOM cargue completamente antes de ejecutar el script
 
-        tooltip.style.display = "block"; // Muestra el tooltip al cargar la página.
-        setTimeout(() => {
-            tooltip.style.display = "none"; // Oculta el tooltip después de 5 segundos.
-        }, 5000);
-        });
+  const tooltip = document.getElementById("bot-tooltip");  // Obtiene el elemento del tooltip por su ID
+
+  // Cantidad máxima de veces que se mostrará
+  const maxShows = 3;  // Define el límite de veces que el tooltip puede aparecer
+
+  // Obtener valores de localStorage
+  let shows = localStorage.getItem("botTooltipShows") || 0;  // Recupera cuántas veces ya se mostró el tooltip (si no existe, arranca en 0)
+
+  let lastShown = localStorage.getItem("botTooltipLastShown");  // Recupera la última fecha en la que se mostró el tooltip
+
+  const today = new Date().toDateString();  // Obtiene la fecha de hoy en formato de texto (ej: "Fri Sep 19 2025")
+
+  // Verificar si ya se mostró demasiadas veces o si ya se mostró hoy
+  if (shows < maxShows && lastShown !== today) {  // Condición: solo mostrar si aún no alcanzó el límite y no se mostró hoy
+
+    // Mostrar tooltip
+    tooltip.style.display = "block";  // Cambia el estilo a "block" para hacerlo visible
+
+    // Guardar en localStorage
+    localStorage.setItem("botTooltipShows", ++shows);  // Incrementa el contador y lo guarda en localStorage
+
+    localStorage.setItem("botTooltipLastShown", today);  // Guarda la fecha actual para que no vuelva a mostrarse hoy
+
+    // Ocultar después de 5 segundos
+    setTimeout(() => {  // Inicia un temporizador de 5 segundos
+      tooltip.style.display = "none";  // Cambia el estilo a "none" para ocultar el tooltip
+    }, 5000);  // Define el tiempo de espera de 5000 milisegundos (5 segundos)
+  }
+});
     </script>
 </body>
 </html>

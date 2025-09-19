@@ -32,7 +32,7 @@ body{
     --calc: #25272e;
     --titulo: #e8e8ff;
     --valor-contenedor: #42619ba8;
-    --sombra-valor-contenedor: #ffffff15;
+    --sombra-valor-contenedor: #c7f9ff11;
     --titulos-valores: #dbe2ff;
     --compra-venta: #dfdfdfe5;
     --precios: #f9f9fab6;
@@ -170,6 +170,7 @@ nav{
     margin-left: 2dvh;
     font-family: "Oswald";
     font-weight: bold;
+    letter-spacing: 8px;
 }
 
 .interiorMenu .explorar img{

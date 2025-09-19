@@ -55,6 +55,9 @@
             <a href="index.html" class="logo"><h1 class="mb-1 fs-2"><span class="family">Family</span><span class="calc">Calc</span></h1></a>
             <div>
                 <a href="views/chatbot/chatbot.html" class="btn menu" type="button"><img src="src/robot.svg"></a>
+                <div id="bot-tooltip">
+                    👋 Haz clic AQUÍ para ABRIR el CHAT con el BOT 🤖
+                </div>
                 <a href="views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="src/user-circle.svg"></a>
             </div>
         </div>
@@ -81,19 +84,39 @@
                 </div>
             </div>
         </a>
-        <div class="btnChicos">
-            <a href="views/casas/index_casa.php" class="btnChicos animacionHover" id="casas"><img src="src/housewhite.svg"></a>
-            <a href="views/personas/index_personas.php" class="btnChicos animacionHover" id="casas"><img src="src/users.svg"></a>
-            <a href="" class="btnChicos animacionHover" id="estadisticas"><img src="src/chart-barwhite.svg"></a>
-            <a href="views/Impuestos_valores/imp_val.html" class="btnChicos animacionHover" id="impuestos"><img src="src/currency-dollar-simplewhite.svg"></a>
+        <div class="row">
+            <div class="btnChicos col-6 col-md-3 mb-3">
+                <a href="views/casas/index_casa.php" class="btnChicos animacionHover" id="casas"><img src="src/housewhite.svg"></a>
+                <p>Casas</p>
+                </div>
+
+            <div class="btnChicos col-6 col-md-3 mb-3">
+                <a href="views/personas/index_personas.php" class="btnChicos animacionHover" id="personas"><img src="src/users.svg"></a>
+                <p>Personas</p>
+            </div>
+
+            <div class="btnChicos col-6 col-md-3 mb-3">
+                <a href="" class="btnChicos animacionHover" id="estadisticas"><img src="src/chart-barwhite.svg"></a>
+                <p>Estadísticas de gastos</p>
+            </div>
+
+            <div class="btnChicos col-6 col-md-3 mb-3">
+                <a href="views/Impuestos_valores/imp_val.html" class="btnChicos animacionHover" id="impuestos"><img src="src/currency-dollar-simplewhite.svg"></a>
+                <p>Valores de las monedas</p>
+            </div>
         </div>
-        <div class="btnChicos">
-            <p>Casas</p>
-            <p>Personas</p>
-            <p>Estadísticas de gastos</p>
-            <p>Valores de las monedas</p>
-        </div>
+    </div>
     </section>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => { // Espera a que el DOM esté completamente cargado.
+        const tooltip = document.getElementById("bot-tooltip"); // Obtiene el elemento tooltip por su ID.
+
+        tooltip.style.display = "block"; // Muestra el tooltip al cargar la página.
+        setTimeout(() => {
+            tooltip.style.display = "none"; // Oculta el tooltip después de 5 segundos.
+        }, 5000);
+        });
+    </script>
 </body>
 </html>
 

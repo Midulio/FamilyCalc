@@ -58,12 +58,63 @@ body{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
+/*Reglas para animar las fotos de los botones*/
+.gif-button {
+  text-align: center;
+}
+
+.gif-container {
+  position: relative;
+  width: 5rem; /* ajusta al tamaño de tu gif */
+  height: 5rem;
+  margin: 30px 2.5rem 0 2.5rem;
+  border-radius: 100px;
+  overflow: hidden;
+  border: 3px solid black;
+}
+
+.gif-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.static{
+    padding: 10px;
+}
+
+.gif-container .animated {
+  opacity: 0; /* Oculto por defecto */
+}
+
+.gif-container:hover .animated {
+  opacity: 1; /* Muestra el gif en hover */
+}
+
+.gif-container:hover .static {
+  opacity: 0; /* Oculta la imagen estática */
+}
+
+.btn-text {
+  margin-top: 8px;
+  font-size: 2dvh;
+  font-weight: bold;
+  color: var(--titulos-valores);
+  font-family: "Quicksand", sans-serif;
+}
+
+
+
+
 .titulo h1{
     font-size: 2.5rem;
-    padding: 1.5rem;
     font-family: poppins;
     font-weight: bold;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     word-spacing: 15px;
     color: var(--titulo);
 }
@@ -319,10 +370,18 @@ body{
     }
 
     .contactos{
-    background: rgba(0, 0, 0, 0.596);
-    backdrop-filter: blur(0.9rem);
-    -webkit-backdrop-filter: blur(0.9rem);
-    border-radius: 10px;
+        background: rgba(0, 0, 0, 0.596);
+        backdrop-filter: blur(0.9rem);
+        -webkit-backdrop-filter: blur(0.9rem);
+        border-radius: 10px;
+    }
+
+    .gif-container .static {
+        opacity: 0; /* Oculto por defecto */
+    }
+
+    .gif-container .animated {
+        opacity: 1;
     }
 }
 @media screen and (min-width:650px) and (max-width:1279px) {
@@ -362,9 +421,6 @@ body{
     }
 
     .contactos-box{
-        margin-top: 15dvh;
-    .interiorMenu img{
-    margin-right: 2dvh;
     width: 4dvh;
     }
 
@@ -381,6 +437,14 @@ body{
 
     .contactos img{
     transform: translate(-5%, -8%);
+    }
+
+    .gif-container .static {
+        opacity: 0;
+    }
+
+    .gif-container .animated {
+        opacity: 1;
     }
 }
 
@@ -423,6 +487,23 @@ body{
 
     .contactos img{
         transform: translate(-45%, -15%);
+    }
+
+    .gif-container {
+        width: 20dvh;
+        height: 20dvh;
+    }
+
+    .gif-container .static {
+        opacity: 0;
+    }
+
+    .gif-container .animated {
+        opacity: 1;
+    }
+
+    .btn-text {
+        font-size: 3.5dvh;
     }
 
 }

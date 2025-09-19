@@ -46,7 +46,6 @@
                     <a href="views/gastos/gastos.html"><img src="../../src/bank.svg">Gastos</a>
                     <a href="#"><img src="../../src/chart-line.svg">Estadísticas de gastos</a>
                     <a href="views/personas/create.php"><img src="../../src/users.svg">Personas</a>
-                    <a href="views/Impuestos_valores/imp_val.html"><img src="../../src/percent.svg">Valores de las monedas</a>
                     <a href="#"><img src="../../src/receipt.svg">Resumen de gastos</a>
                 </div>
                 <div class="container-fluid d-flex justify-content-between contactos-box position-absolute bottom-0 start-50 translate-middle-x">
@@ -65,6 +64,29 @@
         </div>
     </nav>
 
+    <div class="row text-center justify-content-md-center mb-4">
+        <div class="col-6 col-md-3">
+            <div class="gif-buttom">
+                <button type="button" onclick="mostrarSeccion('valores')" class="gif-container">
+                    <img src="img-botones/dolar.png" class="static" alt="Dolar estático">
+                    <img src="img-botones/dolar.gif" class="animated" alt="Dolar animado">
+                </button>
+                <p class="btn-text">Valores de monedas</p>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="gif-button">
+                <button type="button" onclick="mostrarSeccion('servicios')" class="gif-container">
+                    <img src="img-botones/pochoclo.png" class="static" alt="Pochoclo estático">
+                    <img src="img-botones/pochoclo.gif" class="animated" alt="Pochoclo animado" style="padding: 10px;">
+                </button>
+                <p class="btn-text">Valores de servicios</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="valores">
         <div class="row text-center justify-content-md-center mb-4">
             <div class=" titulo text-center col-12 col-md-auto">
                 <h1> VALORES DE MONEDAS </h1>
@@ -231,7 +253,8 @@ const mostrarData = (data) => { // Función para mostrar datos en la página
                             <dl class="flex-1 flex flex-col justify-center items-center">
                                 <dt class="text-xs uppercase text-gray-600 dark:text-gray-400"> Venta </dt>
                                 <dd class="text-gray-800 dark:text-gray-200 font-bold" id="venta-Peso Uruguayo">  </dd>
-                                <small id="fecha-Peso Uruguayo" class="text-muted"></small> 
+                                <small id="fecha-Peso Uruguayo" class="text-muted"></small>
+                            </dl>
                         </div>
                         <div class="col-6 col-md-3">
                             <h3>Peso chileno</h3>
@@ -243,6 +266,7 @@ const mostrarData = (data) => { // Función para mostrar datos en la página
                                 <dt class="text-xs uppercase text-gray-600 dark:text-gray-400"> Venta </dt>
                                 <dd class="text-gray-800 dark:text-gray-200 font-bold" id="venta-Peso Chileno">  </dd>
                                 <small id="fecha-Peso Chileno" class="text-muted"></small> 
+                            </dl>
                         </div>
                         <div class="col-6 col-md-3">
                             <h3>Real brasileño</h3>
@@ -253,7 +277,8 @@ const mostrarData = (data) => { // Función para mostrar datos en la página
                             <dl class="flex-1 flex flex-col justify-center items-center">
                                 <dt class="text-xs uppercase text-gray-600 dark:text-gray-400"> Venta </dt>
                                 <dd class="text-gray-800 dark:text-gray-200 font-bold"  id="venta-Real Brasileño">  </dd>
-                                <small id="fecha-Real Brasileño" class="text-muted"></small> 
+                                <small id="fecha-Real Brasileño" class="text-muted"></small>
+                            </dl>
                         </div>
                             <div class="col-6 col-md-3">
                             <h3>Euro</h3>
@@ -265,6 +290,7 @@ const mostrarData = (data) => { // Función para mostrar datos en la página
                                 <dt class="text-xs uppercase text-gray-600 dark:text-gray-400"> Venta </dt>
                                 <dd class="text-gray-800 dark:text-gray-200 font-bold" id="venta-Euro">  </dd>
                                 <small id="fecha-Euro" class="text-muted"></small> 
+                            </dl>
                         </div>
                     </div>
                 </div>
@@ -310,6 +336,71 @@ const mostrarData2 = (data) => { // Función para mostrar datos en la página
         </script>
 
     </section>
+
+    <section id="servicios">
+        <div class="row text-center justify-content-md-center mb-4">
+            <div class=" titulo text-center col-12 col-md-auto">
+                <h1> PRECIOS SERVICIOS DE STREAMING </h1>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-6 col-md-4 mb-4">
+            <div class="val-container mx-3">
+                <h3>Netflix</h3>
+                <p>Plan Básico: $5000</p>
+                <p>Plan Premium: $9000</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 mb-4">
+            <div class="val-container mx-3">
+                <h3>Disney+</h3>
+                <p>Plan Mensual: $4500</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 mb-4">
+            <div class="val-container mx-3">
+                <h3>Spotify</h3>
+                <p>Plan Individual: $3500</p>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => { // Espera a que el DOM se cargue completamente antes de ejecutar el código
+
+  const valores = document.getElementById('valores'); // Obtiene la sección con id="valores"
+
+  const servicios = document.getElementById('servicios'); // Obtiene la sección con id="servicios"
+
+  if (valores && servicios) { // Verifica que ambas secciones existan en el HTML
+
+    servicios.style.display = 'none'; // Oculta la sección de servicios al inicio
+
+    valores.style.display = ''; // Deja visible la sección de valores (usa el display por defecto del CSS)
+  }
+
+  window.mostrarSeccion = function(seccion) { // Define una función global llamada mostrarSeccion, accesible desde los botones
+
+    if (!valores || !servicios) return; // Si alguna sección no existe, termina la función para evitar errores
+
+    if (seccion === 'valores') {  // Si el parámetro es "valores", entonces...
+
+      valores.style.display = '';      // Muestra la sección de valores
+
+      servicios.style.display = 'none'; // Oculta la sección de servicios
+
+    } else if (seccion === 'servicios') {  // Si el parámetro es "servicios", entonces...
+
+      valores.style.display = 'none';  // Oculta la sección de valores
+
+      servicios.style.display = '';    // Muestra la sección de servicios
+
+      servicios.scrollIntoView({ behavior: 'smooth', block: 'start' });  // Hace scroll automático y suave hasta la sección servicios
+    }
+  }
+});
+    </script>
 </body>
 
 </html>

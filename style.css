@@ -242,6 +242,7 @@ nav{
 .numeroGastos span{
     font-family: "Exo";
     font-size: 2.5dvh;
+    letter-spacing: 9px;
 }
 
 .gastosTitulo{

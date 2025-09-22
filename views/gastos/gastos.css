@@ -16,8 +16,10 @@
     --gastos-titulo-fondo: #000616;
     --resumen: #0061c9;
     --color-texto-claro: #ffffff; /* Color de texto gastos */
+    --color-texto-tabla: #000000;
     --botones: #161616e1;
     --texto-botones: #000616;
+    --fondo-tabla: rgba(255, 255, 255, 0.925);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,8 +37,10 @@
     --gastos-titulo-fondo: #1f2335;
     --resumen: #0003b6e0;
     --color-texto-claro: #ffffffee; /* Color de texto gastos */
+    --color-texto-tabla: #000218af;
     --botones: #0000008c;
     --texto-botones:#ffffff;
+    --fondo-tabla: rgba(172, 172, 172, 0.541);
     }
 }
 
@@ -70,6 +74,15 @@ body{
     scroll-behavior: smooth;
 }
 
+.titulo h1{
+    font-size: 2.5rem;
+    font-family: poppins;
+    font-weight: bold;
+    letter-spacing: -1px;
+    word-spacing: 15px;
+    color: var(--titulo);
+}
+
 nav{
     background-color: var(--color-barra-navegacion-claro);
     width: 100% !important;
@@ -77,6 +90,7 @@ nav{
 
 .logo{
     text-decoration: none;
+    color: white;
     letter-spacing: 1.5px;
 }
 
@@ -95,6 +109,22 @@ nav{
     letter-spacing: 1px;
 }
 
+.logo img{
+    height: 45px;
+    margin-right: 1rem;                         
+}
+
+.menu{                  
+    background-color: var(--color-box-claro);
+    border: none;
+    padding: 4px;
+}
+
+.menu:hover{
+    background-color: rgba(144, 165, 223, 0.336);
+    border: none;
+}
+
 .menu{                  
     background-color: var(--color-box-claro);
     border: none;
@@ -105,15 +135,9 @@ nav{
     width: 4.8dvh;
 }
 
-.menu:hover{
-    background-color: rgba(144, 165, 223, 0.336);
-    border: none;
-}
-
 .interiorMenu{
     background-color: var(--interior-menu);
     padding: 0;
-    height: 100%;
 }
 
 .interiorMenu a{
@@ -136,6 +160,7 @@ nav{
     margin-left: 2dvh;
     font-family: "Oswald";
     font-weight: bold;
+    letter-spacing: 8px;
 }
 
 .interiorMenu .explorar img{
@@ -147,7 +172,6 @@ nav{
 }
 
 .contactos{
-    position: relative;
     width: 4rem;
     height: 4rem;
     background-color: rgba(0, 0, 0, 0.795);
@@ -155,46 +179,53 @@ nav{
 }
 
 .contactos img{
-    width: 2.5rem;
+    transform: translate(-5%,0%);
 }
 
 .contactos-box{
     position: absolute;
-    margin-bottom: 1rem;
+    margin-top: 5dvh;
 }
 
 
 .gastoTotal{
-    background-color: white;
-    border-radius: 7px;
+    background-color: var(--gastos-fondo);
+    border-radius: 20px;
     justify-items: center;
     position: relative;
     padding: 0;
     width: 90%;
     text-align: center;
     margin: 3rem;
+    box-shadow: 0px 4px 10px #00000094;
 }
 
 .gastoTotal h2{
-    background-color: #4767C2;
+    background-color: var(--gastos-titulo-fondo);
     color: white;
     width: 100%;
-    font-weight: normal;
+    font-weight: bold;
     font-size: 5dvh;
+    font-family: "Poppins";
 }
 
 .gastoTotal p{
     font-size: 5dvh;
+    font-family: "Exo 2";
+    letter-spacing: 3px;
 }
 
 .gastoTotal span{
     font-size: 2dvh;
+    font-family: "Exo";
+    letter-spacing: 5px;
 }
 
 .ingresoGastos{
     width: 100%;
     text-align: center;
     justify-content: space-around;
+    display: flex;
 }
 
 section{
@@ -202,23 +233,25 @@ section{
 }
 
 .formularioGastos{
-    background-color: white;
+    background-color: var(--gastos-fondo);
     width: 40%;
     height: 100%;
-    border-radius: 7px;
+    border-radius: 25px;
     position: relative;
     margin-bottom: 5rem;
+    box-shadow: 0px 4px 10px #00000094;
 }
 
 .formularioGastos h3 {
-    background-color: #4767C2;
+    background-color: var(--gastos-titulo-fondo);
     color: white;
     width: 100%;
-    font-weight: normal;
     font-size: 4dvh;
-    height: 5.5dvh;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-family: "Poppins";
+    font-weight: bolder;
+    padding: .5rem 0 .5rem 0;
 }
 
 .formularioGastos input, .formularioGastos select{
@@ -227,7 +260,7 @@ section{
     height: 3rem;
     margin: 4.5rem auto;
     border: 2px solid rgba(0, 0, 0, 0.233);
-    border-radius: 7px;
+    border-radius: 15px;
     font-size: 2dvh;
     padding-left: 1rem;
 }
@@ -235,6 +268,8 @@ section{
 .formularioGastos label{
     position: absolute;
     transform: translate(-50%, -110%);
+    font-weight: bold;
+    font-size: 2dvh;
 }
 
 .formularioGastos label:first-of-type{
@@ -246,11 +281,13 @@ section{
     width: 85%;
     height: 3rem;
     border: none;
-    background-color: #4767C2;
+    background-color: var(--gastos-titulo-fondo);
     border-radius: 30px;
     color: white;
     position: absolute;
     transform: translate(-50%, -10%);
+    font-weight: bold;
+    font-size: 2dvh;
 }
 
 .listaGastos{
@@ -259,6 +296,9 @@ section{
     height: 20rem;
     overflow-y: auto;
     border-radius: 7px;
+    background-color: var(--fondo-tabla);
+    color: var(--color-texto-tabla);
+    font-weight: bold;
 }
 
 .tablaTitulo{
@@ -267,19 +307,251 @@ section{
     border-bottom: 1px solid rgba(0, 0, 0, 0.322);
     padding: 0 1rem;
     height: 13%;
-    background-color: white;    
+    background-color: var(--gastos-titulo-fondo);    
+    color: var(--color-texto-claro);
 }
 
 
 .tabla{
-    height: 40%; 
+    height: 30%; 
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.322);
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.322);
     margin: 0 1rem;  
 }
 
-.tabla p, .tablaTitulo p{
+.tablaTitulo p{
     width: 100%;
+    margin: .5rem .5rem .5rem 0;
+    font-size: 1.7dvh;
+}
+
+.tabla p{
+    width: 100%;
+    font-size: 1.7dvh;
+}
+
+@media screen and (max-width:649px) {
+
+    .contactos-box{
+        margin-top: 22dvh;
+    }
+    
+    .family{
+        font-size: 2.8dvh;
+    }
+
+    .calc{
+        font-size: 3.2dvh;
+    }
+
+    .menu{
+    padding: 0.3dvh;
+    }
+
+    .menu img{
+        width: 3.9dvh;
+        width: 4.5dvh;
+    }
+
+    .interiorMenu{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 5.5dvh;
+    margin-left: 3dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 2.7dvh;
+        color: white;
+    }
+
+    .contactos{
+        background: rgba(0, 0, 0, 0.596);
+        backdrop-filter: blur(0.9rem);
+        -webkit-backdrop-filter: blur(0.9rem);
+        border-radius: 10px;
+    }
+
+    .gastoTotal{
+        width: 100%;
+        margin: 3rem;
+    }
+
+    .ingresoGastos{
+        display:block;
+    }
+
+    .formularioGastos{
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .listaGastos{
+        height: 20rem;
+    }
+}
+@media screen and (min-width:650px) and (max-width:1279px) {
+    .menu img{
+        width: 5dvh;
+    }
+
+    .interiorMenu{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 5.4dvh;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 4dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar a{
+    font-size: 2.1dvh;
+    color: white;
+    }
+
+    
+    .family{
+        font-size: 3.2dvh;
+    }
+
+    .calc{
+        font-size: 4dvh;
+    }
+
+    .contactos-box{
+    width: 4dvh;
+    }
+
+    .interiorMenu a{
+    font-size: 2dvh;
+    }
+
+    .contactos{
+    background: rgba(0, 0, 0, 0.596);
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 10px;
+    }
+
+    .contactos img{
+    transform: translate(-5%, -8%);
+    }
+    
+    .gastoTotal{
+        width: 95%;
+        margin: 3rem;
+    }
+
+    .formularioGastos h3 {
+        font-size: 3.2dvh;
+    }
+
+    .formularioGastos{
+        width: 45%;
+    }
+
+    .listaGastos{
+        height: 20rem;
+    }
+
+    .tabla p{
+        margin: 0 0 0 1rem;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 430px) {
+
+    .family{
+        font-size: 6dvh;
+    }
+
+    .calc{
+        font-size: 6.6dvh;
+    }
+
+    .menu img{
+        width: 10dvh;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 10dvh;
+    margin-left: 5dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 13dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 5dvh;
+        color: white;
+    }
+
+    .contactos{
+        height: 4rem;
+        width: 4rem;
+        background: rgba(0, 0, 0, 0.596);
+    }
+
+    .contactos img{
+        transform: translate(-45%, -15%);
+    }
+
+    .gastoTotal h2{
+        font-size: 8dvh;
+    }
+
+    .gastoTotal p{
+        font-size: 8dvh;
+    }
+
+    .gastoTotal span{
+        font-size: 4dvh;
+    }
+
+    .formularioGastos h3 {
+        font-size: 7dvh;
+    }
+
+    .formularioGastos label{
+        font-size: 4dvh;
+    }
+
+    .formularioGastos button{
+        font-size: 4dvh;
+    }
+
+    .tablaTitulo p{
+        font-size: 4dvh;
+    }
+
+    .tabla p{
+        font-size: 4dvh;
+        margin: 0;
+    }
 }

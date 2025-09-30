@@ -56,13 +56,15 @@ include ("../../conexion.php");
                 <th>Acciones</th>
             </tr>
         <?php
-        $sql = "SELECT m.id_movimientos, c.nombre AS nombre_casa, 
-                       p.nombre AS nombre_persona, p.apellido, 
-                       m.importe, m.fecha_ingreso, m.estados, m.servicios, m.tipo_de_gastos
-                FROM movimientos AS m
-                INNER JOIN casa AS c ON m.id_casa = c.id_casa
-                INNER JOIN persona AS p ON m.id_persona = p.id_persona
-                ORDER BY m.fecha_ingreso DESC";
+        $sql = "SELECT m.id_movimientos AS id_movimiento, 
+       c.nombre AS nombre_casa, 
+       p.nombre AS nombre_persona, p.apellido, 
+       m.importe, m.fecha_ingreso, m.estados, m.servicios, m.tipo_de_gastos
+FROM movimientos AS m
+INNER JOIN casa AS c ON m.id_casa = c.id_casa
+INNER JOIN persona AS p ON m.id_persona = p.id_persona
+ORDER BY m.fecha_ingreso DESC
+";
 
         $stmt = $conexion->prepare($sql);
         $stmt->execute();
@@ -81,7 +83,9 @@ include ("../../conexion.php");
                 <td><?= $r['tipo_de_gastos'] ?></td>
                 <td>
                     <a href="update_movimiento.php?upd=<?= $r['id_movimiento'] ?>" class="btn btn-primary btn-sm">Actualizar</a>
-                    <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                  <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+
+
                 </td>
             </tr>
         <?php

@@ -5,11 +5,9 @@ include ("../../conexion.php");
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Movimientos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
    <nav class="navbar bg-body-tertiary">
@@ -57,21 +55,23 @@ include ("../../conexion.php");
             </tr>
         <?php
         $sql = "SELECT m.id_movimientos AS id_movimiento, 
-       c.nombre AS nombre_casa, 
-       p.nombre AS nombre_persona, p.apellido, 
-       m.importe, m.fecha_ingreso, m.estados, m.servicios, m.tipo_de_gastos
-FROM movimientos AS m
-INNER JOIN casa AS c ON m.id_casa = c.id_casa
-INNER JOIN persona AS p ON m.id_persona = p.id_persona
-ORDER BY m.fecha_ingreso DESC
-";
+                       c.nombre AS nombre_casa, 
+                       p.nombre AS nombre_persona, p.apellido, 
+                       m.importe, m.fecha_ingreso, m.estados, m.servicios, m.tipo_de_gastos
+                FROM movimientos AS m
+                INNER JOIN casa AS c ON m.id_casa = c.id_casa
+                INNER JOIN persona AS p ON m.id_persona = p.id_persona
+                ORDER BY m.fecha_ingreso DESC";
 
         $stmt = $conexion->prepare($sql);
         $stmt->execute();
         $resultado = $stmt->get_result();
 
+        $totalImporte = 0; // acumulador
+
         if($resultado && $resultado->num_rows > 0){
             while($r = $resultado->fetch_assoc()):
+                $totalImporte += $r['importe']; // sumo cada importe
         ?>
             <tr>
                 <td><?= $r['nombre_casa'] ?></td>
@@ -83,15 +83,19 @@ ORDER BY m.fecha_ingreso DESC
                 <td><?= $r['tipo_de_gastos'] ?></td>
                 <td>
                     <a href="update_movimiento.php?upd=<?= $r['id_movimiento'] ?>" class="btn btn-primary btn-sm">Actualizar</a>
-                  <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
-
-
+                    <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
                 </td>
             </tr>
         <?php
             endwhile;
         }
         ?>
+            <!-- Fila de total -->
+            <tr class="table-dark fw-bold">
+                <td colspan="2" class="text-end">TOTAL</td>
+                <td>$<?= number_format($totalImporte, 2, ',', '.') ?></td>
+                <td colspan="5"></td>
+            </tr>
         </table>
     </div>
 </body>

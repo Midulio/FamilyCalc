@@ -59,15 +59,15 @@ body{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-::-webkit-scrollbar { width: 0px; height: 9px;}
-::-webkit-scrollbar-button { width: 0px; height: 0px;}
-::-webkit-scrollbar-thumb { background: transparent; border: 0px none #fff; border-radius: 10px;}
-::-webkit-scrollbar-thumb:hover { background: #3a77a1;}
-::-webkit-scrollbar-thumb:active { background: #8dd0d8;}
-::-webkit-scrollbar-track {background: transparent;border: 0px solid #aaa; border-radius: 5px;}
-::-webkit-scrollbar-track:hover { background: #e4e4e4;}
-::-webkit-scrollbar-track:active { background: #d2d2d2;}
-::-webkit-scrollbar-corner { background: transparent;}
+.resumenGastos::-webkit-scrollbar { width: 0px; height: 9px;}
+.resumenGastos::-webkit-scrollbar-button { width: 0px; height: 0px;}
+.resumenGastos::-webkit-scrollbar-thumb { background: transparent; border: 0px none #fff; border-radius: 10px;}
+.resumenGastos::-webkit-scrollbar-thumb:hover { background: #3a77a1;}
+.resumenGastos::-webkit-scrollbar-thumb:active { background: #8dd0d8;}
+.resumenGastos::-webkit-scrollbar-track {background: transparent;border: 0px solid #aaa; border-radius: 5px;}
+.resumenGastos::-webkit-scrollbar-track:hover { background: #e4e4e4;}
+.resumenGastos::-webkit-scrollbar-track:active { background: #d2d2d2;}
+.resumenGastos::-webkit-scrollbar-corner { background: transparent;}
 
 .scrollcontainer{
     width: fit-content;

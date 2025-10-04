@@ -56,7 +56,7 @@ $resultado = $conexion->query($sql);
 </div>
 
       
-    </div>
+</div>
 
     <button type="submit" class="btn btn-primary">Registrar Persona</button>
      <a href="index_personas.php" class="btn btn-secondary">Tabla Persona</a> 

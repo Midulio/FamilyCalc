@@ -43,6 +43,7 @@ body{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
+/*
 ::-webkit-scrollbar { width: 0px; height: 9px;}
 ::-webkit-scrollbar-button { width: 0px; height: 0px;}
 ::-webkit-scrollbar-thumb { background: transparent; border: 0px none #fff; border-radius: 10px;}
@@ -52,6 +53,7 @@ body{
 ::-webkit-scrollbar-track:hover { background: #e4e4e4;}
 ::-webkit-scrollbar-track:active { background: #d2d2d2;}
 ::-webkit-scrollbar-corner { background: transparent;}
+*/
 
 .scrollcontainer{
     width: fit-content;

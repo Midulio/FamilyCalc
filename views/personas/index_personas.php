@@ -72,24 +72,30 @@ include ("../../conexion.php");
             <td>Sexo</td>
         </tr>
     <?php
-$sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo,id_persona FROM persona as p inner join casa as c on p.id_casa = c.id_casa";
-$stmt = $conexion->prepare($sql);
-$stmt->execute();
-$resultado = $stmt->get_result();
+// Consulta SQL para obtener personas con su casa relacionada
+$sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo, id_persona 
+        FROM persona as p 
+        INNER JOIN casa as c ON p.id_casa = c.id_casa";
 
-if($resultado && $resultado->num_rows > 0){
-    while($r = $resultado->fetch_assoc()):
+$stmt = $conexion->prepare($sql);// Prepara la consulta para su ejecución segura
+$stmt->execute();// Ejecuta la consulta preparada
+$resultado = $stmt->get_result();// Obtiene el resultado de la ejecución de la consulta
+
+if($resultado && $resultado->num_rows > 0){// Verifica si existen resultados
+    while($r = $resultado->fetch_assoc()):// Recorre cada fila de resultados
 ?>
     <tr>
-    <td><?= $r['nombre_casa'] ?></td>
-<td><?= $r['nombre_persona'] ?></td>
+        <td><?= $r['nombre_casa'] ?></td>
+        <td><?= $r['nombre_persona'] ?></td>
         <td><?= $r['apellido'] ?></td>
         <td><?= $r['sexo'] ?></td>
-       <td><a href="update_persona.php?upd=<?= $r['id_persona'] ?>"  class="btn btn-primary" >Actualizar</a></td>
+        <td><a href="update_persona.php?upd=<?= $r['id_persona'] ?>" class="btn btn-primary">Actualizar</a></td>
         <td><a href="eliminar_persona.php?id_persona=<?= $r['id_persona'] ?>" class="btn btn-danger">Eliminar</a></td>
     </tr>
 <?php
+    // Finaliza el bucle while
     endwhile;
 }
+// Cierra la condición del if
 ?>
 

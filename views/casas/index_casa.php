@@ -4,8 +4,12 @@ include ("../../conexion.php");
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Fredoka:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -20,10 +24,10 @@ include ("../../conexion.php");
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Casas</title>
+
+    <link rel="icon" type="image/png" href="../../src/logo.png">
     <link rel="stylesheet" href="style_casa.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
@@ -70,25 +74,27 @@ include ("../../conexion.php");
         </tr>
         <a href="create.html" class="btn btn-primary">Agregar Casa</a> 
     <?php
-$sql = "SELECT * FROM casa";
-$stmt = $conexion->prepare($sql);
-$stmt->execute();
-$resultado = $stmt->get_result();
+$sql = "SELECT * FROM casa";// Consulta SQL para obtener todos los registros de la tabla casa
 
-if($resultado && $resultado->num_rows > 0){
-    while($r = $resultado->fetch_assoc()):
+
+$stmt = $conexion->prepare($sql);// Prepara la consulta para su ejecución
+$stmt->execute();// Ejecuta la consulta preparada
+$resultado = $stmt->get_result();// Obtiene el resultado de la ejecución
+
+if($resultado && $resultado->num_rows > 0){// Verifica si hay resultados disponibles
+    while($r = $resultado->fetch_assoc()):// Recorre cada fila del resultado
 ?>
-
     <tr>
-   
-<td><?= $r['nombre'] ?></td>
+        <td><?= $r['nombre'] ?></td>
         <td><?= $r['calle'] ?></td>
         <td><?= $r['numero'] ?></td>
-       <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>"  class="btn btn-primary" >Actualizar</a></td>
+        <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>" class="btn btn-primary">Actualizar</a></td>
         <td><a href="eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>" class="btn btn-danger">Eliminar</a></td>
     </tr>
 <?php
+    // Finaliza el bucle while
     endwhile;
 }
+// Cierra la condición del if
 ?>
 

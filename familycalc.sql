@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-09-2025 a las 01:44:17
+-- Tiempo de generación: 30-09-2025 a las 00:12:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `casa`
 --
 
-CREATE database familycalc;
+create database familycalc;
 
 use familycalc;
 
@@ -52,29 +52,19 @@ INSERT INTO `casa` (`id_casa`, `nombre`, `calle`, `numero`, `localidad`, `provin
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estados`
---
-
-CREATE TABLE `estados` (
-  `id_estados` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `movimientos`
 --
 
 CREATE TABLE `movimientos` (
   `id_movimientos` int(11) NOT NULL,
-  `inporte` int(11) DEFAULT NULL,
+  `importe` int(11) DEFAULT NULL,
   `fecha_ingreso` date DEFAULT NULL,
   `id_casa` int(11) DEFAULT NULL,
-  `id_estados` int(11) DEFAULT NULL,
   `id_persona` int(11) DEFAULT NULL,
-  `id_servicios` int(11) DEFAULT NULL,
-  `id_usuarios` int(11) DEFAULT NULL
+  `id_usuarios` int(11) DEFAULT NULL,
+  `estados` varchar(50) NOT NULL,
+  `servicios` varchar(50) NOT NULL,
+  `tipo_de_gastos` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,17 +93,6 @@ INSERT INTO `persona` (`id_persona`, `id_casa`, `nombre`, `apellido`, `sexo`) VA
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `servicios`
---
-
-CREATE TABLE `servicios` (
-  `id_servicios` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -137,20 +116,12 @@ ALTER TABLE `casa`
   ADD KEY `fk_id_usuarios` (`id_usuarios`);
 
 --
--- Indices de la tabla `estados`
---
-ALTER TABLE `estados`
-  ADD PRIMARY KEY (`id_estados`);
-
---
 -- Indices de la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
   ADD PRIMARY KEY (`id_movimientos`),
   ADD KEY `id_casa` (`id_casa`),
-  ADD KEY `id_estados` (`id_estados`),
   ADD KEY `id_persona` (`id_persona`),
-  ADD KEY `id_servicios` (`id_servicios`),
   ADD KEY `id_usuarios` (`id_usuarios`);
 
 --
@@ -159,12 +130,6 @@ ALTER TABLE `movimientos`
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`id_persona`),
   ADD KEY `id_casa` (`id_casa`);
-
---
--- Indices de la tabla `servicios`
---
-ALTER TABLE `servicios`
-  ADD PRIMARY KEY (`id_servicios`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -181,12 +146,6 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `casa`
   MODIFY `id_casa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de la tabla `estados`
---
-ALTER TABLE `estados`
-  MODIFY `id_estados` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `movimientos`
@@ -221,9 +180,7 @@ ALTER TABLE `casa`
 --
 ALTER TABLE `movimientos`
   ADD CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`id_casa`) REFERENCES `casa` (`id_casa`),
-  ADD CONSTRAINT `movimientos_ibfk_2` FOREIGN KEY (`id_estados`) REFERENCES `estados` (`id_estados`),
   ADD CONSTRAINT `movimientos_ibfk_3` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`),
-  ADD CONSTRAINT `movimientos_ibfk_4` FOREIGN KEY (`id_servicios`) REFERENCES `servicios` (`id_servicios`),
   ADD CONSTRAINT `movimientos_ibfk_5` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id_usuarios`);
 
 --

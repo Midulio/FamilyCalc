@@ -39,11 +39,10 @@ include ("../../conexion.php");
             <div class="offcanvas-body interiorMenu">
                 <div class="explorar"> <h4>EXPLORAR</h4>
                     <a href="../../index.html"><img src="../../src/house.svg">Inicio</a>
-                    <a href="../../views/gastos/gastos.html"><img src="../../src/bank.svg">Gastos</a>
                     <a href="#"><img src="../../src/chart-line.svg">Estadísticas de gastos</a>
                     <a href="../../views/personas/create.php"><img src="../../src/users.svg">Personas</a>
                     <a href="../../views/Impuestos_valores/imp_val.html"><img src="../../src/percent.svg">Valores de las monedas</a>
-                    <a href="#"><img src="../../src/receipt.svg">Resumen de gastos</a>
+                    <a href="../../views/movimientos/index_movimientos.php"><img src="../../src/receipt.svg">Resumen de gastos</a>
                 </div>
                 <div class="container-fluid d-flex justify-content-between contactos-box position-absolute bottom-0 start-50 translate-middle-x">
                     <a class="contactos" href="#"><img class="position-absolute top-50 start-50 translate-middle" src="../../src/facebook-logo.svg"></a>

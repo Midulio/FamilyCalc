@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2025 a las 00:12:35
+-- Tiempo de generación: 08-10-2025 a las 00:24:53
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -27,10 +27,6 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `casa`
 --
 
-create database familycalc;
-
-use familycalc;
-
 CREATE TABLE `casa` (
   `id_casa` int(11) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
@@ -46,7 +42,6 @@ CREATE TABLE `casa` (
 --
 
 INSERT INTO `casa` (`id_casa`, `nombre`, `calle`, `numero`, `localidad`, `provincia`, `id_usuarios`) VALUES
-(9, 'Gil', '122', 1444, 'launus', 'buenos aires', NULL),
 (10, 'Arce', '333', 444, 'launus', 'buenos aires', NULL);
 
 -- --------------------------------------------------------
@@ -86,9 +81,7 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`id_persona`, `id_casa`, `nombre`, `apellido`, `sexo`) VALUES
-(2, 9, 'facundo', 'arce', ''),
-(5, 10, 'Joaquin', 'Gil', ''),
-(6, 10, 'tizi', 'midulia ', 'Femenino');
+(5, 10, 'Joaquin', 'Gil', '');
 
 -- --------------------------------------------------------
 
@@ -151,7 +144,7 @@ ALTER TABLE `casa`
 -- AUTO_INCREMENT de la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
-  MODIFY `id_movimientos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_movimientos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
@@ -187,7 +180,7 @@ ALTER TABLE `movimientos`
 -- Filtros para la tabla `persona`
 --
 ALTER TABLE `persona`
-  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`id_casa`) REFERENCES `casa` (`id_casa`);
+  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`id_casa`) REFERENCES `casa` (`id_casa`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

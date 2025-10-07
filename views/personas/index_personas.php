@@ -58,8 +58,10 @@ include ("../../conexion.php");
             </div>
             <a href="../../index.html" class="logo"><h1 class="mb-1 fs-2"> <span class="family">Family</span><span class="calc">Calc</span>  </h1></a>
             <div>
+                <a href="create.php" class="btn btn-primary">Agregar persona</a> 
                 <a href="../../views/chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
                 <a href="../../views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="../../src/user-circle.svg"></a>
+             
             </div>
         </div>
     </nav>
@@ -72,6 +74,7 @@ include ("../../conexion.php");
             <td>Apellido</td>
             <td>Sexo</td>
         </tr>
+         
     <?php
 // Consulta SQL para obtener personas con su casa relacionada
 $sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo, id_persona 

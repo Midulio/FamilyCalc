@@ -57,6 +57,7 @@ include ("../../conexion.php");
             </div>
             <a href="../../index.html" class="logo"><h1 class="mb-1 fs-2"> <span class="family">Family</span><span class="calc">Calc</span>  </h1></a>
             <div>
+               <a href="create.php" class="btn btn-primary">Agregar Movimiento</a> 
                 <a href="../../views/chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
                 <a href="../../views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="../../src/user-circle.svg"></a>
             </div>

@@ -20,7 +20,7 @@ if (
  $stmt->bind_param("isssi", $casa, $nombre, $apellido, $sexo, $id);
 
     if ($stmt->execute()) {
-        header("Location: index_personas.php");
+        header("Location: ../index_casa.php");
         exit;
     } else {
         echo "Error al actualizar la casa.";

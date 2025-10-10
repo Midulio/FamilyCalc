@@ -42,10 +42,9 @@ include ("../../conexion.php");
             <div class="offcanvas-body interiorMenu">
                 <div class="explorar"> <h4>EXPLORAR</h4>
                     <a href="../../index.html"><img src="../../src/house.svg">Inicio</a>
-                    <a href="../gastos/gastos.html"><img src="../../src/bank.svg">Gastos</a>
-                    <a href="#"><img src="../../src/chart-line.svg">Estadísticas de gastos</a>
-                    <a href="../personas/create.php"><img src="../../src/users.svg">Personas</a>
+                    <a href="../casas/index_casa.php"><img src="../../src/users.svg">Personas</a>
                     <a href="../Impuestos_valores/imp_val.html"><img src="../../src/percent.svg">Valores</a>
+                    <a href="#"><img src="../../src/chart-line.svg">Estadísticas de gastos</a>
                 </div>
                 <div class="container-fluid d-flex justify-content-between contactos-box position-absolute bottom-0 start-50 translate-middle-x">
                     <a class="contactos" href="#"><img class="" src="../../src/facebook-logo.svg"></a>
@@ -57,6 +56,7 @@ include ("../../conexion.php");
             </div>
             <a href="../../index.html" class="logo"><h1 class="mb-1 fs-2"> <span class="family">Family</span><span class="calc">Calc</span>  </h1></a>
             <div>
+               <a href="create.php" class="btn btn-primary">Agregar Movimiento</a> 
                 <a href="../../views/chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
                 <a href="../../views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="../../src/user-circle.svg"></a>
             </div>
@@ -78,6 +78,7 @@ include ("../../conexion.php");
                 <th>Acciones</th>
             </tr>
         <?php
+        // Definición de la consulta SQL para obtener datos de movimientos junto con casa y persona
         $sql = "SELECT m.id_movimientos AS id_movimiento, 
                        c.nombre AS nombre_casa, 
                        p.nombre AS nombre_persona, p.apellido, 
@@ -87,15 +88,15 @@ include ("../../conexion.php");
                 INNER JOIN persona AS p ON m.id_persona = p.id_persona
                 ORDER BY m.fecha_ingreso DESC";
 
-        $stmt = $conexion->prepare($sql);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
+        
+        $stmt = $conexion->prepare($sql);// Prepara la consulta SQL para ejecutarla de forma segura
+        $stmt->execute(); // Ejecuta la consulta preparada
+        $resultado = $stmt->get_result(); // Obtiene el resultado de la ejecución de la consulta
+        $totalImporte = 0; // Inicializa un acumulador para sumar los importes
 
-        $totalImporte = 0; // acumulador
-
-        if($resultado && $resultado->num_rows > 0){
-            while($r = $resultado->fetch_assoc()):
-                $totalImporte += $r['importe']; // sumo cada importe
+        if($resultado && $resultado->num_rows > 0){// Verifica si hay resultados en la consulta
+            while($r = $resultado->fetch_assoc()):// Recorre cada fila obtenida de la base de datos
+                $totalImporte += $r['importe']; // Suma el importe actual al total acumulado
         ?>
             <tr>
                 <td><?= $r['nombre_casa'] ?></td>
@@ -111,10 +112,11 @@ include ("../../conexion.php");
                 </td>
             </tr>
         <?php
+            // Finaliza el bucle while
             endwhile;
+        // Cierra la condición del if
         }
         ?>
-            <!-- Fila de total -->
             <tr class="table-dark fw-bold">
                 <td colspan="2" class="text-end">TOTAL</td>
                 <td>$<?= number_format($totalImporte, 2, ',', '.') ?></td>

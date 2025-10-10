@@ -183,8 +183,8 @@ nav{
 
 .table tr td img{
     padding: .15rem;
-    height: 5dvh;
-    width: 5dvh;
+    height: 4dvh;
+    width: 4dvh;
 }
 
 @media screen and (max-width:649px) {
@@ -239,7 +239,7 @@ nav{
     -webkit-backdrop-filter: blur(0.9rem);
     border-radius: 10px;
     }
-    
+
 }
 @media screen and (min-width:650px) and (max-width:1279px) {
     .menu img{

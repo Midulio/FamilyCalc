@@ -42,10 +42,9 @@ include ("../../conexion.php");
             <div class="offcanvas-body interiorMenu">
                 <div class="explorar"> <h4>EXPLORAR</h4>
                     <a href="../../index.html"><img src="../../src/house.svg">Inicio</a>
-                    <a href="../gastos/gastos.html"><img src="../../src/bank.svg">Gastos</a>
-                    <a href="#"><img src="../../src/chart-line.svg">Estadísticas de gastos</a>
-                    <a href="../personas/create.php"><img src="../../src/users.svg">Personas</a>
+                    <a href="../casas/index_casa.php"><img src="../../src/users.svg">Personas</a>
                     <a href="../Impuestos_valores/imp_val.html"><img src="../../src/percent.svg">Valores</a>
+                    <a href="#"><img src="../../src/chart-line.svg">Estadísticas de gastos</a>
                 </div>
                 <div class="container-fluid d-flex justify-content-between contactos-box position-absolute bottom-0 start-50 translate-middle-x">
                     <a class="contactos" href="#"><img class="" src="../../src/facebook-logo.svg"></a>

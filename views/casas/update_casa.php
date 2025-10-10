@@ -25,10 +25,12 @@ if (isset($_GET['upd'])) {
     <meta charset="UTF-8">
     <title>Actualizar Casa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="personas/update.css">
+
 </head>
 <body class="bg-light">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="container my-5">
     <div class="card shadow-sm mx-auto" style="max-width: 600px;">
         <div class="card-header text-center bg-primary text-white">
@@ -63,8 +65,9 @@ if (isset($_GET['upd'])) {
                     <input type="text" name="provincia" id="provincia" class="form-control" placeholder="Provincia" value="<?= $datos['provincia'] ?>" required>
                 </div>
 
-                <div class="d-grid">
+                <div class="d-row">
                     <button type="submit" class="btn btn-success btn-lg">Actualizar</button>
+                    <a href="index_casa.php" class="btn btn-danger btn-lg"><img src="fotos/volver-flecha.png" alt="Volver"></a>
                 </div>
             </form>
         </div>

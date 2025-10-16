@@ -30,6 +30,7 @@ if (isset($_GET['upd'])) {
     <meta charset="UTF-8">
     <title>Actualizar Persona</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="update.css">
 </head>
 <body class="bg-light">
 
@@ -74,8 +75,9 @@ if (isset($_GET['upd'])) {
                     </select>
                 </div>
 
-                <div class="d-grid">
+                <div class="d-row mx-auto">
                     <button type="submit" class="btn btn-success btn-lg">Actualizar</button>
+                    <a href="../index_casa.php" class="btn btn-danger btn-lg"><img src="../../../src/volver-flecha.png" alt="Volver"></a>
                 </div>
             </form>
         </div>

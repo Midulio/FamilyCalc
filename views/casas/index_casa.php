@@ -87,7 +87,7 @@ include ("../../conexion.php");
                                 <td><?= $r['nombre'] ?></td>
                                 <td><?= $r['calle'] ?></td>
                                 <td><?= $r['numero'] ?></td>
-                                <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>" class="btn btn-primary"><img src="fotos/casa.png"><a href="eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>" class="btn btn-danger"><img src="fotos/borrar.png"></a></a></td>
+                                <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>" class="btn btn-primary"><img src="fotos/actualizar.png"><a href="eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>" class="btn btn-danger"><img src="fotos/borrar.png"></a></a></td>
                             </tr>
                         <?php
                             // Finaliza el bucle while
@@ -128,7 +128,7 @@ include ("../../conexion.php");
                                 <td><?= $r['nombre_persona'] ?></td>
                                 <td><?= $r['apellido'] ?></td>
                                 <td><?= $r['sexo'] ?></td>
-                                <td><a href="personas/update_persona.php?upd=<?= $r['id_persona'] ?>" class="btn btn-primary"><img src="fotos/perfil.png"></a><a href="personas/eliminar_persona.php?id_persona=<?= $r['id_persona'] ?>" class="btn btn-danger"><img src="fotos/borrar.png"></a></td>
+                                <td><a href="personas/update_persona.php?upd=<?= $r['id_persona'] ?>" class="btn btn-primary"><img src="fotos/persona.png"></a><a href="personas/eliminar_persona.php?id_persona=<?= $r['id_persona'] ?>" class="btn btn-danger"><img src="fotos/borrar.png"></a></td>
                             </tr>
                         <?php
                             // Finaliza el bucle while

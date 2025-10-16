@@ -67,7 +67,7 @@ if (isset($_GET['upd'])) {
 
                 <div class="d-row">
                     <button type="submit" class="btn btn-success btn-lg">Actualizar</button>
-                    <a href="index_casa.php" class="btn btn-danger btn-lg"><img src="fotos/volver-flecha.png" alt="Volver"></a>
+                    <a href="index_casa.php" class="btn btn-danger btn-lg"><img src="../../src/volver-flecha.png" alt="Volver"></a>
                 </div>
             </form>
         </div>

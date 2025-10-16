@@ -56,7 +56,6 @@ include ("../../conexion.php");
             </div>
             <a href="../../index.html" class="logo"><h1 class="mb-1 fs-2"> <span class="family">Family</span><span class="calc">Calc</span>  </h1></a>
             <div>
-               <a href="create.php" class="btn btn-primary">Agregar Movimiento</a> 
                 <a href="../../views/chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
                 <a href="../../views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="../../src/user-circle.svg"></a>
             </div>
@@ -64,7 +63,7 @@ include ("../../conexion.php");
     </nav>
 
     <div class="container mt-4">
-        <h3 class="mb-4">Listado de Movimientos</h3>
+        <h2 class="mb-4">Listado de Movimientos</h3>
 
         <table class="table table-hover table-bordered">
             <tr class="table-secondary">
@@ -118,9 +117,9 @@ include ("../../conexion.php");
         }
         ?>
             <tr class="table-dark fw-bold">
-                <td colspan="2" class="text-end">TOTAL</td>
-                <td>$<?= number_format($totalImporte, 2, ',', '.') ?></td>
-                <td colspan="5"></td>
+                <td colspan="2" class="text-end"> TOTAL </td>
+                <td> $<?= number_format($totalImporte, 2, ',', '.') ?> </td>
+                <td colspan="5"> <a href="create.php" class="btn btn-primary text-end">Agregar Movimiento</a> </td>
             </tr>
         </table>
     </div>

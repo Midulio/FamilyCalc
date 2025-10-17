@@ -163,28 +163,33 @@ nav{
     margin-bottom: 1rem;
 }
 
-
-
 .menu:hover{
     background-color: rgb(144, 165, 223);
     border: none;
 }
 
-.formulario{
-    position: relative;
-    transform: translate(90%,5%);
-    width: 30rem;
-    height: 32rem;
-    background-color: white;
-    border-radius: 1rem;
+
+.container {
+  min-height: calc(100vh - 75px); /* Ajusta 100px según la altura real del navbar */
 }
 
-.formulario h1{
-    font-family: "Permanent Marker";
-    color:#CFD3F2;
+.formulario{
+    width: 30rem;
+    height: 32rem;
+    border-radius: 2rem;
+}
+
+.card-header{
+    border-top-left-radius: 2rem !important;
+    border-top-right-radius: 2rem !important;
+    background-color: #0061c9;
+}
+
+.formulario h2{
+    font-family: "Poppins";
+    font-weight: bold;
+    color:black;
     text-align: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(6, 71, 141, 0.322);
 }
 
 .formulario form{

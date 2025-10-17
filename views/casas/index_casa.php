@@ -70,7 +70,7 @@ include ("../../conexion.php");
                         <td>Nombre</td>
                         <td>Calle</td>
                         <td>Numero</td>
-                        <td><a href="create.html" class="btn btn-primary"><img src="fotos/agregar-casa.png" alt="Agregar Casa"></a></td>
+                        <td><a href="create.html" class="btn btn-success"><img src="fotos/agregar-casa.png" alt="Agregar Casa"></a></td>
                     </tr>
                     <?php
                         $sql = "SELECT * FROM casa";// Consulta SQL para obtener todos los registros de la tabla casa
@@ -87,7 +87,7 @@ include ("../../conexion.php");
                                 <td><?= $r['nombre'] ?></td>
                                 <td><?= $r['calle'] ?></td>
                                 <td><?= $r['numero'] ?></td>
-                                <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>" class="btn btn-primary"><img src="fotos/actualizar.png"><a href="eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>" class="btn btn-danger"><img src="fotos/borrar.png"></a></a></td>
+                                <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>" class="btn btn-primary"><img src="fotos/actualizar.png"><a href="eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>" class="btn btn-danger"><img src="fotos/borrar.png" alt="Borrar registro"></a></a></td>
                             </tr>
                         <?php
                             // Finaliza el bucle while
@@ -108,7 +108,7 @@ include ("../../conexion.php");
                         <td>Nombre</td>
                         <td>Apellido</td>
                         <td>Sexo</td>
-                        <td><a href="personas/create.php" class="btn btn-primary"><img src="fotos/agregar-usuario.png" alt="Agregar Persona"></a> </td>
+                        <td><a href="personas/create.php" class="btn btn-success"><img src="fotos/agregar-usuario.png" alt="Agregar Persona"></a> </td>
                     </tr>
                     <?php
                         // Consulta SQL para obtener personas con su casa relacionada

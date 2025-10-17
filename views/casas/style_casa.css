@@ -13,6 +13,7 @@
     --color-barra-navegacion-claro: #000616; /* Color de la barra de navegación */
     --color-box-claro: #031427ea; /* Color de los botones de la barra de navegación*/
     --valor-contenedor: #a0f4ff23;
+    --botones: #161616e1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,6 +27,7 @@
     --color-fondo-claro: #010016e8; /* Fondo más oscuro */
     --color-barra-navegacion-claro: #f3f3f3; /* Barra de navegación más oscura */
     --color-box-claro: #000000dc; /* Botones de la barra en oscuro */
+    --botones: #0000008c;
     }
 }
 
@@ -178,13 +180,18 @@ nav{
 
 .table tr td .btn{
     border-radius: 2.5dvh;
-    margin: auto .5rem;
+    margin: auto .2rem;
+    overflow: hidden;
 }
 
 .table tr td img{
-    padding: .15rem;
-    height: 4dvh;
-    width: 4dvh;
+    padding: .1rem;
+    height: 3.5dvh;
+    width: 3.5dvh;
+}
+
+td .btn{
+    background-color: var(--botones);
 }
 
 @media screen and (max-width:649px) {

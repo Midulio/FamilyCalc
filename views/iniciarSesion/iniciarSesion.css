@@ -18,6 +18,7 @@
     --color-texto-claro: #ffffff; /* Color de texto gastos */
     --botones: #161616e1;
     --texto-botones: #000616;
+    --fondo: url("../../src/pc-modo-claro.png");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,6 +38,7 @@
     --color-texto-claro: #ffffffee; /* Color de texto gastos */
     --botones: #0000008c;
     --texto-botones:#ffffff;
+    --fondo: url("../../src/pc-modo-oscuro.png");
     }
 }
 
@@ -44,6 +46,18 @@
 body{
     background-color: var(--color-fondo-claro);
 }
+
+/*
+.fondo{
+    width: 100%;
+    height: 100%;
+    background-image: var(--fondo);
+    background-repeat: no-repeat;
+    background-attachment:local;
+    background-size: contain;
+    background-position-y:center;
+}
+*/
 
 .glass{
     background: #2c2c2c40;
@@ -163,24 +177,28 @@ nav{
     margin-bottom: 1rem;
 }
 
-
-.formulario{
-    position: absolute;
-    transform: translate(90%,5%);
-    width: 30rem;
-    height: 32rem;
-    background-color: white;
-    border-radius: 1rem;
+.container {
+    min-height: calc(100vh - 75px); /* Ajusta 100px según la altura real del navbar */
 }
 
-.formulario h1{
-    font-family: "Permanent Marker";
-    color:white;
+.formulario{
+    width: 60%;
+    height: 32rem;
+    background-color: white;
+    border-radius: 2rem;
+}
+
+.card-header{
+    border-top-left-radius: 2rem !important;
+    border-top-right-radius: 2rem !important;
+    background-color: #0061c9;
+}
+
+.formulario h2{
+    font-family: "Poppins";
+    font-weight: bold;
+    color:black;
     text-align: center;
-    padding: 20px 0;
-    background-color: rgb(71, 103, 194);
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
 }
 
 .formulario form{
@@ -271,7 +289,6 @@ input[type="submit"]:hover{
     text-decoration: underline;
 }
 
-
 body::-webkit-scrollbar{
     width: 10px;
     background-color: rgb(51, 51, 51);
@@ -290,4 +307,156 @@ body::-webkit-scrollbar-thumb:hover{
     top: -5px;
     color: rgba(71, 104, 194, 0.61);
     font-size: 14px;
+}
+
+@media screen and (max-width:649px) {
+
+    .contactos-box{
+        margin-top: 22dvh;
+    }
+    
+    .family{
+        font-size: 2.8dvh;
+    }
+
+    .calc{
+        font-size: 3.2dvh;
+    }
+
+    .menu{
+    padding: 0.3dvh;
+    }
+
+    .menu img{
+        width: 3.9dvh;
+        width: 4.5dvh;
+    }
+
+    .interiorMenu{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 5.5dvh;
+    margin-left: 3dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 2.7dvh;
+        color: white;
+    }
+
+    .contactos{
+        background: rgba(0, 0, 0, 0.596);
+        backdrop-filter: blur(0.9rem);
+        -webkit-backdrop-filter: blur(0.9rem);
+        border-radius: 10px;
+    }
+}
+@media screen and (min-width:650px) and (max-width:1279px) {
+    .menu img{
+        width: 5dvh;
+    }
+
+    .interiorMenu{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 5.4dvh;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 4dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar a{
+    font-size: 2.1dvh;
+    color: white;
+    }
+
+    
+    .family{
+        font-size: 3.2dvh;
+    }
+
+    .calc{
+        font-size: 4dvh;
+    }
+
+    .contactos-box{
+    width: 4dvh;
+    }
+
+    .interiorMenu a{
+    font-size: 2dvh;
+    }
+
+    .contactos{
+    background: rgba(0, 0, 0, 0.596);
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 10px;
+    }
+
+    .contactos img{
+    transform: translate(-5%, -8%);
+    }
+}
+
+@media (orientation: landscape) and (max-height: 430px) {
+
+    .family{
+        font-size: 6dvh;
+    }
+
+    .calc{
+        font-size: 6.6dvh;
+    }
+
+    .menu img{
+        width: 10dvh;
+    }
+
+    .interiorMenu .explorar h4{
+    font-size: 10dvh;
+    margin-left: 5dvh;
+    color: white;
+    }
+
+    .interiorMenu .explorar img{
+    margin-right: 2dvh;
+    width: 13dvh;
+    background-color: rgba(0, 0, 0, 0.596);
+    }
+
+    .interiorMenu .explorar a{
+        font-size: 5dvh;
+        color: white;
+    }
+
+    .contactos{
+        height: 4rem;
+        width: 4rem;
+        background: rgba(0, 0, 0, 0.596);
+    }
+
+    .contactos img{
+        transform: translate(-45%, -15%);
+    }
 }

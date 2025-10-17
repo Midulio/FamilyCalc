@@ -57,23 +57,31 @@
                 </div>
             </div>
         </nav>
-    <div class="formulario">
-        <h1>Iniciar sesion</h1>
-        <form method="post" action="procesar_login.php">
-            <div class="username">
-                <input type="text" name="usuario" placeholder=" " requiered>
-                <label>Nombre de usuario</label>
-            </div>
-
-            <div class="username">
-                <input type="password" name="contraseña" placeholder=" " requiered>
-                <label>Contraseña</label>
-            </div>
-                <input type="submit" value="iniciar">
-                <div class="registrarse">
-                    Ya tiene cuenta?<a href="../registrarse/registrarse.html">Registrarse</a>
+        <div class="fondo">
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="card shadow-sm mx-auto formulario">
+                <div class="card-header text-center">
+                    <h2 class="my-auto">INICIAR SESIÓN</h2>
                 </div>
-        </form>
-    </div>
+                <div class="card-body">
+                    <form method="post" action="procesar_login.php">
+                        <div class="username">
+                            <input type="text" name="usuario" placeholder=" " requiered>
+                            <label>Nombre de usuario</label>
+                        </div>
+
+                        <div class="username">
+                            <input type="password" name="contraseña" placeholder=" " requiered>
+                            <label>Contraseña</label>
+                        </div>
+                        <input type="submit" value="Iniciar sesión">
+                        <div class="registrarse">
+                            ¿No tiene cuenta?<a href="../registrarse/registrarse.html"> Registrarse</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
 </body>
 </html>

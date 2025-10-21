@@ -31,7 +31,7 @@ body{
     --family: #111213;
     --calc: #25272e;
     --titulo: #e8e8ff;
-    --valor-contenedor: #ffffffb6;
+    --valor-contenedor: #ffffffe7;
     --sombra-valor-contenedor: #c7f9ff1e;
     --titulos-valores: #111111e7;
     --compra-venta: #181818e5;
@@ -146,6 +146,13 @@ h3{
     width: fit-content;
     height: fit-content;
     overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.scrollcontainerDerecha{
+    width: fit-content;
+    height: fit-content;
+    overflow-x: scroll;
     scroll-behavior: smooth;
 }
 
@@ -277,6 +284,12 @@ body{
     color: rgb(58, 58, 58);
     align-content: center;
     padding: 1rem;
+}
+
+.logoServices{
+    height: 12dvh;
+    width: 12dvh;
+    border-radius: .5cm;
 }
 
 .dark .dark\:text-gray-400 {

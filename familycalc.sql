@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-10-2025 a las 00:24:53
+-- Tiempo de generación: 22-10-2025 a las 20:24:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `casa` (
 --
 
 INSERT INTO `casa` (`id_casa`, `nombre`, `calle`, `numero`, `localidad`, `provincia`, `id_usuarios`) VALUES
-(10, 'Arce', '333', 444, 'launus', 'buenos aires', NULL);
+(10, 'Grypinski', '333', 444, 'launus', 'buenos aires', NULL);
 
 -- --------------------------------------------------------
 
@@ -56,11 +56,17 @@ CREATE TABLE `movimientos` (
   `fecha_ingreso` date DEFAULT NULL,
   `id_casa` int(11) DEFAULT NULL,
   `id_persona` int(11) DEFAULT NULL,
-  `id_usuarios` int(11) DEFAULT NULL,
-  `estados` varchar(50) NOT NULL,
-  `servicios` varchar(50) NOT NULL,
-  `tipo_de_gastos` varchar(50) NOT NULL
+  `estados` varchar(100) DEFAULT NULL,
+  `servicios` varchar(100) DEFAULT NULL,
+  `tipo_de_gastos` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `movimientos`
+--
+
+INSERT INTO `movimientos` (`id_movimientos`, `importe`, `fecha_ingreso`, `id_casa`, `id_persona`, `estados`, `servicios`, `tipo_de_gastos`) VALUES
+(4, 1001, '2025-10-17', 10, 6, 'pendiente', 'Luz', 'Variable');
 
 -- --------------------------------------------------------
 
@@ -81,7 +87,9 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`id_persona`, `id_casa`, `nombre`, `apellido`, `sexo`) VALUES
-(5, 10, 'Joaquin', 'Gil', '');
+(6, 10, 'tizi', 'AAAA', 'Femenino'),
+(7, 10, 'viky', 'aaaaaaa', 'Otro'),
+(8, 10, 'nico', 'aaaa', 'Masculino');
 
 -- --------------------------------------------------------
 
@@ -113,9 +121,10 @@ ALTER TABLE `casa`
 --
 ALTER TABLE `movimientos`
   ADD PRIMARY KEY (`id_movimientos`),
+  ADD UNIQUE KEY `id_movimientos` (`id_movimientos`),
+  ADD UNIQUE KEY `id_movimientos_2` (`id_movimientos`),
   ADD KEY `id_casa` (`id_casa`),
-  ADD KEY `id_persona` (`id_persona`),
-  ADD KEY `id_usuarios` (`id_usuarios`);
+  ADD KEY `id_persona` (`id_persona`);
 
 --
 -- Indices de la tabla `persona`
@@ -144,13 +153,13 @@ ALTER TABLE `casa`
 -- AUTO_INCREMENT de la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
-  MODIFY `id_movimientos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_movimientos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -172,9 +181,8 @@ ALTER TABLE `casa`
 -- Filtros para la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
-  ADD CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`id_casa`) REFERENCES `casa` (`id_casa`),
-  ADD CONSTRAINT `movimientos_ibfk_3` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`),
-  ADD CONSTRAINT `movimientos_ibfk_5` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id_usuarios`);
+  ADD CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`id_casa`) REFERENCES `casa` (`id_casa`) ON DELETE CASCADE,
+  ADD CONSTRAINT `movimientos_ibfk_3` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`);
 
 --
 -- Filtros para la tabla `persona`

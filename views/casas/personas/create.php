@@ -17,8 +17,13 @@ $resultado = $conexion->query($sql);
 </head>
 <body>
 
-<form action="Registrar_personas.php" method="post">
-
+<div class="container my-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-header text-center bg-primary text-white">
+            <h2>Agregar PERSONA</h2>
+        </div>
+        <div class="card-body">
+        <form action="Registrar_personas.php" method="post">
     <div class="mb-3">
         <label for="casa" class="form-label ">Seleccionar Casa</label>
         <select name="id_casa" id="casa" class="form-select w-25" required>
@@ -57,10 +62,16 @@ $resultado = $conexion->query($sql);
 
       
 </div>
-
-    <button type="submit" class="btn btn-primary">Registrar Persona</button>
-     <a href="../index_casa.php" class="btn btn-secondary">Casas</a> 
+    <div class="d-row">
+        <button type="submit" class="btn btn-success">Registrar Persona</button>
+        <a href="../index_casa.php" class="btn btn-danger">Casas</a> 
+    </div>
 </form>
+        </div>
+    </div>
+</div>
+
+
 
 </body>
 </html>

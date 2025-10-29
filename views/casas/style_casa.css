@@ -14,6 +14,8 @@
     --color-box-claro: #031427ea; /* Color de los botones de la barra de navegación*/
     --valor-contenedor: #a0f4ff23;
     --botones: #161616e1;
+    --encabezado-form: #030032c7;
+    --fondo-titulos: #f2f1ff96;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,6 +30,8 @@
     --color-barra-navegacion-claro: #f3f3f3; /* Barra de navegación más oscura */
     --color-box-claro: #000000dc; /* Botones de la barra en oscuro */
     --botones: #0000008c;
+    --encabezado-form: #070532;
+    --fondo-titulos: #eceaff;
     }
 }
 
@@ -210,12 +214,35 @@ nav{
     margin-bottom: 1rem;
 }
 
+.row h2{
+    font-size: 2.5dvh;
+    display: inline-block;
+    font-family: "Quicksand";
+    font-weight: bold;
+    background-color: var(--fondo-titulos);
+    border-radius: 30px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.129);
+}
+
+.card-header{
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    background-color: var(--encabezado-form);
+    font-family: "Quicksand";
+    font-weight: bold;
+}
+
+.card{
+    border-radius: 1.5rem;
+}
+
 .tables-container{
     background-color: white;
     border-radius: .5cm;
     padding: 2rem;
     align-content: center;
     overflow-x: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.199);
 }
 
 .table{
@@ -242,11 +269,12 @@ td .btn{
     background-color: var(--botones);
 }
 
-.d-row button.btn-success{
-    font-size: 20px;
+.row.envios button.btn{
+    font-size: 2.5dvh;
+    letter-spacing: 1px;
 }
 
-.d-row button.btn img{
+.row.envios button.btn img{
     width: 30px;
     height: 30px;
 }
@@ -304,6 +332,13 @@ td .btn{
     border-radius: 10px;
     }
 
+.row.envios button.btn{
+    padding: 0;
+}
+.row.envios button.btn img{
+    width: 25px;
+    height: 30px;
+}
 }
 @media screen and (min-width:650px) and (max-width:1279px) {
     .menu img{

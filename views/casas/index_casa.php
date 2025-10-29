@@ -64,7 +64,8 @@ include ("../../conexion.php");
     </nav>
     <div class="row">
             <div class="text-center col-12 col-md-6">
-                <div class="tables-container my-5">
+      <h2 class="my-3 p-3"> CASA/S </h2>
+                <div class="tables-container">
                     <table class="table table-hover mx-auto">
                     <thead>
                     <tr>
@@ -90,7 +91,7 @@ include ("../../conexion.php");
                                 <td><?= $r['nombre'] ?></td>
                                 <td><?= $r['calle'] ?></td>
                                 <td><?= $r['numero'] ?></td>
-                                <td><a href="update_casa.php?upd=<?= $r['id_casa'] ?>" class="btn btn-primary"><img src="fotos/actualizar.png"><a href="eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>" class="btn btn-danger"><img src="fotos/borrar.png" alt="Borrar registro"></a></a></td>
+                                <td><button class="btn btn-primary btnActualizarCasa" data-id="<?= $r['id_casa'] ?>"><img src="fotos/actualizar.png" alt="Actualizar"></button><button class="btn btn-danger" onclick="abrirModalConfirmacion('eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>', 'la casa')"><img src="fotos/borrar.png" alt="Borrar registro"></button></td>
                             </tr>
                         <?php
                             // Finaliza el bucle while
@@ -103,10 +104,12 @@ include ("../../conexion.php");
                 </div>
             </div>
 
-
+          
             <div class="text-center col-12 col-md-6">
-                <div class="tables-container my-5">
+              <h2 class="my-3 p-3"> PERSONA/S </h2>
+                <div class="tables-container">
                     <table class="table table-hover mx-auto">
+                    <thead>
                     <tr>
                         <td>Casa</td>
                         <td>Nombre</td>
@@ -114,6 +117,8 @@ include ("../../conexion.php");
                         <td class="d-none d-md-table-cell">Sexo</td>
                         <td><button id="abrirModalPersona" class="btn btn-success"><img src="fotos/agregar-usuario.png" alt="Agregar Persona"></button></td>
                     </tr>
+                    </thead>
+                    <tbody>
                     <?php
                         // Consulta SQL para obtener personas con su casa relacionada
                         $sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo, id_persona 
@@ -131,8 +136,8 @@ include ("../../conexion.php");
                                 <td><?= $r['nombre_casa'] ?></td>
                                 <td><?= $r['nombre_persona'] ?></td>
                                 <td><?= $r['apellido'] ?></td>
-                                <td><?= $r['sexo'] ?></td>
-                                <td><a href="personas/update_persona.php?upd=<?= $r['id_persona'] ?>" class="btn btn-primary"><img src="fotos/persona.png"></a><a href="personas/eliminar_persona.php?id_persona=<?= $r['id_persona'] ?>" class="btn btn-danger"><img src="fotos/borrar.png"></a></td>
+                                <td class="d-none d-md-table-cell"><?= $r['sexo'] ?></td>
+                                <td><a href="#" class="btn btn-primary btnActualizarPersona" data-id="<?= $r['id_persona'] ?>"><img src="fotos/persona.png"></a><button class="btn btn-danger" onclick="abrirModalConfirmacion('personas/eliminar_persona.php?id_persona=<?= $r['id_persona'] ?>', 'la persona')"><img src="fotos/borrar.png"></button></td>
                             </tr>
                         <?php
                             // Finaliza el bucle while
@@ -140,6 +145,7 @@ include ("../../conexion.php");
                         }
                         // Cierra la condición del if
                     ?>
+                    </tbody>
                     </table>
                 </div>
             </div>
@@ -148,9 +154,9 @@ include ("../../conexion.php");
 
     <div id="modalOverlay" class="overlay"></div>
 
-      <div id="modalForm" class="modal-form" style="width: 50%;">
-    <div class="card shadow-sm mx-auto">
-        <div class="card-header text-center bg-primary text-white">
+      <div id="modalForm" class="modal-form w-75">
+    <div class="card mx-auto">
+        <div class="card-header text-center text-white">
             <h2>Agregar CASA</h2>
         </div>
         <div class="card-body">
@@ -180,27 +186,74 @@ include ("../../conexion.php");
     <input type="text" class="form-control" id="Provincia" name="Provincia" required>
   </div>
 
-  <div class="d-row">
-    <button class="btn btn-success col-10" type="submit">Agregar Casa</button>
-    <a href="index_casa.php" class="btn btn-danger col-1"><img src="../../src/volver-flecha.png" alt="volver"></a> 
+  <div class="row envios justify-content-center">
+    <button class="btn btn-success col-9" type="submit">Agregar Casa</button>
+    <a href="index_casa.php" class="btn btn-danger col-2"><img src="../../src/volver-flecha.png" alt="volver"></a> 
   </div>
 </form>
         </div>
     </div>
 </div>
 
+<div id="modalOverlayActualizar" class="overlay"></div>
+
+<div id="modalActualizarCasa" class="modal-form w-75">
+  <div class="card mx-auto">
+    <div class="card-header text-center text-white">
+      <h2>Actualizar CASA</h2>
+    </div>
+    <div class="card-body">
+      <form id="formActualizarCasa" method="post">
+        <input type="hidden" name="id_casa" id="upd_id_casa">
+
+        <div class="mb-3">
+          <label for="upd_nombre" class="form-label">Nombre</label>
+          <input type="text" name="nombre" id="upd_nombre" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="upd_calle" class="form-label">Calle</label>
+          <input type="text" name="calle" id="upd_calle" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="upd_numero" class="form-label">Número</label>
+          <input type="number" name="numero" id="upd_numero" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="upd_localidad" class="form-label">Localidad</label>
+          <input type="text" name="localidad" id="upd_localidad" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="upd_provincia" class="form-label">Provincia</label>
+          <input type="text" name="provincia" id="upd_provincia" class="form-control" required>
+        </div>
+
+        <div class="row envios justify-content-center">
+          <button type="submit" class="btn btn-success col-9">Actualizar Casa</button>
+          <button type="button" id="cerrarModalActualizar" class="btn btn-danger col-2">
+            <img src="../../src/volver-flecha.png" alt="Volver">
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div id="modalOverlay2" class="overlay"></div>
 
-<div id="modalPersona" class="modal-form" style="width: 50%;">
-  <div class="card shadow-sm mx-auto">
-    <div class="card-header text-center bg-primary text-white">
+<div id="modalPersona" class="modal-form w-75">
+  <div class="card mx-auto">
+    <div class="card-header text-center text-white">
       <h2>Agregar PERSONA</h2>
     </div>
     <div class="card-body">
       <form id="formPersona" method="post">
         <div class="mb-3">
           <label for="casa" class="form-label">Seleccionar Casa</label>
-          <select name="id_casa" id="casa" class="form-select w-50 mx-auto" required>
+          <select name="id_casa" id="casa" class="form-select" required>
             <option value="" disabled selected>-- Elegí una casa --</option>
             <?php
               // Consulta para llenar el select de casas
@@ -230,7 +283,7 @@ include ("../../conexion.php");
 
         <div class="mb-3">
           <label for="sexo" class="form-label">Sexo</label>
-          <select name="sexo" id="sexo" class="form-select w-50 mx-auto" required>
+          <select name="sexo" id="sexo" class="form-select" required>
             <option value="" disabled selected>-- Selecciona su sexo --</option>
             <option value="Masculino">Masculino</option>
             <option value="Femenino">Femenino</option>
@@ -238,167 +291,414 @@ include ("../../conexion.php");
           </select>
         </div>
 
-        <div class="d-row">
-          <button type="submit" class="btn btn-success col-10">Registrar Persona</button>
-          <button type="button" id="cerrarModalPersona" class="btn btn-danger col-1"><img src="../../src/volver-flecha.png" alt="volver"></button>
+        <div class="row envios justify-content-center">
+          <button type="submit" class="btn btn-success col-9">Registrar Persona</button>
+          <button type="button" id="cerrarModalPersona" class="btn btn-danger col-2"><img src="../../src/volver-flecha.png" alt="volver"></button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
+<div id="modalOverlayActualizarPersona" class="overlay"></div>
+
+<div id="modalActualizarPersona" class="modal-form w-75">
+  <div class="card mx-auto">
+    <div class="card-header text-center text-white">
+      <h2>Actualizar PERSONA</h2>
+    </div>
+    <div class="card-body">
+      <form id="formActualizarPersona" method="post">
+        <input type="hidden" name="id_persona" id="upd_id_persona_form"> <div class="mb-3">
+          <label for="upd_id_casa_persona" class="form-label">Casa</label>
+          <select name="id_casa" id="upd_id_casa_persona" class="form-select" required>
+            <option value="" disabled selected>-- Cargando casas --</option>
+            <?php
+              // Reutilizamos la lógica de casas para llenar el select inicialmente
+              $query_casas = "SELECT id_casa, nombre FROM casa";
+              $resultado_casas = $conexion->query($query_casas);
+
+              if ($resultado_casas && $resultado_casas->num_rows > 0) {
+                while ($row = $resultado_casas->fetch_assoc()) {
+                  echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre']) . '</option>';
+                }
+              }
+            ?>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="upd_nombre_persona" class="form-label">Nombre</label>
+          <input type="text" name="nombre" id="upd_nombre_persona" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="upd_apellido_persona" class="form-label">Apellido</label>
+          <input type="text" name="apellido" id="upd_apellido_persona" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="upd_sexo_persona" class="form-label">Sexo</label>
+          <select name="sexo" id="upd_sexo_persona" class="form-select" required>
+            <option value="" disabled selected>-- Selecciona sexo --</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="row envios justify-content-center">
+          <button type="submit" class="btn btn-success col-9">Actualizar Persona</button>
+          <button type="button" id="cerrarModalActualizarPersona" class="btn btn-danger col-2">
+            <img src="../../src/volver-flecha.png" alt="Volver">
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="modalOverlayConfirmacion" class="overlay"></div>
+<div id="modalConfirmarEliminacion" class="modal-form w-75" style="text-align: center;">
+    <div class="card shadow-lg mx-auto border-danger">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">⚠️ Confirmar Eliminación ⚠️</h5>
+        </div>
+        <div class="card-body">
+            <p id="mensajeConfirmacion" class="mb-4 lead">¿Estás seguro de que quieres eliminar este registro de forma permanente?</p>
+            <div class="d-flex justify-content-around">
+                <a id="btnEliminarConfirmado" href="#" class="btn btn-danger btn-lg flex-fill me-2">Eliminar</a>
+                <button type="button" id="btnCancelarEliminacion" class="btn btn-secondary btn-lg flex-fill ms-2">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="toastMessage" class="toast-message"></div>
 
 <script>
-  // --- MODALES ---
-  const abrirModal = document.getElementById("abrirModal");
-  const modalCasa = document.getElementById("modalForm");
 
-  const abrirModalPersona = document.getElementById("abrirModalPersona");
-  const modalPersona = document.getElementById("modalPersona");
-  const cerrarModalPersona = document.getElementById("cerrarModalPersona");
+// =======================================================
+// === 0. VARIABLES Y HELPERS ============================
+// =======================================================
 
-  const overlay = document.getElementById("modalOverlay");
-  const toastElement = document.getElementById("toastMessage"); // <-- NUEVO: Referencia al toast
+// --- Referencias de Elementos Principales ---
+const toastElement = document.getElementById("toastMessage");
+const overlayGlobal = document.getElementById("modalOverlay"); // Overlay para agregar Casa/Persona
 
-  // Función para mostrar el toast temporalmente
-  function showToast(message, tipo = 'success', tiempoMs = 10000) { // 10000ms = 10 segundos por defecto
-    toastElement.textContent = message;
-    
-    // Opcional: ajustar el color según el tipo (éxito o error)
-    if (tipo === 'success') {
-        toastElement.style.backgroundColor = '#4CAF50'; // Verde para éxito
-    } else {
-        toastElement.style.backgroundColor = '#f44336'; // Rojo para error
-    }
+// --- Modales Agregar ---
+const modalAgregarCasa = document.getElementById("modalForm");
+const modalAgregarPersona = document.getElementById("modalPersona");
+const formAgregarCasa = document.getElementById("formCasa");
+const formAgregarPersona = document.getElementById("formPersona");
 
-    toastElement.classList.add("show"); // Muestra el toast
-    
-    // Temporizador para ocultar el toast
-    setTimeout(() => {
-      toastElement.classList.remove("show"); // Oculta el toast
-    }, tiempoMs);
-  }
+// --- Modales Actualizar Casa ---
+const modalActualizarCasa = document.getElementById("modalActualizarCasa");
+const overlayActualizarCasa = document.getElementById("modalOverlayActualizar");
+const formActualizarCasa = document.getElementById("formActualizarCasa");
 
-  // --- Abrir modal CASA ---
-  abrirModal.addEventListener("click", () => {
-    modalCasa.style.display = "block";
-    overlay.style.display = "block";
-  });
+// --- Modales Actualizar Persona ---
+const modalActualizarPersona = document.getElementById("modalActualizarPersona");
+const overlayActualizarPersona = document.getElementById("modalOverlayActualizarPersona");
+const formActualizarPersona = document.getElementById("formActualizarPersona");
 
-  // --- Abrir modal PERSONA ---
-  abrirModalPersona.addEventListener("click", () => {
-    modalPersona.style.display = "block";
-    overlay.style.display = "block";
-  });
+// --- Nuevo Modal de Confirmación ---
+const modalConfirmacion = document.getElementById("modalConfirmarEliminacion");
+const overlayConfirmacion = document.getElementById("modalOverlayConfirmacion");
+const btnEliminarConfirmado = document.getElementById("btnEliminarConfirmado");
+const btnCancelarEliminacion = document.getElementById("btnCancelarEliminacion");
+const mensajeConfirmacion = document.getElementById("mensajeConfirmacion");
 
-  // --- Cerrar modales ---
-  cerrarModalPersona.addEventListener("click", () => {
-    modalPersona.style.display = "none";
-    overlay.style.display = "none";
-  });
+// --- Constante de Retardo para Recarga ---
+const RELOAD_DELAY_MS = 1000; // 1 segundo
 
-  overlay.addEventListener("click", () => {
-    modalCasa.style.display = "none";
-    modalPersona.style.display = "none";
-    overlay.style.display = "none";
-  });
 
-  // --- FORMULARIO CASA ---
-  const formCasa = document.getElementById("formCasa");
+/**
+ * Muestra el mensaje de notificación (toast).
+ * @param {string} message - Mensaje a mostrar.
+ * @param {('success'|'error')} tipo - Tipo de mensaje para el color.
+ * @param {number} [tiempoMs=10000] - Duración del toast.
+ */
+function showToast(message, tipo = 'success', tiempoMs = 10000) {
+    toastElement.textContent = message;
+    toastElement.style.backgroundColor = (tipo === 'success') ? '#4CAF50' : '#f44336';
+    toastElement.classList.add("show");
+   
+    setTimeout(() => {
+        toastElement.classList.remove("show");
+    }, tiempoMs);
+}
 
-  formCasa.addEventListener("submit", async (e) => {
-    e.preventDefault();
+/**
+ * Recarga la página después de un breve retraso.
+ */
+function reloadPageAfterDelay() {
+    setTimeout(() => {
+        window.location.reload();
+    }, RELOAD_DELAY_MS);
+}
 
-    const formData = new FormData(formCasa);
 
-    try {
-      const response = await fetch("Registrar_casa.php", {
-        method: "POST",
-        body: formData
-      });
+// =======================================================
+// === FUNCIONES PARA EL NUEVO MODAL DE ELIMINACIÓN ======
+// =======================================================
 
-      const data = await response.text();
-      console.log("Respuesta servidor casa:", data);
+/**
+ * Abre el modal de confirmación de eliminación.
+ * @param {string} url - La URL del script de eliminación.
+ * @param {string} tipo - El tipo de registro a eliminar (ej: 'la casa', 'la persona').
+ */
+function abrirModalConfirmacion(url, tipo) {
+    // Ocultar otros modales abiertos si es necesario, aunque en principio no deberían estar abiertos.
+    cerrarModalAgregarPersona(); 
+    cerrarModalActualizarCasa();
+    cerrarModalActualizarPersona();
 
-      if (data.includes("OK")) {
-        // Cierra el modal
-        modalCasa.style.display = "none";
-        overlay.style.display = "none";
-        formCasa.reset();
+    // Establecer el mensaje y la acción del botón de confirmación
+    mensajeConfirmacion.textContent = `⚠️ ¿Estás seguro de que quieres eliminar ${tipo} de forma permanente?`;
+    btnEliminarConfirmado.href = url;
 
-        // Actualiza tabla de casas
-        await actualizarTablaCasas();
+    // Mostrar el modal
+    modalConfirmacion.style.display = "block";
+    overlayConfirmacion.style.display = "block";
+    document.body.style.overflow = "hidden"; // Bloquea el scroll del fondo
+}
 
-        showToast("✅ Casa agregada correctamente", 'success', 10000); // <-- CAMBIO AQUÍ
-      } else {
-        showToast("❌ Error al agregar la casa", 'error', 10000); // <-- CAMBIO AQUÍ
-      }
-    } catch (error) {
-      console.error("Error al registrar la casa:", error);
-      showToast("⚠️ Error de conexión al registrar la casa", 'error', 10000); // <-- CAMBIO AQUÍ
-    }
-  });
+/**
+ * Cierra el modal de confirmación de eliminación.
+ */
+function cerrarModalConfirmacion() {
+    modalConfirmacion.style.display = "none";
+    overlayConfirmacion.style.display = "none";
+    document.body.style.overflow = "auto";
+    btnEliminarConfirmado.href = "#"; // Limpiar el enlace
+}
 
-  // --- FORMULARIO PERSONA ---
-  const formPersona = document.getElementById("formPersona");
+// Listener para el botón "Cancelar" y el overlay
+btnCancelarEliminacion.addEventListener("click", cerrarModalConfirmacion);
+overlayConfirmacion.addEventListener("click", cerrarModalConfirmacion);
 
-  formPersona.addEventListener("submit", async (e) => {
-    e.preventDefault();
+// =======================================================
+// === 1. FUNCIONES DE CIERRE DE MODAL (Existentes) ======
+// =======================================================
 
-    const formData = new FormData(formPersona);
+function cerrarModalAgregarPersona() {
+    modalAgregarPersona.style.display = "none";
+    overlayGlobal.style.display = "none";
+}
 
-    try {
-      const response = await fetch("personas/Registrar_personas.php", {
-        method: "POST",
-        body: formData,
-      });
+function cerrarModalActualizarCasa() {
+    modalActualizarCasa.style.display = "none";
+    overlayActualizarCasa.style.display = "none";
+    document.body.style.overflow = "auto";
+}
 
-      const data = await response.text();
-      console.log("Respuesta servidor persona:", data);
+function cerrarModalActualizarPersona() {
+    modalActualizarPersona.style.display = "none";
+    overlayActualizarPersona.style.display = "none";
+    document.body.style.overflow = "auto";
+}
 
-      if (data.includes("OK")) {
-        modalPersona.style.display = "none";
-        overlay.style.display = "none";
-        formPersona.reset();
 
-        await actualizarTablaPersonas();
+// =======================================================
+// === 2. LISTENERS DE APERTURA Y CIERRE (Existentes) ====
+// =======================================================
 
-        showToast("✅ Persona agregada correctamente", 'success', 10000); // <-- CAMBIO AQUÍ
-      } else {
-        showToast("❌ Error al agregar persona", 'error', 10000); // <-- CAMBIO AQUÍ
-      }
-    } catch (error) {
-      console.error("Error al registrar persona:", error);
-      showToast("⚠️ Error de conexión al registrar la persona", 'error', 10000); // <-- CAMBIO AQUÍ
-    }
-  });
+// --- Abrir/Cerrar Modales de AGREGAR ---
+document.getElementById("abrirModal").addEventListener("click", () => {
+    modalAgregarCasa.style.display = "block";
+    overlayGlobal.style.display = "block";
+});
 
-  // --- FUNCIONES PARA ACTUALIZAR LAS TABLAS ---
-  async function actualizarTablaCasas() {
-    try {
-      // Nota: Si quieres que el nuevo registro aparezca sin recargar, 
-      // debes asegurarte que 'obtener_casas.php' devuelve SÓLO el 
-      // contenido de la tabla (<tr>...</tr>).
-      // Si devuelve la tabla completa (<table>...</table>), 
-      // usa .innerHTML = html como ya lo tienes.
-      const response = await fetch("obtener_casas.php");
-      const html = await response.text();
-      document.getElementById("tablaCasasCuerpo").innerHTML = html;
-    } catch (error) {
-      console.error("Error al actualizar casas:", error);
-    }
-  }
+document.getElementById("abrirModalPersona").addEventListener("click", () => {
+    modalAgregarPersona.style.display = "block";
+    overlayGlobal.style.display = "block";
+});
 
-  async function actualizarTablaPersonas() {
-    try {
-      const response = await fetch("personas/obtener_personas.php");
-      const html = await response.text();
-      document.querySelector(".col-12.col-md-6:nth-child(2) table").innerHTML = html;
-    } catch (error) {
-      console.error("Error al actualizar personas:", error);
-    }
-  }
+document.getElementById("cerrarModalPersona").addEventListener("click", cerrarModalAgregarPersona);
+
+overlayGlobal.addEventListener("click", () => {
+    modalAgregarCasa.style.display = "none";
+    cerrarModalAgregarPersona();
+});
+
+// --- Cerrar Modales de ACTUALIZAR ---
+document.getElementById("cerrarModalActualizar").addEventListener("click", cerrarModalActualizarCasa);
+overlayActualizarCasa.addEventListener("click", cerrarModalActualizarCasa);
+
+document.getElementById("cerrarModalActualizarPersona").addEventListener("click", cerrarModalActualizarPersona);
+overlayActualizarPersona.addEventListener("click", cerrarModalActualizarPersona);
+
+
+// --- Abrir modal ACTUALIZAR CASA (delegación de eventos) ---
+document.addEventListener("click", async (e) => {
+    const boton = e.target.closest(".btnActualizarCasa");
+    if (!boton) return;
+
+    const id = boton.dataset.id;
+    try {
+        const res = await fetch(`get_casa.php?id=${id}`);
+        const data = await res.json();
+
+        document.getElementById("upd_id_casa").value = data.id_casa;
+        document.getElementById("upd_nombre").value = data.nombre;
+        document.getElementById("upd_calle").value = data.calle;
+        document.getElementById("upd_numero").value = data.numero;
+        document.getElementById("upd_localidad").value = data.localidad;
+        document.getElementById("upd_provincia").value = data.provincia;
+
+        modalActualizarCasa.style.display = "block";
+        overlayActualizarCasa.style.display = "block";
+        document.body.style.overflow = "hidden";
+    } catch (err) {
+        console.error("Error al obtener datos de la casa:", err);
+        showToast("⚠️ Error al cargar los datos de la casa", "error");
+    }
+});
+
+// --- Abrir modal ACTUALIZAR PERSONA (delegación de eventos) ---
+document.addEventListener("click", async (e) => {
+    const boton = e.target.closest(".btnActualizarPersona");
+    if (!boton) return;
+
+    const id = boton.dataset.id;
+    try {
+        const res = await fetch("personas/get_persona.php?id=" + id);
+        if (!res.ok) throw new Error('Error al obtener datos: ' + res.statusText);
+        const data = await res.json();
+       
+        document.getElementById("upd_id_persona_form").value = data.id_persona;
+        document.getElementById("upd_nombre_persona").value = data.nombre;
+        document.getElementById("upd_apellido_persona").value = data.apellido;
+        document.getElementById("upd_id_casa_persona").value = data.id_casa;
+        document.getElementById("upd_sexo_persona").value = data.sexo;
+       
+        modalActualizarPersona.style.display = "block";
+        overlayActualizarPersona.style.display = "block";
+        document.body.style.overflow = "hidden";
+    } catch (err) {
+        console.error("Error al obtener datos de la persona:", err);
+        showToast("⚠️ Error al cargar los datos de la persona", "error");
+    }
+});
+
+
+// =======================================================
+// === 3. LISTENERS DE FORMULARIOS (CRUD) (Existentes) ==
+// =======================================================
+
+// --- AGREGAR CASA ---
+formAgregarCasa.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(formAgregarCasa);
+
+    try {
+        const response = await fetch("Registrar_casa.php", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.text();
+        if (data.includes("OK")) {
+            modalAgregarCasa.style.display = "none";
+            overlayGlobal.style.display = "none";
+            formAgregarCasa.reset();
+
+            showToast("✅ Casa agregada correctamente", 'success');
+            reloadPageAfterDelay(); // RECARGA
+        } else {
+            console.error("Respuesta del servidor casa:", data);
+            showToast("❌ Error al agregar la casa", 'error');
+        }
+    } catch (error) {
+        console.error("Error al registrar la casa:", error);
+        showToast("⚠️ Error de conexión al registrar la casa", 'error');
+    }
+});
+
+// --- AGREGAR PERSONA ---
+formAgregarPersona.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(formAgregarPersona);
+
+    try {
+        const response = await fetch("personas/Registrar_personas.php", {
+            method: "POST",
+            body: formData,
+        });
+
+        const data = await response.text();
+        if (data.includes("OK")) {
+            cerrarModalAgregarPersona();
+            formAgregarPersona.reset();
+
+            showToast("✅ Persona agregada correctamente", 'success');
+            reloadPageAfterDelay(); // RECARGA
+        } else {
+            console.error("Respuesta servidor persona:", data);
+            showToast("❌ Error al agregar persona", 'error');
+        }
+    } catch (error) {
+        console.error("Error al registrar persona:", error);
+        showToast("⚠️ Error de conexión al registrar la persona", 'error');
+    }
+});
+
+// --- ACTUALIZAR CASA ---
+formActualizarCasa.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(formActualizarCasa);
+
+    try {
+        const res = await fetch("upd_casa.php", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await res.text();
+        const respuesta = data.trim();
+
+        if (respuesta === "OK") {
+            cerrarModalActualizarCasa();
+            showToast("✅ Casa actualizada correctamente", "success");
+            reloadPageAfterDelay(); // RECARGA
+        } else {
+            console.error("Respuesta del servidor:", data);
+            showToast("❌ Error al actualizar casa", "error");
+        }
+    } catch (err) {
+        console.error("Error al actualizar casa:", err);
+        showToast("⚠️ Error de conexión", "error");
+    }
+});
+
+// --- ACTUALIZAR PERSONA ---
+formActualizarPersona.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(formActualizarPersona);
+   
+    try {
+        const res = await fetch("personas/upd_persona.php", {
+            method: "POST",
+            body: formData
+        });
+       
+        const data = await res.text();
+        const respuesta = data.trim();
+       
+        if (respuesta === "OK") {
+            cerrarModalActualizarPersona();
+            showToast("✅ Persona actualizada correctamente", "success");
+            reloadPageAfterDelay(); // RECARGA
+        } else {
+            console.error("Respuesta del servidor:", data);
+            showToast("❌ Error al actualizar persona", "error");
+        }
+    } catch (err) {
+        console.error("Error al actualizar persona:", err);
+        showToast("⚠️ Error de conexión", "error");
+    }
+});
 </script>
 
 </body>

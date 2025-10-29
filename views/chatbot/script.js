@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', () => { // Espera a que cargue tod
 
     const responses = { // Respuestas predefinidas del chatbot
         'horario': 'Nuestro horario de atención es de lunes a viernes, de 9:00 a.m. a 6:00 p.m.', // Respuesta para "horario"
-        'contacto': 'Puedes contactarnos a través de nuestro correo electrónico: info@empresa.com o llamando al 555-1234.', // Respuesta contacto
+        'contacto': 'Puedes contactarnos a través de nuestro correo electrónico: info@empresa.com o llamando al 11-5602-4121.', // Respuesta contacto
         'servicio': 'Esta página es una CALCULADORA DE GASTOS FAMILIAR. Permite saber cuánto GASTA la FAMILIA en el MES, tanto en TOTAL como de manera INDIVIDUAL. También muestra en qué se GASTA el DINERO, ya sea en GENERAL o por PERSONA. Además, informa los PRECIOS de algunos SERVICIOS DE STREAMING y el valor del DÓLAR con sus variantes; PESO CHILENO, PESO URUGUAYO, REAL BRASILERO y EURO.', // Respuesta servicios
-        'ayuda': 'Si necesitas más ayuda, por favor, describe tu problema y un representante se pondrá en contacto contigo lo antes posible.', // Respuesta ayuda
+        'ayuda': 'Si necesitas más ayuda, comunicate con nosotros y vamos a responderte lo antes posible', // Respuesta ayuda
         'default': 'Lo siento, no entiendo esa pregunta. Por favor, selecciona una de las opciones o reformula tu consulta.' // Respuesta por defecto
     };
 

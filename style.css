@@ -235,7 +235,7 @@ nav{
 .numeroGastos p{
     font-size: 8dvh;
     position: absolute;
-    margin: 2rem 50% 0 30%;
+    margin: 5px 50% 0 30%;
     font-family: "Exo 2";
 }
 
@@ -400,7 +400,8 @@ nav{
 
     .numeroGastos p{
     font-size: 3dvh;
-    margin: 0.5rem 35% 0 5%;
+    letter-spacing: .1rem;
+    margin: 5px 35% 0 5%;
     }
 
     .numeroGastos span{
@@ -525,8 +526,9 @@ nav{
     }
 
     .numeroGastos p{
-    font-size: 4.5dvh;
-    margin: 2.5rem 40% 0 15%;
+    font-size: 4dvh;
+    letter-spacing: .4rem;
+    margin: 1.5rem 40% 0 15%;
     }
 
     .gastosTitulo h2{

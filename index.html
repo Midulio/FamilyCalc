@@ -68,7 +68,7 @@
                     <h3 class="position-absolute top-50 end-0 translate-middle-y">Resumen de gastos</h3>
                 </div>
                 <div class="numeroGastos sco">
-                    <p>$344670<span>ARS</span></p>
+                    <p id="totalImporte"><span>ARS</span></p>
                 </div>
                 <div class="position-absolute resumenGastos scrollcontainer">
                     <span class="pos-img position-relative"><img src="src/popcorn.svg" ><p class="position-absolute d-flex top-50 start-50 translate-middle">  $28000 </p></span><br>
@@ -82,23 +82,18 @@
                 </div>
             </div>
         </a>
-        <div class="row">
-            <div class="btnChicos col-6 col-md-3 mb-3">
+            <div class="row text-center justify-content-center mb-4">
+            <div class="btnChicos col-6 col-sm-4 mb-3">
                 <a href="views/casas/index_casa.php" class="btnChicos animacionHover" id="casas"><img src="src/housewhite.svg"></a>
-                <p>Casas</p>
-                </div>
-
-            <div class="btnChicos col-6 col-md-3 mb-3">
-                <a href="views/casas/index_casa.php" class="btnChicos animacionHover" id="personas"><img src="src/users.svg"></a>
-                <p>Personas</p>
+                <p>Casa/s</p>
             </div>
 
-            <div class="btnChicos col-6 col-md-3 mb-3">
+            <div class="btnChicos col-6 col-sm-4 mb-3">
                 <a href="" class="btnChicos animacionHover" id="estadisticas"><img src="src/chart-barwhite.svg"></a>
                 <p>Estadísticas de gastos</p>
             </div>
 
-            <div class="btnChicos col-6 col-md-3 mb-3">
+            <div class="btnChicos col-6 col-sm-4 mb-3">
                 <a href="views/Impuestos_valores/imp_val.html" class="btnChicos animacionHover" id="impuestos"><img src="src/currency-dollar-simplewhite.svg"></a>
                 <p>Valores</p>
             </div>
@@ -136,6 +131,12 @@
       tooltip.style.display = "none";  // Cambia el estilo a "none" para ocultar el tooltip
     }, 5000);  // Define el tiempo de espera de 5000 milisegundos (5 segundos)
   }
+});
+
+fetch('views/movimientos/total_importe.php')
+.then(response => response.text())
+.then(data => {
+    document.getElementById('totalImporte').innerHTML = '$' + data + '<span>ARS</span>';
 });
     </script>
 </body>

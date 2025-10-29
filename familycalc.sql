@@ -58,7 +58,7 @@ INSERT INTO Servicios (Servicio, Descripcion) VALUES
 ('Videojuegos o Suscripciones', 'Pagos de servicios digitales como juegos online, plataformas de streaming o membresías.'),
 ('Viajes', 'Gastos de transporte, alojamiento y actividades turísticas.'),
 ('Regalos', 'Compras destinadas a obsequios para otras personas.'),
-('Cuentas Bancarias', 'Movimientos o cargos vinculados a cuentas bancarias o tarjetas.'),
+('Cuentas Bancarias', 'Movimientos o cargos vinculados a cuentas bancarias o tarjetas.');
 
 CREATE TABLE persona (
   id_persona INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,

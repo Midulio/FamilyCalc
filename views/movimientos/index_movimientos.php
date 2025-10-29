@@ -65,63 +65,78 @@ include ("../../conexion.php");
     <div class="tables-container mt-4 mx-auto">
         <h2 class="mb-4">Listado de Movimientos</h2>
 
-        <table class="table table-hover table-bordered">
-            <tr class="table-secondary">
-                <th class="d-none d-md-table-cell">Casa</th>
-                <th>Persona</th>
-                <th>Importe</th>
-                <th class="d-none d-md-table-cell">Fecha de Ingreso</th>
-                <th class="d-none d-md-table-cell">Estado</th>
-                <th>Servicio</th>
-                <th class="d-none d-md-table-cell">Tipo de Gasto</th>
-                <th>Acciones</th>
-            </tr>
         <?php
-        // Definición de la consulta SQL para obtener datos de movimientos junto con casa y persona
-        $sql = "SELECT m.id_movimientos AS id_movimiento, 
-                       c.nombre AS nombre_casa, 
-                       p.nombre AS nombre_persona, p.apellido, 
-                       m.importe, m.fecha_ingreso, m.estados, m.servicios, m.tipo_de_gastos
-                FROM movimientos AS m
-                INNER JOIN casa AS c ON m.id_casa = c.id_casa
-                INNER JOIN persona AS p ON m.id_persona = p.id_persona
-                ORDER BY m.fecha_ingreso DESC";
+// Consulta SQL unificada con los JOIN correctos
+$sql = "
+    SELECT 
+        m.id_movimientos AS id_movimiento,
+        c.nombre AS nombre_casa,
+        p.nombre AS nombre_persona,
+        p.apellido AS apellido_persona,
+        s.Servicio AS nombre_servicio,
+        m.importe,
+        m.fecha_ingreso,
+        m.estados,
+        m.tipo_de_gastos
+    FROM movimientos AS m
+    LEFT JOIN casa AS c ON m.id_casa = c.id_casa
+    LEFT JOIN persona AS p ON m.id_persona = p.id_persona
+    LEFT JOIN servicios AS s ON m.id_servicio = s.id_servicio
+    ORDER BY m.fecha_ingreso DESC
+";
 
-        
-        $stmt = $conexion->prepare($sql);// Prepara la consulta SQL para ejecutarla de forma segura
-        $stmt->execute(); // Ejecuta la consulta preparada
-        $resultado = $stmt->get_result(); // Obtiene el resultado de la ejecución de la consulta
-        $totalImporte = 0; // Inicializa un acumulador para sumar los importes
+$stmt = $conexion->prepare($sql);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
-        if($resultado && $resultado->num_rows > 0){// Verifica si hay resultados en la consulta
-            while($r = $resultado->fetch_assoc()):// Recorre cada fila obtenida de la base de datos
-                $totalImporte += $r['importe']; // Suma el importe actual al total acumulado
-        ?>
-            <tr>
-                <td class="d-none d-md-table-cell"><?= $r['nombre_casa'] ?></td>
-                <td><?= $r['nombre_persona'] . " " . $r['apellido'] ?></td>
-                <td>$<?= number_format($r['importe'], 2, ',', '.') ?></td>
-                <td class="d-none d-md-table-cell"><?= $r['fecha_ingreso'] ?></td>
-                <td class="d-none d-md-table-cell"><?= $r['estados'] ?></td>
-                <td><?= $r['servicios'] ?></td>
-                <td class="d-none d-md-table-cell"><?= $r['tipo_de_gastos'] ?></td>
-                <td>
-                    <a href="update_movimiento.php?upd=<?= $r['id_movimiento'] ?>" class="btn btn-primary btn-sm">Actualizar</a>
-                    <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
-                </td>
-            </tr>
-        <?php
-            // Finaliza el bucle while
-            endwhile;
-        // Cierra la condición del if
-        }
-        ?>
-            <tr class="table-dark fw-bold">
-                <td colspan="2" class="text-end"> TOTAL </td>
-                <td> $<?= number_format($totalImporte, 2, ',', '.') ?> </td>
-                <td colspan="5"> <a href="create.php" class="btn btn-primary text-end">Agregar Movimiento</a> </td>
-            </tr>
-        </table>
+$totalImporte = 0;
+?>
+
+<table class="table table-hover table-bordered">
+    <tr class="table-secondary">
+        <th class="d-none d-md-table-cell">Casa</th>
+        <th>Persona</th>
+        <th>Importe</th>
+        <th class="d-none d-md-table-cell">Fecha de Ingreso</th>
+        <th class="d-none d-md-table-cell">Estado</th>
+        <th>Servicio</th>
+        <th class="d-none d-md-table-cell">Tipo de Gasto</th>
+        <th>Acciones</th>
+    </tr>
+
+<?php
+if ($resultado && $resultado->num_rows > 0):
+    while ($r = $resultado->fetch_assoc()):
+        $totalImporte += $r['importe'];
+?>
+    <tr>
+        <td class="d-none d-md-table-cell">
+            <?= $r['nombre_casa'] ?? '<em>Sin casa</em>' ?>
+        </td>
+        <td>
+            <?= trim(($r['nombre_persona'] ?? '') . ' ' . ($r['apellido_persona'] ?? '')) ?: '<em>Sin persona</em>' ?>
+        </td>
+        <td>$<?= number_format($r['importe'], 2, ',', '.') ?></td>
+        <td class="d-none d-md-table-cell"><?= $r['fecha_ingreso'] ?></td>
+        <td class="d-none d-md-table-cell"><?= $r['estados'] ?></td>
+        <td><?= $r['nombre_servicio'] ?? '<em>Sin servicio</em>' ?></td>
+        <td class="d-none d-md-table-cell"><?= $r['tipo_de_gastos'] ?></td>
+        <td>
+            <a href="update_movimiento.php?upd=<?= $r['id_movimiento'] ?>" class="btn btn-success btn-sm"><img src="fotos/actualizar-flecha.png" alt="Actualizar" srcset=""></a>
+            <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger btn-sm"><img src="fotos/borrar.png" alt="Eliminar" srcset=""></a>
+        </td>
+    </tr>
+<?php
+    endwhile;
+endif;
+?>
+    <tr class="table-dark fw-bold">
+        <td colspan="2" class="text-end">TOTAL</td>
+        <td>$<?= number_format($totalImporte, 2, ',', '.') ?></td>
+        <td colspan="5"><a href="create.php" class="btn btn-primary"><img src="fotos/agregar.png" alt="Agregar movimiento" srcset=""></a></td>
+    </tr>
+</table>
+
     </div>
 </body>
 </html>

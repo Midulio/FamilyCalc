@@ -85,25 +85,77 @@ if ($resultado_casas && $resultado_casas->num_rows > 0) {
         <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control w-full" required />
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">Servicios</label>
-        <select name="servicios" class="form-select w-full" required>
-            <option value="" disabled selected>-- Selecciona un servicio --</option>
-            <option value="Comidas y Bebidas">Comidas y Bebidas</option>
-            <option value="Supermercado">Supermercado</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Hogar">Hogar</option>
-            <option value="Luz">Luz</option>
-            <option value="Gas">Gas</option>
-            <option value="Internet y Cable">Internet y Cable</option>
-            <option value="Salud">Salud</option>
-            <option value="Entretenimiento">Entretenimiento</option>
-            <option value="Prepaga">Prepaga</option>
-            <option value="Sueldo">Sueldo</option>
-            <option value="Aguinaldo">Aguinaldo</option>
-            <option value="Otros">Otros</option>
-        </select>
-    </div>
+    <?php
+// --- Obtener los servicios desde la tabla principal ---
+$sql_servicios = "SELECT id_servicio, Servicio FROM servicios ORDER BY id_servicio ASC";
+$resultado_servicios = $conexion->query($sql_servicios);
+
+// --- Mapa de agrupamiento (opciones específicas por tipo de servicio) ---
+$grupos_servicios = [
+    "Entretenimiento" => [
+        "Comidas y Bebidas",
+        "Cine",
+        "Supermercado"
+    ],
+    "Videojuegos o Suscripciones" => [
+        "Monedas Virtuales",
+        "Suscripción"
+    ],
+    "Viajes" => [
+        "Transporte",
+        "Viajes"
+    ],
+    "Indumentaria" => [
+        "Indumentaria",
+        "Calzado"
+    ],
+    "Salud" => [
+        "Salud"
+    ],
+    "Cuentas Bancarias" => [
+        "Internet y Cable",
+        "Hogar",
+        "Luz",
+        "Gas",
+        "Prepaga"
+    ],
+    "Regalos" => [
+        "Otros"
+    ]
+];
+?>
+
+<div class="mb-3">
+    <label class="form-label">Servicios</label>
+    <select name="id_servicio" class="form-select w-full" required>
+        <option value="" disabled selected>-- Selecciona un servicio --</option>
+        <?php
+        if ($resultado_servicios && $resultado_servicios->num_rows > 0) {
+            // Recorremos los servicios principales desde la base
+            $servicios_db = [];
+            while ($row = $resultado_servicios->fetch_assoc()) {
+                $servicios_db[$row['Servicio']] = $row['id_servicio'];
+            }
+
+            // Creamos los grupos de opciones
+            foreach ($grupos_servicios as $grupo => $opciones) {
+                echo '<optgroup label="' . htmlspecialchars($grupo) . '">';
+                foreach ($opciones as $opcion) {
+                    // Verificamos que el grupo exista en la tabla servicios
+                    if (isset($servicios_db[$grupo])) {
+                        echo '<option value="' . $servicios_db[$grupo] . '">' . htmlspecialchars($opcion) . '</option>';
+                    } else {
+                        echo '<option disabled>' . htmlspecialchars($opcion) . ' (servicio no definido)</option>';
+                    }
+                }
+                echo '</optgroup>';
+            }
+        } else {
+            echo '<option disabled>No hay servicios cargados en la base de datos</option>';
+        }
+        ?>
+    </select>
+</div>
 
     <div class="mb-3">
         <label for="tipo_de_gastos" class="form-label">Tipo de Gasto</label>

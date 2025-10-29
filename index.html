@@ -71,14 +71,7 @@
                     <p id="totalImporte"><span>ARS</span></p>
                 </div>
                 <div class="position-absolute resumenGastos scrollcontainer">
-                    <span class="pos-img position-relative"><img src="src/popcorn.svg" ><p class="position-absolute d-flex top-50 start-50 translate-middle">  $28000 </p></span><br>
-                    <span class="pos-img position-relative"><img src="src/bag.svg"><p class="position-absolute top-50 start-50 translate-middle">  $150000 </p></span><br>
-                    <span class="pos-img position-relative"><img src="src/first-aid.svg" ><p class="position-absolute top-50 start-50 translate-middle"> $6670 </p></span><br>
-                    <span class="pos-img position-relative"><img src="src/game-controller.svg" ><p class="position-absolute top-50 start-50 translate-middle">  $50000 </p></span><br>
-                    <span class="pos-img position-relative"><img src="src/airplane.svg" ><p class="position-absolute top-50 start-50 translate-middle">  $110000 </p></span><br>
-                    <span class="pos-img position-relative"><img src="src/gift.svg" ><p class="position-absolute top-50 start-50 translate-middle">  $ 0 0 0 </p></span><br>
-                    <span class="pos-img position-relative"><img src="src/bank2.svg" ><p class="position-absolute top-50 start-50 translate-middle">  $ 0 0 0 </p></span><br>
-                    <span class="pos-img position-relative"><img src="src/car.svg" ><p class="position-absolute top-50 start-50 translate-middle">  $ 0 0 0 </p></span><br>
+
                 </div>
             </div>
         </a>
@@ -138,14 +131,59 @@ fetch('views/movimientos/total_importe.php')
 .then(data => {
     document.getElementById('totalImporte').innerHTML = '$' + data + '<span>ARS</span>';
 });
+
+fetch('views/movimientos/resumen_gastos.php')
+  .then(response => response.json())
+  .then(data => {
+    const resumenContainer = document.querySelector('.resumenGastos');
+    resumenContainer.innerHTML = ''; // Limpiamos lo que había
+
+    const iconos = {
+      "Entretenimiento": "src/popcorn.svg",
+      "Indumentaria": "src/bag.svg",
+      "Salud": "src/first-aid.svg",
+      "Videojuegos o Suscripciones": "src/game-controller.svg",
+      "Viajes": "src/airplane.svg",
+      "Cuentas Bancarias": "src/bank2.svg",
+      "Regalos": "src/gift.svg"
+    };
+
+    if (data.length > 0) {
+      // Calcular total general para mostrar porcentaje opcional
+      const totalGeneral = data.reduce((acc, item) => {
+        return acc + parseFloat(item.total.replace('.', '').replace(',', '.'));
+      }, 0);
+
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('resumen-item');
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.gap = '10px';
+        div.style.marginBottom = '20px';
+
+        const img = document.createElement('img');
+        img.src = iconos[item.servicio] || "src/other.svg";
+        img.alt = item.servicio;
+        img.style.width = '55px';
+        img.style.height = '55px';
+        img.style.marginLeft = '.1rem';
+
+        const texto = document.createElement('span');
+        const porcentaje = ((parseFloat(item.total.replace('.').replace(',', '.')) / totalGeneral) * 100).toFixed(1);
+        texto.innerHTML = `<span class="pos-img">$${item.total}</span>`;
+
+        div.appendChild(img);
+        div.appendChild(texto);
+        resumenContainer.appendChild(div);
+      });
+    } else {
+      resumenContainer.innerHTML = '<p class="text-muted">No hay movimientos registrados.</p>';
+    }
+  })
+  .catch(error => {
+    console.error('Error al cargar el resumen de gastos:', error);
+  });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-

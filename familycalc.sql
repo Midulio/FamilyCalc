@@ -7,190 +7,95 @@
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 --
 -- Base de datos: `familycalc`
 --
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `casa`
---
-
-CREATE TABLE `casa` (
-  `id_casa` int(11) NOT NULL,
-  `nombre` varchar(50) DEFAULT NULL,
-  `calle` varchar(50) DEFAULT NULL,
-  `numero` int(11) DEFAULT NULL,
-  `localidad` varchar(50) DEFAULT NULL,
-  `provincia` varchar(50) NOT NULL,
-  `id_usuarios` int(11) DEFAULT NULL
+CREATE TABLE usuarios (
+  id_usuarios INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(50) NOT NULL,
+  apellido VARCHAR(50) DEFAULT NULL,
+  email VARCHAR(50) NOT NULL,
+  PASSWORD BLOB DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `casa`
---
-
-INSERT INTO `casa` (`id_casa`, `nombre`, `calle`, `numero`, `localidad`, `provincia`, `id_usuarios`) VALUES
-(10, 'Grypinski', '333', 444, 'launus', 'buenos aires', NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `movimientos`
---
-
-CREATE TABLE `movimientos` (
-  `id_movimientos` int(11) NOT NULL,
-  `importe` int(11) DEFAULT NULL,
-  `fecha_ingreso` date DEFAULT NULL,
-  `id_casa` int(11) DEFAULT NULL,
-  `id_persona` int(11) DEFAULT NULL,
-  `estados` varchar(100) DEFAULT NULL,
-  `servicios` varchar(100) DEFAULT NULL,
-  `tipo_de_gastos` varchar(100) DEFAULT NULL
+CREATE TABLE casa (
+  id_casa INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id_usuarios INT(11) DEFAULT NULL,
+  nombre VARCHAR(50) DEFAULT NULL,
+  calle VARCHAR(50) DEFAULT NULL,
+  numero INT(11) DEFAULT NULL,
+  localidad VARCHAR(50) DEFAULT NULL,
+  provincia VARCHAR(50) NOT NULL,
+  CONSTRAINT fk_casa_usuarios FOREIGN KEY (id_usuarios)
+      REFERENCES usuarios(id_usuarios)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `movimientos`
---
+INSERT INTO `casa` (`nombre`, `calle`, `numero`, `localidad`, `provincia`) VALUES
+('Grypinski', NULL, '333', 'lanus', 'buenos aires');
 
-INSERT INTO `movimientos` (`id_movimientos`, `importe`, `fecha_ingreso`, `id_casa`, `id_persona`, `estados`, `servicios`, `tipo_de_gastos`) VALUES
-(4, 1001, '2025-10-17', 10, 6, 'pendiente', 'Luz', 'Variable');
+CREATE TABLE Servicios (
+    id_servicio INT AUTO_INCREMENT PRIMARY KEY,
+    Servicio VARCHAR(50) NOT NULL,
+    Descripcion TEXT
+);
 
--- --------------------------------------------------------
+INSERT INTO Servicios (Servicio, Descripcion) VALUES
+('Entretenimiento', 'Gastos relacionados con ocio y diversión, como cine, streaming, eventos o salidas.'),
+('Indumentaria', 'Compras de ropa, calzado y accesorios personales.'),
+('Salud', 'Gastos médicos, medicamentos, consultas o tratamientos.'),
+('Videojuegos o Suscripciones', 'Pagos de servicios digitales como juegos online, plataformas de streaming o membresías.'),
+('Viajes', 'Gastos de transporte, alojamiento y actividades turísticas.'),
+('Regalos', 'Compras destinadas a obsequios para otras personas.'),
+('Cuentas Bancarias', 'Movimientos o cargos vinculados a cuentas bancarias o tarjetas.'),
 
---
--- Estructura de tabla para la tabla `persona`
---
-
-CREATE TABLE `persona` (
-  `id_persona` int(11) NOT NULL,
-  `id_casa` int(11) DEFAULT NULL,
-  `nombre` varchar(50) DEFAULT NULL,
-  `apellido` varchar(50) DEFAULT NULL,
-  `sexo` varchar(10) DEFAULT NULL
+CREATE TABLE persona (
+  id_persona INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id_casa INT(11) DEFAULT NULL,
+  nombre VARCHAR(50) DEFAULT NULL,
+  apellido VARCHAR(50) DEFAULT NULL,
+  sexo VARCHAR(10) DEFAULT NULL,
+  CONSTRAINT fk_persona_casa FOREIGN KEY (id_casa)
+      REFERENCES casa(id_casa)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `persona`
---
+INSERT INTO `persona` (`nombre`, `apellido`, `sexo`) VALUES
+('tizi', 'AAAA', 'Femenino'),
+('viky', 'aaaaaaa', 'Otro'),
+('nico', 'aaaa', 'Masculino');
 
-INSERT INTO `persona` (`id_persona`, `id_casa`, `nombre`, `apellido`, `sexo`) VALUES
-(6, 10, 'tizi', 'AAAA', 'Femenino'),
-(7, 10, 'viky', 'aaaaaaa', 'Otro'),
-(8, 10, 'nico', 'aaaa', 'Masculino');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id_usuarios` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) DEFAULT NULL,
-  `email` varchar(50) NOT NULL,
-  `PASSWORD` blob DEFAULT NULL
+CREATE TABLE movimientos (
+  id_movimientos INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id_servicio INT(11) DEFAULT NULL,
+  id_casa INT(11) DEFAULT NULL,
+  id_persona INT(11) DEFAULT NULL,
+  importe INT(11) DEFAULT NULL,
+  fecha_ingreso DATE DEFAULT NULL,
+  estados VARCHAR(100) DEFAULT NULL,
+  tipo_de_gastos VARCHAR(100) DEFAULT NULL,
+  CONSTRAINT fk_movimientos_servicios FOREIGN KEY (id_servicio)
+      REFERENCES Servicios(id_servicio)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+  CONSTRAINT fk_movimientos_casa FOREIGN KEY (id_casa)
+      REFERENCES casa(id_casa)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+  CONSTRAINT fk_movimientos_persona FOREIGN KEY (id_persona)
+      REFERENCES persona(id_persona)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `casa`
---
-ALTER TABLE `casa`
-  ADD PRIMARY KEY (`id_casa`),
-  ADD KEY `fk_id_usuarios` (`id_usuarios`);
-
---
--- Indices de la tabla `movimientos`
---
-ALTER TABLE `movimientos`
-  ADD PRIMARY KEY (`id_movimientos`),
-  ADD UNIQUE KEY `id_movimientos` (`id_movimientos`),
-  ADD UNIQUE KEY `id_movimientos_2` (`id_movimientos`),
-  ADD KEY `id_casa` (`id_casa`),
-  ADD KEY `id_persona` (`id_persona`);
-
---
--- Indices de la tabla `persona`
---
-ALTER TABLE `persona`
-  ADD PRIMARY KEY (`id_persona`),
-  ADD KEY `id_casa` (`id_casa`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuarios`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `casa`
---
-ALTER TABLE `casa`
-  MODIFY `id_casa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de la tabla `movimientos`
---
-ALTER TABLE `movimientos`
-  MODIFY `id_movimientos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de la tabla `persona`
---
-ALTER TABLE `persona`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usuarios` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `casa`
---
-ALTER TABLE `casa`
-  ADD CONSTRAINT `fk_id_usuarios` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id_usuarios`);
-
---
--- Filtros para la tabla `movimientos`
---
-ALTER TABLE `movimientos`
-  ADD CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`id_casa`) REFERENCES `casa` (`id_casa`) ON DELETE CASCADE,
-  ADD CONSTRAINT `movimientos_ibfk_3` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`);
-
---
--- Filtros para la tabla `persona`
---
-ALTER TABLE `persona`
-  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`id_casa`) REFERENCES `casa` (`id_casa`) ON DELETE CASCADE;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

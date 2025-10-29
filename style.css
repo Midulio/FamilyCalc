@@ -388,14 +388,17 @@ nav{
     left: 67%;
     }
 
-    .pos-img  {
-    font-size: 2.2dvh;
-    padding: 0;
+    .resumenGastos .resumen-item{
+        gap: 1.5px !important;
     }
 
-    .pos-img img{
-    height: 25px;
-    margin-left: 0.2rem;
+    .resumenGastos .resumen-item img{
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    span.pos-img {
+    font-size: 1.75dvh;
     }
 
     .numeroGastos p{

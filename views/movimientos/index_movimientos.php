@@ -62,18 +62,18 @@ include ("../../conexion.php");
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h2 class="mb-4">Listado de Movimientos</h3>
+    <div class="tables-container mt-4 mx-auto">
+        <h2 class="mb-4">Listado de Movimientos</h2>
 
         <table class="table table-hover table-bordered">
             <tr class="table-secondary">
-                <th>Casa</th>
+                <th class="d-none d-md-table-cell">Casa</th>
                 <th>Persona</th>
                 <th>Importe</th>
-                <th>Fecha Ingreso</th>
-                <th>Estado</th>
+                <th class="d-none d-md-table-cell">Fecha de Ingreso</th>
+                <th class="d-none d-md-table-cell">Estado</th>
                 <th>Servicio</th>
-                <th>Tipo de Gasto</th>
+                <th class="d-none d-md-table-cell">Tipo de Gasto</th>
                 <th>Acciones</th>
             </tr>
         <?php
@@ -98,13 +98,13 @@ include ("../../conexion.php");
                 $totalImporte += $r['importe']; // Suma el importe actual al total acumulado
         ?>
             <tr>
-                <td><?= $r['nombre_casa'] ?></td>
+                <td class="d-none d-md-table-cell"><?= $r['nombre_casa'] ?></td>
                 <td><?= $r['nombre_persona'] . " " . $r['apellido'] ?></td>
                 <td>$<?= number_format($r['importe'], 2, ',', '.') ?></td>
-                <td><?= $r['fecha_ingreso'] ?></td>
-                <td><?= $r['estados'] ?></td>
+                <td class="d-none d-md-table-cell"><?= $r['fecha_ingreso'] ?></td>
+                <td class="d-none d-md-table-cell"><?= $r['estados'] ?></td>
                 <td><?= $r['servicios'] ?></td>
-                <td><?= $r['tipo_de_gastos'] ?></td>
+                <td class="d-none d-md-table-cell"><?= $r['tipo_de_gastos'] ?></td>
                 <td>
                     <a href="update_movimiento.php?upd=<?= $r['id_movimiento'] ?>" class="btn btn-primary btn-sm">Actualizar</a>
                     <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger btn-sm">Eliminar</a>

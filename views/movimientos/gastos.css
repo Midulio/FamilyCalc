@@ -187,6 +187,22 @@ nav{
     margin-top: 5dvh;
 }
 
+h2{
+    font-size: 3dvh;
+    display: inline-block;
+    font-family: "Quicksand";
+    font-weight: bold;
+}
+
+.tables-container{
+    background-color: white;
+    border-radius: .5cm;
+    padding: 2rem;
+    align-content: center;
+    overflow-x: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.199);
+    width: 95%;
+}
 
 .gastoTotal{
     background-color: var(--gastos-fondo);
@@ -312,13 +328,9 @@ section{
 }
 
 
-.tabla{
-    height: 30%; 
-    display: flex;
-    justify-content: space-around;
+.table{
     align-items: center;
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.322);
-    margin: 0 1rem;  
+    margin: 0;
 }
 
 .tablaTitulo p{
@@ -402,6 +414,10 @@ section{
 
     .listaGastos{
         height: 20rem;
+    }
+
+    .tables-container{
+    padding: 1rem;
     }
 }
 @media screen and (min-width:650px) and (max-width:1279px) {

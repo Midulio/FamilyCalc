@@ -6,11 +6,11 @@ include("../../conexion.php");
 
 if (!isset($_GET['id'])) {
 // Comprueba si el parámetro 'id' no fue proporcionado en la URL (método GET).
-  http_response_code(400);
+http_response_code(400);
 // Establece el código de respuesta HTTP a 400 (Bad Request).
-  echo json_encode(["error" => "ID no proporcionado"]);
+echo json_encode(["error" => "ID no proporcionado"]);
 // Devuelve un mensaje de error en formato JSON.
-  exit;
+exit;
 // Termina la ejecución del script inmediatamente.
 }
 
@@ -34,13 +34,13 @@ $result = $stmt->get_result();
 
 if ($result && $row = $result->fetch_assoc()) {
 // Verifica si se obtuvieron resultados Y si se pudo recuperar la primera fila como un array asociativo.
-  echo json_encode($row);
+echo json_encode($row);
 // Codifica el array asociativo ($row) a una cadena JSON y lo imprime (devuelve los datos de la casa).
 } else {
 // Si no hay resultados o la consulta falló.
-  http_response_code(404);
+http_response_code(404);
 // Establece el código de respuesta HTTP a 404 (Not Found).
-  echo json_encode(["error" => "Casa no encontrada"]);
+echo json_encode(["error" => "Casa no encontrada"]);
 // Devuelve un mensaje de error indicando que la casa no fue encontrada.
 }
 ?>

@@ -48,8 +48,13 @@ INSERT INTO `casa` (`nombre`, `calle`, `numero`, `localidad`, `provincia`) VALUE
 CREATE TABLE Servicios (
     id_servicio INT AUTO_INCREMENT PRIMARY KEY,
     Servicio VARCHAR(50) NOT NULL,
-    Descripcion TEXT
-);
+    Descripcion TEXT,
+    id_padre INT DEFAULT NULL,
+    CONSTRAINT fk_servicios_padre FOREIGN KEY (id_padre)
+        REFERENCES Servicios(id_servicio)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO Servicios (Servicio, Descripcion) VALUES
 ('Entretenimiento', 'Gastos relacionados con ocio y diversión, como cine, streaming, eventos o salidas.'),

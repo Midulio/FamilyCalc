@@ -618,87 +618,66 @@ const mostrarData2 = (data) => { // Función para mostrar datos en la página
     <script src="serviciosPrecios.js"></script>
 
     <script>
-// Agrega un 'listener' que espera hasta que todo el contenido HTML de la página haya cargado completamente.
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
 
-    // Comentario que indica el propósito de la función auxiliar.
-    // Función auxiliar para insertar los precios en el DOM
-    // Define la función 'mostrarPrecio' que toma el ID del elemento, el nombre del servicio y el plan como argumentos.
-    function mostrarPrecio(idElemento, servicio, plan) {
-        // Busca el elemento HTML usando el ID proporcionado.
-        const elemento = document.getElementById(idElemento);
-        // Si el elemento no existe en el DOM, la función termina ('return') para evitar errores.
-        if (!elemento) return;
+        // función auxiliar para insertar los precios en el DOM
+        function mostrarPrecio(idElemento, servicio, plan) {
+            const elemento = document.getElementById(idElemento);
+            if (!elemento) return;
 
-        // Llama a una función externa (asumida) 'getServicePrice' para obtener los datos de precio.
-        const datos = getServicePrice(servicio, plan);
-        // Si la función 'getServicePrice' no devuelve datos (es decir, el precio no se encontró).
-        if (!datos) {
-            // Establece el texto del elemento como "No disponible".
-            elemento.innerText = "No disponible";
-            // La función termina aquí.
-            return;
+            const datos = getServicePrice(servicio, plan);
+            if (!datos) {
+                elemento.innerText = "No disponible";
+                return;
+            }
+
+            elemento.innerHTML = `
+                $${datos.conImpuestos.toLocaleString('es-AR')}
+                <small style="color:#666;"> (Base: $${datos.base.toLocaleString('es-AR')})</small>
+            `;
         }
 
-        // Si se encontraron datos, construye el contenido HTML (incluyendo formato de moneda) usando 'template literals'.
-        // Se construye el string HTML:
-        elemento.innerHTML = `
-            ${
-                // Inserta el precio final (con impuestos) y lo formatea como moneda argentina ('es-AR').
-                `$${datos.conImpuestos.toLocaleString('es-AR')}`
-            }
-            ${
-                // Agrega el precio base (sin impuestos) como un texto más pequeño y gris.
-                `<small style="color:#666;"> (Base: $${datos.base.toLocaleString('es-AR')})</small>`
-            }
-        `;
-    }
+    // 🟥 NETFLIX
+    mostrarPrecio("netflix-basico", "Netflix", "basico");
+    mostrarPrecio("netflix-estandar", "Netflix", "estandar");
+    mostrarPrecio("netflix-premium", "Netflix", "premium");
 
-// --- Llamadas a la función 'mostrarPrecio' para cada servicio ---
+    // 🟦 PRIME VIDEO
+    mostrarPrecio("prime-estandar", "Prime Video", "estandar");
 
-// 🟥 NETFLIX
-mostrarPrecio("netflix-basico", "Netflix", "basico");
-mostrarPrecio("netflix-estandar", "Netflix", "estandar");
-mostrarPrecio("netflix-premium", "Netflix", "premium");
+    // 🟩 APPLE TV+
+    mostrarPrecio("apple-individual", "Apple TV+", "individual");
 
-// 🟦 PRIME VIDEO
-mostrarPrecio("prime-estandar", "Prime Video", "estandar");
+    // 🟪 HBO MAX
+    mostrarPrecio("hbo-mensual-basico", "HBO MAX", "mensual_basico");
+    mostrarPrecio("hbo-mensual-estandar", "HBO MAX", "mensual_estandar");
+    mostrarPrecio("hbo-mensual-platino", "HBO MAX", "mensual_platino");
+    mostrarPrecio("hbo-anual-basico", "HBO MAX", "anual_basico");
+    mostrarPrecio("hbo-anual-estandar", "HBO MAX", "anual_estandar");
+    mostrarPrecio("hbo-anual-platino", "HBO MAX", "anual_platino");
 
-// 🟩 APPLE TV+
-mostrarPrecio("apple-individual", "Apple TV+", "individual");
+    // 🟨 DISNEY+
+    mostrarPrecio("disney-mensual-anuncios", "Disney+", "mensual_estandar_con_anuncios");
+    mostrarPrecio("disney-mensual-estandar", "Disney+", "mensual_estandar");
+    mostrarPrecio("disney-mensual-premium", "Disney+", "mensual_premium");
+    mostrarPrecio("disney-anual-estandar", "Disney+", "anual_estandar");
+    mostrarPrecio("disney-anual-premium", "Disney+", "anual_premium");
 
-// 🟪 HBO MAX
-mostrarPrecio("hbo-mensual-basico", "HBO MAX", "mensual_basico");
-mostrarPrecio("hbo-mensual-estandar", "HBO MAX", "mensual_estandar");
-mostrarPrecio("hbo-mensual-platino", "HBO MAX", "mensual_platino");
-mostrarPrecio("hbo-anual-basico", "HBO MAX", "anual_basico");
-mostrarPrecio("hbo-anual-estandar", "HBO MAX", "anual_estandar");
-mostrarPrecio("hbo-anual-platino", "HBO MAX", "anual_platino");
+    // 🔴 YOUTUBE PREMIUM
+    mostrarPrecio("yt-lite", "YouTube Premium", "lite");
+    mostrarPrecio("yt-individual", "YouTube Premium", "individual");
+    mostrarPrecio("yt-familiar", "YouTube Premium", "familiar");
 
-// 🟨 DISNEY+
-mostrarPrecio("disney-mensual-anuncios", "Disney+", "mensual_estandar_con_anuncios");
-mostrarPrecio("disney-mensual-estandar", "Disney+", "mensual_estandar");
-mostrarPrecio("disney-mensual-premium", "Disney+", "mensual_premium");
-mostrarPrecio("disney-anual-estandar", "Disney+", "anual_estandar");
-mostrarPrecio("disney-anual-premium", "Disney+", "anual_premium");
-
-// 🔴 YOUTUBE PREMIUM
-mostrarPrecio("yt-lite", "YouTube Premium", "lite");
-mostrarPrecio("yt-individual", "YouTube Premium", "individual");
-mostrarPrecio("yt-familiar", "YouTube Premium", "familiar");
-
-// 🟧 MERCADO LIBRE
-mostrarPrecio("meli-esencial", "Mercado Libre", "meli+ esencial");
-mostrarPrecio("meli-total", "Mercado Libre", "meli+ total");
-mostrarPrecio("meli-disney", "Mercado Libre", "Nivel 6 + Disney+");
-mostrarPrecio("meli-paramount", "Mercado Libre", "Nivel 6 + paramount+");
-mostrarPrecio("meli-vix", "Mercado Libre", "Nivel 6 + VIX Premium");
-mostrarPrecio("meli-disney-hbo", "Mercado Libre", "Nivel 6 + Disney+ + HBO MAX");
-mostrarPrecio("meli-todos", "Mercado Libre", "Nivel 6 TODOS");
-// Cierra la función de callback de 'DOMContentLoaded'.
+    // 🟧 MERCADO LIBRE
+    mostrarPrecio("meli-esencial", "Mercado Libre", "meli+ esencial");
+    mostrarPrecio("meli-total", "Mercado Libre", "meli+ total");
+    mostrarPrecio("meli-disney", "Mercado Libre", "Nivel 6 + Disney+");
+    mostrarPrecio("meli-paramount", "Mercado Libre", "Nivel 6 + paramount+");
+    mostrarPrecio("meli-vix", "Mercado Libre", "Nivel 6 + VIX Premium");
+    mostrarPrecio("meli-disney-hbo", "Mercado Libre", "Nivel 6 + Disney+ + HBO MAX");
+    mostrarPrecio("meli-todos", "Mercado Libre", "Nivel 6 TODOS");
 });
-// Cierra la etiqueta del script.
-</script>
+    </script>
 
     <script>
 document.addEventListener('DOMContentLoaded', () => { // Espera a que el DOM se cargue completamente antes de ejecutar el código

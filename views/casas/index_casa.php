@@ -1,5 +1,4 @@
 <?php
-// Incluye el archivo de conexión a la base de datos para acceder a $conexion.
 include ("../../conexion.php");
 ?>
 <!DOCTYPE html>
@@ -78,28 +77,28 @@ include ("../../conexion.php");
                     </thead>
                     <tbody id="tablaCasasCuerpo">
                     <?php
-$sql = "SELECT * FROM casa"; // Consulta SQL para obtener todos los registros de la tabla casa
+                        $sql = "SELECT * FROM casa";// Consulta SQL para obtener todos los registros de la tabla casa
 
-$stmt = $conexion->prepare($sql); // Prepara la consulta para su ejecución segura (Sentencia preparada)
-$stmt->execute(); // Ejecuta la consulta preparada
-$resultado = $stmt->get_result(); // Obtiene el resultado de la ejecución
 
-if($resultado && $resultado->num_rows > 0) { // Verifica si hay resultados disponibles
-while($r = $resultado->fetch_assoc()): // Recorre cada fila del resultado como array asociativo
-?>
+                        $stmt = $conexion->prepare($sql);// Prepara la consulta para su ejecución
+                        $stmt->execute();// Ejecuta la consulta preparada
+                        $resultado = $stmt->get_result();// Obtiene el resultado de la ejecución
+
+                        if($resultado && $resultado->num_rows > 0){// Verifica si hay resultados disponibles
+                            while($r = $resultado->fetch_assoc()):// Recorre cada fila del resultado
+                        ?>
                             <tr>
                                 <td><?= $r['nombre'] ?></td>
                                 <td><?= $r['calle'] ?></td>
                                 <td><?= $r['numero'] ?></td>
                                 <td><button class="btn btn-primary btnActualizarCasa" data-id="<?= $r['id_casa'] ?>"><img src="fotos/actualizar.png" alt="Actualizar"></button><button class="btn btn-danger" onclick="abrirModalConfirmacion('eliminar_casa.php?id_casa=<?= $r['id_casa'] ?>', 'la casa')"><img src="fotos/borrar.png" alt="Borrar registro"></button></td>
                             </tr>
-                      <?php
-// Finaliza el bucle while
-endwhile;
-}
-// Cierra la condición del if
-$stmt->close(); // Cierra la sentencia preparada de casas
-?>
+                        <?php
+                            // Finaliza el bucle while
+                            endwhile;
+                        }
+                        // Cierra la condición del if
+                    ?>
                     </tbody>
                     </table>
                 </div>
@@ -121,16 +120,18 @@ $stmt->close(); // Cierra la sentencia preparada de casas
                     </thead>
                     <tbody>
                     <?php
-// Consulta SQL para obtener personas con su casa relacionada
-$sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo, id_persona 
-FROM persona as p 
-INNER JOIN casa as c ON p.id_casa = c.id_casa";
-$stmt = $conexion->prepare($sql); // Prepara la consulta para su ejecución segura
-$stmt->execute(); // Ejecuta la consulta preparada
-$resultado = $stmt->get_result(); // Obtiene el resultado de la ejecución de la consulta
-if($resultado && $resultado->num_rows > 0) { // Verifica si existen resultados
-while($r = $resultado->fetch_assoc()):// Recorre cada fila de resultados
-?>
+                        // Consulta SQL para obtener personas con su casa relacionada
+                        $sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo, id_persona 
+                                FROM persona as p 
+                                INNER JOIN casa as c ON p.id_casa = c.id_casa";
+
+                        $stmt = $conexion->prepare($sql);// Prepara la consulta para su ejecución segura
+                        $stmt->execute();// Ejecuta la consulta preparada
+                        $resultado = $stmt->get_result();// Obtiene el resultado de la ejecución de la consulta
+
+                        if($resultado && $resultado->num_rows > 0){// Verifica si existen resultados
+                            while($r = $resultado->fetch_assoc()):// Recorre cada fila de resultados
+                        ?>
                             <tr>
                                 <td><?= $r['nombre_casa'] ?></td>
                                 <td><?= $r['nombre_persona'] ?></td>
@@ -138,13 +139,12 @@ while($r = $resultado->fetch_assoc()):// Recorre cada fila de resultados
                                 <td class="d-none d-md-table-cell"><?= $r['sexo'] ?></td>
                                 <td><a href="#" class="btn btn-primary btnActualizarPersona" data-id="<?= $r['id_persona'] ?>"><img src="fotos/persona.png"></a><button class="btn btn-danger" onclick="abrirModalConfirmacion('personas/eliminar_persona.php?id_persona=<?= $r['id_persona'] ?>', 'la persona')"><img src="fotos/borrar.png"></button></td>
                             </tr>
-                      <?php
-// Finaliza el bucle while
-endwhile;
-}
-// Cierra la condición del if
-$stmt->close(); // Cierra la sentencia preparada de personas
-?>
+                        <?php
+                            // Finaliza el bucle while
+                            endwhile;
+                        }
+                        // Cierra la condición del if
+                    ?>
                     </tbody>
                     </table>
                 </div>
@@ -256,18 +256,18 @@ $stmt->close(); // Cierra la sentencia preparada de personas
           <select name="id_casa" id="casa" class="form-select" required>
             <option value="" disabled selected>-- Elegí una casa --</option>
             <?php
-// Consulta para llenar el select de casas
-$query_casas = "SELECT id_casa, nombre FROM casa";
-$resultado_casas = $conexion->query($query_casas); // Ejecuta la consulta directamente
-if ($resultado_casas && $resultado_casas->num_rows > 0) { // Verifica si hay resultados
-while ($row = $resultado_casas->fetch_assoc()) { // Recorre cada casa
-echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre']) . '</option>'; // Imprime la opción
-}
-} else {
-echo '<option disabled>No hay casas disponibles</option>'; // Opción si no hay casas
-}
-// Nota: no es necesario cerrar $conexion aquí, se cerrará al final del script o se reutilizará.
-?>
+              // Consulta para llenar el select de casas
+              $query_casas = "SELECT id_casa, nombre FROM casa";
+              $resultado_casas = $conexion->query($query_casas);
+
+              if ($resultado_casas && $resultado_casas->num_rows > 0) {
+                while ($row = $resultado_casas->fetch_assoc()) {
+                  echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre']) . '</option>';
+                }
+              } else {
+                echo '<option disabled>No hay casas disponibles</option>';
+              }
+            ?>
           </select>
         </div>
 
@@ -314,15 +314,16 @@ echo '<option disabled>No hay casas disponibles</option>'; // Opción si no hay 
           <select name="id_casa" id="upd_id_casa_persona" class="form-select" required>
             <option value="" disabled selected>-- Cargando casas --</option>
             <?php
-// Reutilizamos la lógica de casas para llenar el select inicialmente
-$query_casas = "SELECT id_casa, nombre FROM casa";
-$resultado_casas = $conexion->query($query_casas); // Ejecuta la consulta
-if ($resultado_casas && $resultado_casas->num_rows > 0) { // Verifica si hay resultados
-while ($row = $resultado_casas->fetch_assoc()) { // Recorre cada casa
-echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre']) . '</option>'; // Imprime la opción
-}
-}
-?>
+              // Reutilizamos la lógica de casas para llenar el select inicialmente
+              $query_casas = "SELECT id_casa, nombre FROM casa";
+              $resultado_casas = $conexion->query($query_casas);
+
+              if ($resultado_casas && $resultado_casas->num_rows > 0) {
+                while ($row = $resultado_casas->fetch_assoc()) {
+                  echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre']) . '</option>';
+                }
+              }
+            ?>
           </select>
         </div>
 
@@ -382,59 +383,59 @@ echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre'
 // =======================================================
 
 // --- Referencias de Elementos Principales ---
-const toastElement = document.getElementById("toastMessage"); // Referencia al elemento donde se muestra la notificación (toast)
-const overlayGlobal = document.getElementById("modalOverlay"); // Overlay principal para modales de agregar
+const toastElement = document.getElementById("toastMessage");
+const overlayGlobal = document.getElementById("modalOverlay"); // Overlay para agregar Casa/Persona
 
 // --- Modales Agregar ---
-const modalAgregarCasa = document.getElementById("modalForm"); // Modal para agregar Casa
-const modalAgregarPersona = document.getElementById("modalPersona"); // Modal para agregar Persona
-const formAgregarCasa = document.getElementById("formCasa"); // Formulario para agregar Casa
-const formAgregarPersona = document.getElementById("formPersona"); // Formulario para agregar Persona
+const modalAgregarCasa = document.getElementById("modalForm");
+const modalAgregarPersona = document.getElementById("modalPersona");
+const formAgregarCasa = document.getElementById("formCasa");
+const formAgregarPersona = document.getElementById("formPersona");
 
 // --- Modales Actualizar Casa ---
-const modalActualizarCasa = document.getElementById("modalActualizarCasa"); // Modal para actualizar Casa
-const overlayActualizarCasa = document.getElementById("modalOverlayActualizar"); // Overlay para actualizar Casa
-const formActualizarCasa = document.getElementById("formActualizarCasa"); // Formulario para actualizar Casa
+const modalActualizarCasa = document.getElementById("modalActualizarCasa");
+const overlayActualizarCasa = document.getElementById("modalOverlayActualizar");
+const formActualizarCasa = document.getElementById("formActualizarCasa");
 
 // --- Modales Actualizar Persona ---
-const modalActualizarPersona = document.getElementById("modalActualizarPersona"); // Modal para actualizar Persona
-const overlayActualizarPersona = document.getElementById("modalOverlayActualizarPersona"); // Overlay para actualizar Persona
-const formActualizarPersona = document.getElementById("formActualizarPersona"); // Formulario para actualizar Persona
+const modalActualizarPersona = document.getElementById("modalActualizarPersona");
+const overlayActualizarPersona = document.getElementById("modalOverlayActualizarPersona");
+const formActualizarPersona = document.getElementById("formActualizarPersona");
 
 // --- Nuevo Modal de Confirmación ---
-const modalConfirmacion = document.getElementById("modalConfirmarEliminacion"); // Modal de confirmación de eliminación
-const overlayConfirmacion = document.getElementById("modalOverlayConfirmacion"); // Overlay para el modal de confirmación
-const btnEliminarConfirmado = document.getElementById("btnEliminarConfirmado"); // Botón de confirmación de eliminación
-const btnCancelarEliminacion = document.getElementById("btnCancelarEliminacion"); // Botón de cancelación de eliminación
-const mensajeConfirmacion = document.getElementById("mensajeConfirmacion"); // Elemento de texto dentro del modal de confirmación
+const modalConfirmacion = document.getElementById("modalConfirmarEliminacion");
+const overlayConfirmacion = document.getElementById("modalOverlayConfirmacion");
+const btnEliminarConfirmado = document.getElementById("btnEliminarConfirmado");
+const btnCancelarEliminacion = document.getElementById("btnCancelarEliminacion");
+const mensajeConfirmacion = document.getElementById("mensajeConfirmacion");
 
 // --- Constante de Retardo para Recarga ---
-const RELOAD_DELAY_MS = 1000; // Define el retardo de recarga en milisegundos (1 segundo)
+const RELOAD_DELAY_MS = 1000; // 1 segundo
 
 
 /**
- * Muestra el mensaje de notificación (toast).
- * @param {string} message - Mensaje a mostrar.
- * @param {('success'|'error')} tipo - Tipo de mensaje para el color (verde/rojo).
- * @param {number} [tiempoMs=10000] - Duración del toast.
- */
+ * Muestra el mensaje de notificación (toast).
+ * @param {string} message - Mensaje a mostrar.
+ * @param {('success'|'error')} tipo - Tipo de mensaje para el color.
+ * @param {number} [tiempoMs=10000] - Duración del toast.
+ */
 function showToast(message, tipo = 'success', tiempoMs = 10000) {
-    toastElement.textContent = message; // Establece el texto del toast
-    toastElement.style.backgroundColor = (tipo === 'success') ? '#4CAF50' : '#f44336'; // Define el color de fondo
-    toastElement.classList.add("show"); // Muestra el toast (clase CSS)
-    
-    setTimeout(() => {
-        toastElement.classList.remove("show"); // Oculta el toast después del tiempo especificado
-    }, tiempoMs);
+    toastElement.textContent = message;
+    toastElement.style.backgroundColor = (tipo === 'success') ? '#4CAF50' : '#f44336';
+    toastElement.classList.add("show");
+   
+    setTimeout(() => {
+        toastElement.classList.remove("show");
+    }, tiempoMs);
 }
 
 /**
- * Recarga la página después de un breve retraso.
- */
+ * Recarga la página después de un breve retraso.
+ */
 function reloadPageAfterDelay() {
-    setTimeout(() => {
-        window.location.reload(); // Ejecuta la recarga de la página
-    }, RELOAD_DELAY_MS); // Espera el tiempo definido
+    setTimeout(() => {
+        window.location.reload();
+    }, RELOAD_DELAY_MS);
 }
 
 
@@ -448,14 +449,14 @@ function reloadPageAfterDelay() {
  * @param {string} tipo - El tipo de registro a eliminar (ej: 'la casa', 'la persona').
  */
 function abrirModalConfirmacion(url, tipo) {
-    // Ocultar otros modales abiertos si es necesario (para evitar superposición)
+    // Ocultar otros modales abiertos si es necesario, aunque en principio no deberían estar abiertos.
     cerrarModalAgregarPersona(); 
     cerrarModalActualizarCasa();
     cerrarModalActualizarPersona();
 
     // Establecer el mensaje y la acción del botón de confirmación
-    mensajeConfirmacion.textContent = `⚠️ ¿Estás seguro de que quieres eliminar ${tipo} de forma permanente?`; // Configura el mensaje
-    btnEliminarConfirmado.href = url; // Asigna la URL de eliminación al botón "Eliminar"
+    mensajeConfirmacion.textContent = `⚠️ ¿Estás seguro de que quieres eliminar ${tipo} de forma permanente?`;
+    btnEliminarConfirmado.href = url;
 
     // Mostrar el modal
     modalConfirmacion.style.display = "block";
@@ -467,35 +468,35 @@ function abrirModalConfirmacion(url, tipo) {
  * Cierra el modal de confirmación de eliminación.
  */
 function cerrarModalConfirmacion() {
-    modalConfirmacion.style.display = "none"; // Oculta el modal
-    overlayConfirmacion.style.display = "none"; // Oculta el overlay
-    document.body.style.overflow = "auto"; // Restaura el scroll del fondo
-    btnEliminarConfirmado.href = "#"; // Limpia el enlace (seguridad/limpieza)
+    modalConfirmacion.style.display = "none";
+    overlayConfirmacion.style.display = "none";
+    document.body.style.overflow = "auto";
+    btnEliminarConfirmado.href = "#"; // Limpiar el enlace
 }
 
 // Listener para el botón "Cancelar" y el overlay
-btnCancelarEliminacion.addEventListener("click", cerrarModalConfirmacion); // Cierra al hacer clic en Cancelar
-overlayConfirmacion.addEventListener("click", cerrarModalConfirmacion); // Cierra al hacer clic en el overlay
+btnCancelarEliminacion.addEventListener("click", cerrarModalConfirmacion);
+overlayConfirmacion.addEventListener("click", cerrarModalConfirmacion);
 
 // =======================================================
 // === 1. FUNCIONES DE CIERRE DE MODAL (Existentes) ======
 // =======================================================
 
 function cerrarModalAgregarPersona() {
-    modalAgregarPersona.style.display = "none";
-    overlayGlobal.style.display = "none";
+    modalAgregarPersona.style.display = "none";
+    overlayGlobal.style.display = "none";
 }
 
 function cerrarModalActualizarCasa() {
-    modalActualizarCasa.style.display = "none";
-    overlayActualizarCasa.style.display = "none";
-    document.body.style.overflow = "auto";
+    modalActualizarCasa.style.display = "none";
+    overlayActualizarCasa.style.display = "none";
+    document.body.style.overflow = "auto";
 }
 
 function cerrarModalActualizarPersona() {
-    modalActualizarPersona.style.display = "none";
-    overlayActualizarPersona.style.display = "none";
-    document.body.style.overflow = "auto";
+    modalActualizarPersona.style.display = "none";
+    overlayActualizarPersona.style.display = "none";
+    document.body.style.overflow = "auto";
 }
 
 
@@ -504,85 +505,81 @@ function cerrarModalActualizarPersona() {
 // =======================================================
 
 // --- Abrir/Cerrar Modales de AGREGAR ---
-document.getElementById("abrirModal").addEventListener("click", () => { // Listener para botón de Agregar Casa
-    modalAgregarCasa.style.display = "block";
-    overlayGlobal.style.display = "block";
+document.getElementById("abrirModal").addEventListener("click", () => {
+    modalAgregarCasa.style.display = "block";
+    overlayGlobal.style.display = "block";
 });
 
-document.getElementById("abrirModalPersona").addEventListener("click", () => { // Listener para botón de Agregar Persona
-    modalAgregarPersona.style.display = "block";
-    overlayGlobal.style.display = "block";
+document.getElementById("abrirModalPersona").addEventListener("click", () => {
+    modalAgregarPersona.style.display = "block";
+    overlayGlobal.style.display = "block";
 });
 
-document.getElementById("cerrarModalPersona").addEventListener("click", cerrarModalAgregarPersona); // Cierra Modal Persona
+document.getElementById("cerrarModalPersona").addEventListener("click", cerrarModalAgregarPersona);
 
-overlayGlobal.addEventListener("click", () => { // Listener para el overlay de agregar (cierra ambos si están abiertos)
-    modalAgregarCasa.style.display = "none";
-    cerrarModalAgregarPersona();
+overlayGlobal.addEventListener("click", () => {
+    modalAgregarCasa.style.display = "none";
+    cerrarModalAgregarPersona();
 });
 
 // --- Cerrar Modales de ACTUALIZAR ---
-document.getElementById("cerrarModalActualizar").addEventListener("click", cerrarModalActualizarCasa); // Cierra Modal Actualizar Casa
-overlayActualizarCasa.addEventListener("click", cerrarModalActualizarCasa); // Cierra Modal Actualizar Casa al hacer clic en overlay
+document.getElementById("cerrarModalActualizar").addEventListener("click", cerrarModalActualizarCasa);
+overlayActualizarCasa.addEventListener("click", cerrarModalActualizarCasa);
 
-document.getElementById("cerrarModalActualizarPersona").addEventListener("click", cerrarModalActualizarPersona); // Cierra Modal Actualizar Persona
-overlayActualizarPersona.addEventListener("click", cerrarModalActualizarPersona); // Cierra Modal Actualizar Persona al hacer clic en overlay
+document.getElementById("cerrarModalActualizarPersona").addEventListener("click", cerrarModalActualizarPersona);
+overlayActualizarPersona.addEventListener("click", cerrarModalActualizarPersona);
 
 
 // --- Abrir modal ACTUALIZAR CASA (delegación de eventos) ---
-document.addEventListener("click", async (e) => { // Delega el evento click a todo el documento
-    const boton = e.target.closest(".btnActualizarCasa"); // Busca si el clic ocurrió en un botón de actualizar casa
-    if (!boton) return; // Si no es el botón, sale
+document.addEventListener("click", async (e) => {
+    const boton = e.target.closest(".btnActualizarCasa");
+    if (!boton) return;
 
-    const id = boton.dataset.id; // Obtiene el ID de la casa del atributo data-id
-    try {
-        const res = await fetch(`get_casa.php?id=${id}`); // Realiza una petición GET para obtener los datos de la casa
-        const data = await res.json(); // Parsea la respuesta como JSON
+    const id = boton.dataset.id;
+    try {
+        const res = await fetch(`get_casa.php?id=${id}`);
+        const data = await res.json();
 
-        // Llena los campos del formulario de actualización con los datos recibidos
-        document.getElementById("upd_id_casa").value = data.id_casa;
-        document.getElementById("upd_nombre").value = data.nombre;
-        document.getElementById("upd_calle").value = data.calle;
-        document.getElementById("upd_numero").value = data.numero;
-        document.getElementById("upd_localidad").value = data.localidad;
-        document.getElementById("upd_provincia").value = data.provincia;
+        document.getElementById("upd_id_casa").value = data.id_casa;
+        document.getElementById("upd_nombre").value = data.nombre;
+        document.getElementById("upd_calle").value = data.calle;
+        document.getElementById("upd_numero").value = data.numero;
+        document.getElementById("upd_localidad").value = data.localidad;
+        document.getElementById("upd_provincia").value = data.provincia;
 
-        // Muestra el modal de actualización
-        modalActualizarCasa.style.display = "block";
-        overlayActualizarCasa.style.display = "block";
-        document.body.style.overflow = "hidden"; // Bloquea el scroll del fondo
-    } catch (err) {
-        console.error("Error al obtener datos de la casa:", err); // Log de error
-        showToast("⚠️ Error al cargar los datos de la casa", "error"); // Muestra notificación de error
-    }
+        modalActualizarCasa.style.display = "block";
+        overlayActualizarCasa.style.display = "block";
+        document.body.style.overflow = "hidden";
+    } catch (err) {
+        console.error("Error al obtener datos de la casa:", err);
+        showToast("⚠️ Error al cargar los datos de la casa", "error");
+    }
 });
 
 // --- Abrir modal ACTUALIZAR PERSONA (delegación de eventos) ---
-document.addEventListener("click", async (e) => { // Delega el evento click a todo el documento
-    const boton = e.target.closest(".btnActualizarPersona"); // Busca si el clic ocurrió en un botón de actualizar persona
-    if (!boton) return; // Si no es el botón, sale
+document.addEventListener("click", async (e) => {
+    const boton = e.target.closest(".btnActualizarPersona");
+    if (!boton) return;
 
-    const id = boton.dataset.id; // Obtiene el ID de la persona del atributo data-id
-    try {
-        const res = await fetch("personas/get_persona.php?id=" + id); // Petición GET para obtener datos de la persona
-        if (!res.ok) throw new Error('Error al obtener datos: ' + res.statusText); // Verifica si la respuesta HTTP es correcta
-        const data = await res.json(); // Parsea la respuesta como JSON
-        
-        // Llena los campos del formulario de actualización de persona
-        document.getElementById("upd_id_persona_form").value = data.id_persona;
-        document.getElementById("upd_nombre_persona").value = data.nombre;
-        document.getElementById("upd_apellido_persona").value = data.apellido;
-        document.getElementById("upd_id_casa_persona").value = data.id_casa;
-        document.getElementById("upd_sexo_persona").value = data.sexo;
-        
-        // Muestra el modal de actualización
-        modalActualizarPersona.style.display = "block";
-        overlayActualizarPersona.style.display = "block";
-        document.body.style.overflow = "hidden"; // Bloquea el scroll del fondo
-    } catch (err) {
-        console.error("Error al obtener datos de la persona:", err); // Log de error
-        showToast("⚠️ Error al cargar los datos de la persona", "error"); // Muestra notificación de error
-    }
+    const id = boton.dataset.id;
+    try {
+        const res = await fetch("personas/get_persona.php?id=" + id);
+        if (!res.ok) throw new Error('Error al obtener datos: ' + res.statusText);
+        const data = await res.json();
+       
+        document.getElementById("upd_id_persona_form").value = data.id_persona;
+        document.getElementById("upd_nombre_persona").value = data.nombre;
+        document.getElementById("upd_apellido_persona").value = data.apellido;
+        document.getElementById("upd_id_casa_persona").value = data.id_casa;
+        document.getElementById("upd_sexo_persona").value = data.sexo;
+       
+        modalActualizarPersona.style.display = "block";
+        overlayActualizarPersona.style.display = "block";
+        document.body.style.overflow = "hidden";
+    } catch (err) {
+        console.error("Error al obtener datos de la persona:", err);
+        showToast("⚠️ Error al cargar los datos de la persona", "error");
+    }
 });
 
 
@@ -591,118 +588,116 @@ document.addEventListener("click", async (e) => { // Delega el evento click a to
 // =======================================================
 
 // --- AGREGAR CASA ---
-formAgregarCasa.addEventListener("submit", async (e) => { // Listener al enviar el formulario Agregar Casa
-    e.preventDefault(); // Previene el envío tradicional del formulario
-    const formData = new FormData(formAgregarCasa); // Crea un objeto FormData con los datos del formulario
+formAgregarCasa.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(formAgregarCasa);
 
-    try {
-        const response = await fetch("Registrar_casa.php", { // Petición POST al script de registro
-            method: "POST",
-            body: formData
-        });
+    try {
+        const response = await fetch("Registrar_casa.php", {
+            method: "POST",
+            body: formData
+        });
 
-        const data = await response.text(); // Lee la respuesta del servidor como texto
-        if (data.includes("OK")) { // Si la respuesta contiene "OK" (éxito)
-            // Oculta modales y limpia el formulario
-            modalAgregarCasa.style.display = "none";
-            overlayGlobal.style.display = "none";
-            formAgregarCasa.reset();
+        const data = await response.text();
+        if (data.includes("OK")) {
+            modalAgregarCasa.style.display = "none";
+            overlayGlobal.style.display = "none";
+            formAgregarCasa.reset();
 
-            showToast("✅ Casa agregada correctamente", 'success'); // Notificación de éxito
-            reloadPageAfterDelay(); // RECARGA la página para ver el nuevo registro
-        } else {
-            console.error("Respuesta del servidor casa:", data); // Log de error del servidor
-            showToast("❌ Error al agregar la casa", 'error'); // Notificación de error
-        }
-    } catch (error) {
-        console.error("Error al registrar la casa:", error); // Log de error de conexión/fetch
-        showToast("⚠️ Error de conexión al registrar la casa", 'error'); // Notificación de error
-    }
+            showToast("✅ Casa agregada correctamente", 'success');
+            reloadPageAfterDelay(); // RECARGA
+        } else {
+            console.error("Respuesta del servidor casa:", data);
+            showToast("❌ Error al agregar la casa", 'error');
+        }
+    } catch (error) {
+        console.error("Error al registrar la casa:", error);
+        showToast("⚠️ Error de conexión al registrar la casa", 'error');
+    }
 });
 
 // --- AGREGAR PERSONA ---
-formAgregarPersona.addEventListener("submit", async (e) => { // Listener al enviar el formulario Agregar Persona
-    e.preventDefault(); // Previene el envío tradicional del formulario
-    const formData = new FormData(formAgregarPersona); // Crea un objeto FormData con los datos
+formAgregarPersona.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(formAgregarPersona);
 
-    try {
-        const response = await fetch("personas/Registrar_personas.php", { // Petición POST al script de registro de personas
-            method: "POST",
-            body: formData,
-        });
+    try {
+        const response = await fetch("personas/Registrar_personas.php", {
+            method: "POST",
+            body: formData,
+        });
 
-        const data = await response.text(); // Lee la respuesta del servidor como texto
-        if (data.includes("OK")) { // Si la respuesta contiene "OK" (éxito)
-            // Oculta modal y limpia el formulario
-            cerrarModalAgregarPersona();
-            formAgregarPersona.reset();
+        const data = await response.text();
+        if (data.includes("OK")) {
+            cerrarModalAgregarPersona();
+            formAgregarPersona.reset();
 
-            showToast("✅ Persona agregada correctamente", 'success'); // Notificación de éxito
-            reloadPageAfterDelay(); // RECARGA la página
-        } else {
-            console.error("Respuesta servidor persona:", data); // Log de error del servidor
-            showToast("❌ Error al agregar persona", 'error'); // Notificación de error
-        }
-    } catch (error) {
-        console.error("Error al registrar persona:", error); // Log de error de conexión/fetch
-        showToast("⚠️ Error de conexión al registrar la persona", 'error'); // Notificación de error
-    }
+            showToast("✅ Persona agregada correctamente", 'success');
+            reloadPageAfterDelay(); // RECARGA
+        } else {
+            console.error("Respuesta servidor persona:", data);
+            showToast("❌ Error al agregar persona", 'error');
+        }
+    } catch (error) {
+        console.error("Error al registrar persona:", error);
+        showToast("⚠️ Error de conexión al registrar la persona", 'error');
+    }
 });
 
 // --- ACTUALIZAR CASA ---
-formActualizarCasa.addEventListener("submit", async (e) => { // Listener al enviar el formulario Actualizar Casa
-    e.preventDefault(); // Previene el envío tradicional del formulario
-    const formData = new FormData(formActualizarCasa); // Crea un objeto FormData con los datos
+formActualizarCasa.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(formActualizarCasa);
 
-    try {
-        const res = await fetch("upd_casa.php", { // Petición POST al script de actualización de casa
-            method: "POST",
-            body: formData
-        });
+    try {
+        const res = await fetch("upd_casa.php", {
+            method: "POST",
+            body: formData
+        });
 
-        const data = await res.text(); // Lee la respuesta del servidor como texto
-        const respuesta = data.trim(); // Elimina espacios en blanco innecesarios
+        const data = await res.text();
+        const respuesta = data.trim();
 
-        if (respuesta === "OK") { // Si la respuesta limpia es "OK" (éxito)
-            cerrarModalActualizarCasa(); // Cierra el modal
-            showToast("✅ Casa actualizada correctamente", "success"); // Notificación de éxito
-            reloadPageAfterDelay(); // RECARGA la página
-        } else {
-            console.error("Respuesta del servidor:", data); // Log de error del servidor
-            showToast("❌ Error al actualizar casa", "error"); // Notificación de error
-        }
-    } catch (err) {
-        console.error("Error al actualizar casa:", err); // Log de error de conexión/fetch
-        showToast("⚠️ Error de conexión", "error"); // Notificación de error
-    }
+        if (respuesta === "OK") {
+            cerrarModalActualizarCasa();
+            showToast("✅ Casa actualizada correctamente", "success");
+            reloadPageAfterDelay(); // RECARGA
+        } else {
+            console.error("Respuesta del servidor:", data);
+            showToast("❌ Error al actualizar casa", "error");
+        }
+    } catch (err) {
+        console.error("Error al actualizar casa:", err);
+        showToast("⚠️ Error de conexión", "error");
+    }
 });
 
 // --- ACTUALIZAR PERSONA ---
-formActualizarPersona.addEventListener("submit", async (e) => { // Listener al enviar el formulario Actualizar Persona
-    e.preventDefault(); // Previene el envío tradicional del formulario
-    const formData = new FormData(formActualizarPersona); // Crea un objeto FormData con los datos
-    
-    try {
-        const res = await fetch("personas/upd_persona.php", { // Petición POST al script de actualización de persona
-            method: "POST",
-            body: formData
-        });
-        
-        const data = await res.text(); // Lee la respuesta del servidor como texto
-        const respuesta = data.trim(); // Elimina espacios en blanco innecesarios
-        
-        if (respuesta === "OK") { // Si la respuesta limpia es "OK" (éxito)
-            cerrarModalActualizarPersona(); // Cierra el modal
-            showToast("✅ Persona actualizada correctamente", "success"); // Notificación de éxito
-            reloadPageAfterDelay(); // RECARGA la página
-        } else {
-            console.error("Respuesta del servidor:", data); // Log de error del servidor
-            showToast("❌ Error al actualizar persona", "error"); // Notificación de error
-        }
-    } catch (err) {
-        console.error("Error al actualizar persona:", err); // Log de error de conexión/fetch
-        showToast("⚠️ Error de conexión", "error"); // Notificación de error
-    }
+formActualizarPersona.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(formActualizarPersona);
+   
+    try {
+        const res = await fetch("personas/upd_persona.php", {
+            method: "POST",
+            body: formData
+        });
+       
+        const data = await res.text();
+        const respuesta = data.trim();
+       
+        if (respuesta === "OK") {
+            cerrarModalActualizarPersona();
+            showToast("✅ Persona actualizada correctamente", "success");
+            reloadPageAfterDelay(); // RECARGA
+        } else {
+            console.error("Respuesta del servidor:", data);
+            showToast("❌ Error al actualizar persona", "error");
+        }
+    } catch (err) {
+        console.error("Error al actualizar persona:", err);
+        showToast("⚠️ Error de conexión", "error");
+    }
 });
 </script>
 

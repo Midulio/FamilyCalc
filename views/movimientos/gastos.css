@@ -20,6 +20,7 @@
     --botones: #161616e1;
     --texto-botones: #000616;
     --fondo-tabla: rgba(255, 255, 255, 0.925);
+    --encabezado-form: #030032c7;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -41,6 +42,7 @@
     --botones: #0000008c;
     --texto-botones:#ffffff;
     --fondo-tabla: rgba(172, 172, 172, 0.541);
+    --encabezado-form: #070532;
     }
 }
 
@@ -66,6 +68,85 @@ body{
 ::-webkit-scrollbar-track:hover { background: #e4e4e4;}
 ::-webkit-scrollbar-track:active { background: #d2d2d2;}
 ::-webkit-scrollbar-corner { background: transparent;}
+
+/* --- Estilos para el Toast (Mensaje de Notificación) --- */
+/* Esto debe estar en tu archivo gastos.css */
+/* Necesitas estas reglas en tu archivo gastos.css */
+
+.toast-message {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    z-index: 999999; /* 🔥 MÁS ALTO que cualquier modal de Bootstrap */
+}
+
+.toast-message.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Modal Overlay --- */
+.overlay-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 900;
+}
+
+/* --- Modal Caja --- */
+.modal-form {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* --- Header del modal --- */
+.modal-header-form {
+  background: #0d6efd;
+  color: white;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-cerrar-modal {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#estados.border-warning {
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.053);
+  transition: all 0.2s ease;
+}
+
+
+/* --- Cuerpo --- */
+.modal-content-form {
+  padding: 1rem 1.5rem;
+}
 
 .scrollcontainer{
     width: fit-content;
@@ -192,6 +273,18 @@ h2{
     display: inline-block;
     font-family: "Quicksand";
     font-weight: bold;
+}
+
+.card-header{
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    background-color: var(--encabezado-form);
+    font-family: "Quicksand";
+    font-weight: bold;
+}
+
+.card{
+    border-radius: 1.5rem;
 }
 
 .tables-container{
@@ -329,8 +422,13 @@ section{
 
 
 .table{
-    align-items: center;
     margin: 0;
+    vertical-align:middle;
+}
+
+.table .table-dark{
+    font-size: 2dvh;
+    letter-spacing: .5mm;
 }
 
 .table tr td .btn{
@@ -364,6 +462,16 @@ td .btn{
 .tabla p{
     width: 100%;
     font-size: 1.7dvh;
+}
+
+.row.envios button.btn{
+    font-size: 2.5dvh;
+    letter-spacing: 1px;
+}
+
+.row.envios button.btn img{
+    width: 30px;
+    height: 30px;
 }
 
 @media screen and (max-width:649px) {

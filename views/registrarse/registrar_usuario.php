@@ -16,6 +16,3 @@ $conexion = mysqli_connect('localhost', 'root', '', 'familycalc') or die("Proble
 
 mysqli_query($conexion, $sql) or die("Problemas en el select: " . mysqli_error($conexion));
 mysqli_close($conexion);
-
-
-

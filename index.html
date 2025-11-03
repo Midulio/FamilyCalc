@@ -70,7 +70,7 @@
                 <div class="numeroGastos sco">
                     <p id="totalImporte"><span>ARS</span></p>
                 </div>
-                <div class="position-absolute resumenGastos scrollcontainer">
+                <div class="position-absolute resumenGastos scrollcontainer text-center">
 
                 </div>
             </div>
@@ -126,18 +126,30 @@
   }
 });
 
+// Hace una petición HTTP al archivo PHP que devuelve el total de importes
 fetch('views/movimientos/total_importe.php')
-.then(response => response.text())
-.then(data => {
-    document.getElementById('totalImporte').innerHTML = '$' + data + '<span>ARS</span>';
-});
-
-fetch('views/movimientos/resumen_gastos.php')
-  .then(response => response.json())
+  // Cuando llega la respuesta, la convierte a texto (no JSON)
+  .then(response => response.text())
+  // Luego, con ese texto ya obtenido (el total), se ejecuta esta función
   .then(data => {
-    const resumenContainer = document.querySelector('.resumenGastos');
-    resumenContainer.innerHTML = ''; // Limpiamos lo que había
+    // Inserta el total dentro del elemento con id "totalImporte"
+    // Mostrando el valor con el prefijo "$" y el sufijo "ARS"
+    document.getElementById('totalImporte').innerHTML = '$' + data + '<span>ARS</span>';
+  });
 
+
+// Hace otra petición HTTP al archivo PHP que devuelve un resumen de gastos
+fetch('views/movimientos/resumen_gastos.php')
+  // Convierte la respuesta en formato JSON (porque el PHP devuelve un array u objeto)
+  .then(response => response.json())
+  // Usa los datos obtenidos del JSON
+  .then(data => {
+    // Selecciona el contenedor donde se mostrará el resumen de gastos
+    const resumenContainer = document.querySelector('.resumenGastos');
+    // Limpia cualquier contenido anterior dentro del contenedor
+    resumenContainer.innerHTML = '';
+
+    // Diccionario que asocia cada categoría con un ícono correspondiente
     const iconos = {
       "Entretenimiento": "src/popcorn.svg",
       "Indumentaria": "src/bag.svg",
@@ -148,40 +160,57 @@ fetch('views/movimientos/resumen_gastos.php')
       "Regalos": "src/gift.svg"
     };
 
+    // Si el arreglo `data` tiene elementos (es decir, hay gastos registrados)
     if (data.length > 0) {
-      // Calcular total general para mostrar porcentaje opcional
+      // Calcula el total general de todos los importes para usarlo en porcentajes
       const totalGeneral = data.reduce((acc, item) => {
+        // Convierte el texto del total (que puede tener puntos o comas) a número flotante
         return acc + parseFloat(item.total.replace('.', '').replace(',', '.'));
       }, 0);
 
+      // Recorre cada elemento del resumen de gastos
       data.forEach(item => {
+        // Crea un contenedor (div) para cada ítem del resumen
         const div = document.createElement('div');
+        // Le agrega clases y estilos básicos
         div.classList.add('resumen-item');
         div.style.display = 'flex';
-        div.style.alignItems = 'center';
         div.style.gap = '10px';
         div.style.marginBottom = '20px';
 
+        // Crea un elemento <img> para mostrar el ícono de la categoría
         const img = document.createElement('img');
+        // Usa el ícono correspondiente al servicio, o uno genérico si no existe
         img.src = iconos[item.servicio] || "src/other.svg";
-        img.alt = item.servicio;
-        img.style.width = '55px';
-        img.style.height = '55px';
+        img.alt = item.servicio; // texto alternativo
+        // Aplica estilos de tamaño y margen
+        img.style.width = '60px';
+        img.style.height = '60px';
         img.style.marginLeft = '.1rem';
+        img.style.marginTop = '.2rem';
 
+        // Crea un elemento <span> para mostrar el importe del gasto
         const texto = document.createElement('span');
-        const porcentaje = ((parseFloat(item.total.replace('.').replace(',', '.')) / totalGeneral) * 100).toFixed(1);
-        texto.innerHTML = `<span class="pos-img">$${item.total}</span>`;
+        // Calcula el porcentaje que representa este gasto del total general
+        const porcentaje = ((parseFloat(item.total.replace('.', '').replace(',', '.')) / totalGeneral) * 100).toFixed(1);
+        // Inserta el texto con formato — muestra el total en pesos
+        texto.innerHTML = `<span class="pos-img mx-4 mx-lg-5 mt-md-2">$${item.total}</span>`;
 
+        // Agrega la imagen y el texto al contenedor del ítem
         div.appendChild(img);
         div.appendChild(texto);
+        // Y finalmente agrega el ítem al contenedor principal del resumen
         resumenContainer.appendChild(div);
       });
+
     } else {
-      resumenContainer.innerHTML = '<p class="text-muted">No hay movimientos registrados.</p>';
+      // Si no hay datos, muestra un mensaje indicando que no hay movimientos registrados
+      resumenContainer.innerHTML = '<p class="text-muted ms-3 mt-5 ms-md-4 ms-lg-5">No hay movimientos registrados.</p>';
     }
   })
+  // Si ocurre un error en la petición (por ejemplo, el PHP no responde)
   .catch(error => {
+    // Muestra el error en la consola para depuración
     console.error('Error al cargar el resumen de gastos:', error);
   });
     </script>

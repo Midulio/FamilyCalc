@@ -194,7 +194,7 @@ fetch('views/movimientos/resumen_gastos.php')
         // Calcula el porcentaje que representa este gasto del total general
         const porcentaje = ((parseFloat(item.total.replace('.', '').replace(',', '.')) / totalGeneral) * 100).toFixed(1);
         // Inserta el texto con formato — muestra el total en pesos
-        texto.innerHTML = `<span class="pos-img mx-4 mx-lg-5 mt-md-2">$${item.total}</span>`;
+        texto.innerHTML = `<span class="pos-img mx-auto mx-md-2 mt-md-2">$${item.total}</span>`;
 
         // Agrega la imagen y el texto al contenedor del ítem
         div.appendChild(img);

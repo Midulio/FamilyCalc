@@ -33,7 +33,7 @@ include ("../../conexion.php");
     <title>Listado de Movimientos</title>
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
    <nav class="navbar">
         <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -125,8 +125,8 @@ if ($resultado && $resultado->num_rows > 0):
         <td><?= $r['nombre_servicio'] ?? '<em>Sin servicio</em>' ?></td>
         <td class="d-none d-md-table-cell"><?= $r['tipo_de_gastos'] ?></td>
         <td>
-            <a href="update_movimiento.php?upd=<?= $r['id_movimiento'] ?>" class="btn btn-success btn-sm"><img src="fotos/actualizar-flecha.png" alt="Actualizar" srcset=""></a>
-            <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger btn-sm"><img src="fotos/borrar.png" alt="Eliminar" srcset=""></a>
+            <button type="button" class="btn btn-warning update btn-sm" onclick="abrirModalActualizar(<?= $r['id_movimiento'] ?>)"><img src="fotos/actualizar-flecha.png" alt="Actualizar"></button>
+            <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger delete btn-sm"><img src="fotos/borrar.png" alt="Eliminar" srcset=""></a>
         </td>
     </tr>
 <?php
@@ -137,7 +137,7 @@ endif;
         <td></td>
         <td class="text-center">GASTOS:</td>
         <td class="text-center">$<?= number_format($totalImporte, 2, ',', '.') ?></td>
-        <td colspan="5" class="text-center"><button id="btnAbrirModalMovimiento" class="btn btn-primary"><img src="fotos/agregar.png" alt="Agregar movimiento"></button></td>
+        <td colspan="5" class="text-center"><button type="button" id="btnAbrirModalMovimiento" class="btn btn-primary w-25"><img src="fotos/agregar.png" alt="Agregar movimiento"></button></td>
     </tr>
 </table>
 
@@ -208,26 +208,108 @@ endif;
             <img src="../../src/volver-flecha.png" alt="Volver">
           </button>
   </div>
-</form>
+    </form>
+  </div>
+</div>
+</div>
+
+
+
+<!-- Overlay para el modal de actualizar -->
+<div id="overlayActualizar" class="overlay-modal"></div>
+
+<!-- Modal para actualizar movimiento -->
+<div id="modalActualizar" class="modal-form w-75">
+  <div class="card mx-auto">
+    <div class="card-header text-center text-white">
+      <h2>Actualizar Movimiento</h2>
+    </div>
+    <div class="card-body">
+      <form id="formActualizar" method="post">
+        <!-- ID oculto -->
+        <input type="hidden" name="id_movimiento" id="upd_id_movimiento">
+
+        <!-- Selección de Casa -->
+        <div class="mb-3">
+          <label for="upd_casa" class="form-label">Seleccionar Casa</label>
+          <select name="id_casa" id="upd_casa" class="form-select" required></select>
+        </div>
+
+        <!-- Selección de Persona -->
+        <div class="mb-3">
+          <label for="upd_persona" class="form-label">Seleccionar Persona</label>
+          <select name="id_persona" id="upd_persona" class="form-select" required>
+            <option value="" disabled selected>Selecciona una casa primero</option>
+          </select>
+        </div>
+
+        <!-- Importe -->
+        <div class="mb-3">
+          <label for="upd_importe" class="form-label">Importe</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" name="importe" id="upd_importe" class="form-control" step="0.01" required />
+          </div>
+        </div>
+
+        <!-- Fecha -->
+        <div class="mb-3">
+          <label for="upd_fecha" class="form-label">Fecha de ingreso</label>
+          <input type="date" name="fecha_ingreso" id="upd_fecha" class="form-control" required />
+        </div>
+
+        <!-- Servicio -->
+        <div class="mb-3">
+          <label for="upd_servicio" class="form-label">Servicio</label>
+          <select name="id_servicio" id="upd_servicio" class="form-select" required></select>
+        </div>
+
+        <!-- Tipo de Gasto -->
+        <div class="mb-3">
+          <label for="upd_tipo" class="form-label">Tipo de gasto</label>
+          <select name="tipo_de_gastos" id="upd_tipo" class="form-select" required>
+            <option value="Fijo">Fijo</option>
+            <option value="Variable">Variable</option>
+            <option value="Ingreso">Ingreso</option>
+          </select>
+        </div>
+
+        <!-- Estado -->
+        <div class="mb-3">
+          <label for="upd_estado" class="form-label">Estado <span class="text-black fw-bold">(editable)</span></label>
+          <select name="estados" id="upd_estado" class="form-select" required>
+            <option value="Pagado">Pagado</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+
+        <!-- Botones -->
+        <div class="row envios justify-content-center">
+          <button type="submit" class="btn btn-success col-9">Actualizar Movimiento</button>
+          <button type="button" id="cerrarModalActualizar" class="btn btn-danger col-2">
+            <img src="../../src/volver-flecha.png" alt="Volver">
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
+
 <script>
-// Crea dinámicamente el toast si no existe
+// ==========================
+// 🔹 SISTEMA DE TOASTS
+// ==========================
 function ensureToastElement() {
-    // Busca si ya existe un elemento con id="toastMessage"
     let toast = document.getElementById("toastMessage");
-    
-    // Si no existe, lo crea dinámicamente con estilo en línea
     if (!toast) {
-        toast = document.createElement("div"); // Crea un nuevo <div>
-        toast.id = "toastMessage"; // Asigna el id
-        // Posiciona el toast en la parte inferior centrada de la pantalla
+        toast = document.createElement("div");
+        toast.id = "toastMessage";
         toast.style.position = "fixed";
         toast.style.bottom = "30px";
         toast.style.left = "50%";
         toast.style.transform = "translateX(-50%)";
-        // Define el estilo visual: fondo, bordes, texto, animación, etc.
         toast.style.padding = "12px 22px";
         toast.style.borderRadius = "10px";
         toast.style.color = "white";
@@ -237,224 +319,225 @@ function ensureToastElement() {
         toast.style.opacity = "0";
         toast.style.transition = "opacity 0.3s ease";
         toast.style.zIndex = "9999";
-        // Agrega el toast al <body> del documento
         document.body.appendChild(toast);
     }
-    // Retorna el elemento para su uso posterior
     return toast;
 }
 
-/**
- * Muestra un mensaje tipo "toast" centrado en pantalla.
- * @param {string} message - Mensaje a mostrar.
- * @param {'success'|'error'|'warning'} tipo - Tipo (color) del mensaje.
- * @param {number} [tiempoMs=3000] - Duración visible en milisegundos.
- * @param {function} [callback=null] - Función a ejecutar después de ocultarse.
- */
 function showToast(message, tipo = 'success', tiempoMs = 3000, callback = null) {
-    // Obtiene (o crea si no existe) el toast en pantalla
     const toast = ensureToastElement();
-
-    // Define los colores según el tipo de mensaje
-    const colores = {
-        success: "#28a745", // Verde éxito
-        error: "#dc3545",   // Rojo error
-        warning: "#ffc107"  // Amarillo advertencia
-    };
-    toast.style.backgroundColor = colores[tipo] || "#333"; // Fondo según tipo
-
-    // Asigna el texto del mensaje y lo hace visible
+    const colores = { success: "#28a745", error: "#dc3545", warning: "#ffc107" };
+    toast.style.backgroundColor = colores[tipo] || "#333";
     toast.textContent = message;
     toast.style.opacity = "1";
 
-    // Oculta el toast después de un tiempo definido
     setTimeout(() => {
-        toast.style.opacity = "0"; // Desvanece el toast
-        // Si hay una función callback, la ejecuta después de un breve retardo
-        if (callback && typeof callback === "function") {
-            setTimeout(callback, 400);
-        }
+        toast.style.opacity = "0";
+        if (callback && typeof callback === "function") setTimeout(callback, 400);
     }, tiempoMs);
 }
 
-// Espera a que todo el DOM esté cargado antes de ejecutar
+// ==========================
+// 🔹 MODAL: AGREGAR MOVIMIENTO
+// ==========================
 document.addEventListener("DOMContentLoaded", async () => {
-    // Obtiene referencias a elementos del modal y formulario
     const btnAbrir = document.getElementById("btnAbrirModalMovimiento");
     const modal = document.getElementById("modalMovimiento");
     const overlay = document.getElementById("overlayMovimiento");
     const cerrar = document.getElementById("cerrarModalMovimiento");
     const form = document.getElementById("formAgregarMovimiento");
-
-    // Selects dentro del formulario
     const selectCasa = document.getElementById("mov_casa");
     const selectPersona = document.getElementById("mov_persona");
     const fechaInput = document.getElementById("fecha_ingreso");
     const selectServicio = document.getElementById("servicio");
 
-    // --- Mostrar modal ---
     btnAbrir.addEventListener("click", async () => {
-        // Muestra el modal y el fondo oscuro
         modal.style.display = "block";
         overlay.style.display = "block";
-        // Bloquea el scroll del fondo
         document.body.style.overflow = "hidden";
-        // Carga las listas desplegables de casas y servicios
-        await cargarCasas();
-        await cargarServicios();
-        // Fija automáticamente la fecha actual
-        requestAnimationFrame(() => setFechaHoy());
+        await cargarCasas(selectCasa, selectPersona);
+        await cargarServicios(selectServicio);
+        requestAnimationFrame(() => setFechaHoy(fechaInput));
     });
 
-    // --- Cerrar modal ---
     function cerrarModal() {
-        // Oculta el modal y el fondo oscuro
         modal.style.display = "none";
         overlay.style.display = "none";
-        // Habilita el scroll del cuerpo
         document.body.style.overflow = "auto";
-        // Limpia el formulario
         form.reset();
-        // Vuelve a poner la fecha de hoy
-        setFechaHoy();
+        setFechaHoy(fechaInput);
     }
 
-    // Cierra modal tanto desde el botón como desde el overlay
     cerrar.addEventListener("click", cerrarModal);
     overlay.addEventListener("click", cerrarModal);
 
-    // --- Cargar Casas desde el servidor ---
-    async function cargarCasas() {
-        const res = await fetch("get_casa.php"); // Solicita JSON con las casas
-        const data = await res.json(); // Convierte la respuesta a objeto JS
-        selectCasa.innerHTML = ""; // Limpia opciones previas
+    // ==========================
+    // 🔹 FUNCIONES DE CARGA (REUTILIZABLES)
+    // ==========================
+    async function cargarCasas(selectCasaElem, selectPersonaElem, idCasaSel = null, idPersonaSel = null) {
+        const res = await fetch("get_casa.php");
+        const data = await res.json();
+        selectCasaElem.innerHTML = "";
 
-        // Crea un <option> por cada casa
         data.forEach((c, i) => {
             const option = document.createElement("option");
             option.value = c.id_casa;
             option.textContent = c.nombre;
-            if (i === 0) option.selected = true; // Selecciona la primera por defecto
-            selectCasa.appendChild(option);
+            if (idCasaSel ? c.id_casa == idCasaSel : i === 0) option.selected = true;
+            selectCasaElem.appendChild(option);
         });
 
-        // Si hay al menos una casa, carga sus personas asociadas
-        if (data.length > 0) await cargarPersonas(data[0].id_casa);
+        if (data.length > 0) await cargarPersonas(selectPersonaElem, idCasaSel || data[0].id_casa, idPersonaSel);
     }
 
-    // --- Cargar Personas según casa seleccionada ---
-    async function cargarPersonas(idCasa) {
+    async function cargarPersonas(selectElem, idCasa, idPersonaSel = null) {
         const res = await fetch("get_personas.php?id_casa=" + idCasa);
         const data = await res.json();
-        
-        selectPersona.innerHTML = ""; // Limpia opciones anteriores
+        selectElem.innerHTML = "";
 
         if (data.length === 1) {
-            // Si solo hay UNA persona, la selecciona automáticamente
-            const personaUnica = data[0];
-            const option = document.createElement("option");
-            option.value = personaUnica.id_persona;
-            option.textContent = personaUnica.nombre + " " + personaUnica.apellido;
-            option.selected = true; 
-            selectPersona.appendChild(option);
+            const persona = data[0];
+            const opt = document.createElement("option");
+            opt.value = persona.id_persona;
+            opt.textContent = persona.nombre + " " + persona.apellido;
+            opt.selected = true;
+            selectElem.appendChild(opt);
         } else {
-            // Si hay varias o ninguna, muestra un placeholder adecuado
             const placeholder = document.createElement("option");
             placeholder.value = "";
             placeholder.textContent = data.length === 0 ? "No hay personas en esta casa" : "Selecciona una persona";
             placeholder.disabled = true;
             placeholder.selected = true;
-            selectPersona.appendChild(placeholder);
+            selectElem.appendChild(placeholder);
 
-            // Agrega una opción por cada persona disponible
             data.forEach(p => {
                 const option = document.createElement("option");
                 option.value = p.id_persona;
                 option.textContent = p.nombre + " " + p.apellido;
-                selectPersona.appendChild(option);
+                if (p.id_persona == idPersonaSel) option.selected = true;
+                selectElem.appendChild(option);
             });
         }
     }
 
-    // --- Evento: cambio de casa ---
-    selectCasa.addEventListener("change", async e => {
-        // Cuando cambia la casa, recarga las personas de esa casa
-        await cargarPersonas(e.target.value);
-    });
+    async function cargarServicios(selectElem, idServicioSel = null) {
+        const res = await fetch("get_servicios.php");
+        const data = await res.json();
+        selectElem.innerHTML = "<option disabled selected>Selecciona un servicio</option>";
 
-    // --- Cargar Servicios agrupados (padre-hijo) ---
-    async function cargarServicios() {
-        const res = await fetch("get_servicios.php"); // Pide servicios al servidor
-        const data = await res.json(); // Convierte respuesta a objeto JS
-
-        // Limpia y agrega la opción inicial
-        selectServicio.innerHTML = "<option disabled selected>Selecciona un servicio</option>";
-
-        // Crea un <optgroup> por cada categoría padre
         data.forEach(grupo => {
             const optgroup = document.createElement("optgroup");
             optgroup.label = grupo.padre;
-
-            // Crea opciones dentro del grupo por cada hijo
             grupo.hijos.forEach(hijo => {
                 const option = document.createElement("option");
-                if (hijo.id_servicio) {
-                    option.value = hijo.id_servicio;
-                    option.textContent = hijo.Servicio;
-                } else {
-                    option.disabled = true;
-                    option.textContent = hijo.Servicio;
-                }
+                option.value = hijo.id_servicio;
+                option.textContent = hijo.Servicio;
+                if (hijo.id_servicio == idServicioSel) option.selected = true;
                 optgroup.appendChild(option);
             });
-
-            selectServicio.appendChild(optgroup);
+            selectElem.appendChild(optgroup);
         });
     }
 
-    // --- Pone la fecha actual en el campo correspondiente ---
-    function setFechaHoy() {
+    function setFechaHoy(input) {
         const hoy = new Date().toISOString().split("T")[0];
-        fechaInput.value = hoy;
+        input.value = hoy;
     }
 
-    // --- Enviar Formulario (guardar movimiento) ---
+    // ==========================
+    // 🔹 GUARDAR MOVIMIENTO NUEVO
+    // ==========================
     form.addEventListener("submit", async e => {
-        e.preventDefault(); // Evita el envío tradicional del formulario
-        const formData = new FormData(form); // Crea un objeto con todos los datos del form
-
+        e.preventDefault();
+        const formData = new FormData(form);
         try {
-            // Envía los datos al servidor vía POST usando fetch
-            const res = await fetch("guardar_movimiento.php", {
-                method: "POST",
-                body: formData
-            });
-
-            // Convierte la respuesta del servidor a JSON
+            const res = await fetch("guardar_movimiento.php", { method: "POST", body: formData });
             const data = await res.json();
-            console.log("Respuesta del servidor:", data);
-
-            // Si el servidor devuelve success=true
             if (data.success) {
-                cerrarModal(); // Cierra el modal
-                // Muestra un toast de éxito y recarga la página
-                showToast("✅ " + data.message, "success", 2500, () => {
-                    location.reload();
-                });
+                cerrarModal();
+                showToast("✅ " + data.message, "success", 2500, () => location.reload());
             } else {
-                // Si hubo error, muestra un toast rojo con el mensaje
                 showToast("❌ " + data.message, "error");
-                console.error("Error desde el servidor:", data.message);
             }
         } catch (err) {
-            // Si ocurre un error en la conexión o el fetch falla
             console.error(err);
             showToast("⚠️ Error de conexión", "error");
         }
     });
+
+    // ==========================
+    // 🔹 MODAL ACTUALIZAR MOVIMIENTO (MISMA ESTRUCTURA)
+    // ==========================
+    const modalAct = document.getElementById("modalActualizar");
+    const overlayAct = document.getElementById("overlayActualizar");
+    const cerrarAct = document.getElementById("cerrarModalActualizar");
+    const formAct = document.getElementById("formActualizar");
+
+    function abrirModalActualizar(id) {
+        modalAct.style.display = "block";
+        overlayAct.style.display = "block";
+        document.body.style.overflow = "hidden";
+
+        fetch("get_movimiento.php?id=" + id)
+    .then(r => r.json())
+    .then(async data => {
+        if (data.success) {
+            const mov = data.data;
+            document.getElementById("upd_id_movimiento").value = mov.id_movimientos;
+            document.getElementById("upd_importe").value = mov.importe;
+            document.getElementById("upd_fecha").value = mov.fecha_ingreso;
+            document.getElementById("upd_estado").value = mov.estados;
+            document.getElementById("upd_tipo").value = mov.tipo_de_gastos;
+
+            const selCasa = document.getElementById("upd_casa");
+            const selPersona = document.getElementById("upd_persona");
+            const selServ = document.getElementById("upd_servicio");
+
+            await cargarCasas(selCasa, selPersona, mov.id_casa, mov.id_persona);
+            await cargarServicios(selServ, mov.id_servicio);
+        } else {
+            showToast("⚠️ " + data.message, "warning");
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        showToast("⚠️ Error al cargar movimiento", "error");
+    });
+    }
+
+    function cerrarModalActualizar() {
+        modalAct.style.display = "none";
+        overlayAct.style.display = "none";
+        document.body.style.overflow = "auto";
+        formAct.reset();
+    }
+
+    cerrarAct.addEventListener("click", cerrarModalActualizar);
+    overlayAct.addEventListener("click", cerrarModalActualizar);
+
+    // --- GUARDAR CAMBIOS ---
+    formAct.addEventListener("submit", async e => {
+        e.preventDefault();
+        const formData = new FormData(formAct);
+        try {
+            const res = await fetch("upd_movimiento.php", { method: "POST", body: formData });
+            const data = await res.json();
+            if (data.success) {
+                cerrarModalActualizar();
+                showToast("✅ " + data.message, "success", 2000, () => location.reload());
+            } else {
+                showToast("❌ " + data.message, "error");
+            }
+        } catch (err) {
+            console.error(err);
+            showToast("⚠️ Error al actualizar", "error");
+        }
+    });
+
+    // Expone función global para poder llamarla desde botones Editar
+    window.abrirModalActualizar = abrirModalActualizar;
 });
 </script>
-
 
 </body>
 </html>

@@ -17,7 +17,6 @@
     --resumen: #0061c9;
     --color-texto-claro: #ffffff; /* Color de texto gastos */
     --color-texto-tabla: #000000;
-    --botones: #161616e1;
     --texto-botones: #000616;
     --fondo-tabla: rgba(255, 255, 255, 0.925);
     --encabezado-form: #030032c7;
@@ -39,7 +38,6 @@
     --resumen: #0003b6e0;
     --color-texto-claro: #ffffffee; /* Color de texto gastos */
     --color-texto-tabla: #000218af;
-    --botones: #0000008c;
     --texto-botones:#ffffff;
     --fondo-tabla: rgba(172, 172, 172, 0.541);
     --encabezado-form: #070532;
@@ -449,8 +447,13 @@ table tr.table-dark td img{
     width: 5dvh;
 }
 
-td .btn{
-    background-color: var(--botones);
+td .btn.update{
+    background-color: rgba(255, 255, 2, 0.729);
+    
+}
+
+td .btn.delete{
+    background-color: rgba(176, 0, 0, 0.831);
 }
 
 .tablaTitulo p{

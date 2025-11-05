@@ -67,7 +67,7 @@
                     <h2> Gasto total </h2>
                     <h3 class="position-absolute top-50 end-0 translate-middle-y">Resumen de gastos</h3>
                 </div>
-                <div class="numeroGastos sco">
+                <div class="numeroGastos sco mx-auto">
                     <p id="totalImporte"><span>ARS</span></p>
                 </div>
                 <div class="position-absolute resumenGastos scrollcontainer text-center">
@@ -205,7 +205,7 @@ fetch('views/movimientos/resumen_gastos.php')
 
     } else {
       // Si no hay datos, muestra un mensaje indicando que no hay movimientos registrados
-      resumenContainer.innerHTML = '<p class="text-muted ms-3 mt-5 ms-md-4 ms-lg-5">No hay movimientos registrados.</p>';
+      resumenContainer.innerHTML = '<p class="text-muted mx-auto my-3">No hay movimientos registrados.</p>';
     }
   })
   // Si ocurre un error en la petición (por ejemplo, el PHP no responde)

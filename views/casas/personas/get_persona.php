@@ -11,24 +11,20 @@ header('Content-Type: application/json');
 if (!isset($_GET['id'])) {
 // Comprueba si el parámetro 'id' (ID de la persona) no está presente en la solicitud GET.
 
-    http_response_code(400); 
+http_response_code(400); 
 // Establece el código de respuesta HTTP a 400 (Bad Request - Solicitud incorrecta).
 
-    echo json_encode(['error' => 'Falta el ID de la persona']);
+echo json_encode(['error' => 'Falta el ID de la persona']);
 // Devuelve un mensaje de error en formato JSON al cliente.
 
-    exit;
+exit;
 // Termina la ejecución del script.
 }
 
 $id_persona = $_GET['id'];
 // Almacena el ID de la persona recibido por GET en una variable.
 
-$sql = "SELECT id_persona, id_casa, nombre, apellido, sexo 
-// Define la consulta SQL para seleccionar los campos específicos de la tabla 'persona'.
-        FROM persona 
-// Especifica la tabla de origen.
-        WHERE id_persona = ?";
+$sql = "SELECT id_persona, id_casa, nombre, apellido, sexo FROM persona WHERE id_persona = ?";
 // Filtra por el ID de la persona usando un marcador de posición '?'.
 
 $stmt = $conexion->prepare($sql);
@@ -46,18 +42,18 @@ $resultado = $stmt->get_result();
 if ($resultado && $resultado->num_rows > 0) {
 // Verifica si se obtuvieron resultados Y si hay al menos una fila.
 
-    $datos = $resultado->fetch_assoc();
+$datos = $resultado->fetch_assoc();
 // Recupera la primera fila de resultados como un array asociativo.
 
-    echo json_encode($datos); 
+echo json_encode($datos); 
 // Codifica el array de datos ($datos) a JSON y lo imprime como respuesta (éxito).
 } else {
 // Si no hay resultados o la consulta falló.
 
-    http_response_code(404); 
+http_response_code(404); 
 // Establece el código de respuesta HTTP a 404 (Not Found - Recurso no encontrado).
 
-    echo json_encode(['error' => 'Persona no encontrada']);
+echo json_encode(['error' => 'Persona no encontrada']);
 // Devuelve un mensaje de error en formato JSON.
 }
 
@@ -66,5 +62,3 @@ $stmt->close();
 
 $conexion->close();
 // Cierra la conexión a la base de datos.
-
-?>

@@ -574,6 +574,10 @@ td .btn.delete{
     margin-bottom: .2rem;
     width: 2.5dvh;
     }
+
+    .row.envios button.btn {
+        padding: 0;
+    }
 }
 @media screen and (min-width:650px) and (max-width:1279px) {
     .menu img{

@@ -97,13 +97,13 @@ $totalImporte = 0;
 
 <table class="table table-hover">
     <tr class="table-secondary text-center">
-        <th class="d-none d-md-table-cell">Casa</th>
+        <th class="d-none d-lg-table-cell">Casa</th>
         <th>Persona</th>
         <th>Importe</th>
         <th class="d-none d-md-table-cell">Fecha de Ingreso</th>
         <th class="d-none d-md-table-cell">Estado</th>
         <th>Servicio</th>
-        <th class="d-none d-md-table-cell">Tipo de Gasto</th>
+        <th class="d-none d-lg-table-cell">Tipo de Gasto</th>
         <th>Acciones</th>
     </tr>
 
@@ -113,7 +113,7 @@ if ($resultado && $resultado->num_rows > 0):
         $totalImporte += $r['importe'];
 ?>
     <tr class="text-center">
-        <td class="d-none d-md-table-cell">
+        <td class="d-none d-lg-table-cell">
             <?= $r['nombre_casa'] ?? '<em>Sin casa</em>' ?>
         </td>
         <td>
@@ -123,7 +123,7 @@ if ($resultado && $resultado->num_rows > 0):
         <td class="d-none d-md-table-cell"><?= $r['fecha_ingreso'] ?></td>
         <td class="d-none d-md-table-cell fw-bold"><?= $r['estados'] ?></td>
         <td><?= $r['nombre_servicio'] ?? '<em>Sin servicio</em>' ?></td>
-        <td class="d-none d-md-table-cell"><?= $r['tipo_de_gastos'] ?></td>
+        <td class="d-none d-lg-table-cell"><?= $r['tipo_de_gastos'] ?></td>
         <td>
             <button type="button" class="btn btn-warning update btn-sm" onclick="abrirModalActualizar(<?= $r['id_movimiento'] ?>)"><img src="fotos/actualizar-flecha.png" alt="Actualizar"></button>
             <a href="eliminar_movimiento.php?id_movimiento=<?= $r['id_movimiento'] ?>" class="btn btn-danger delete btn-sm"><img src="fotos/borrar.png" alt="Eliminar" srcset=""></a>
@@ -134,10 +134,10 @@ if ($resultado && $resultado->num_rows > 0):
 endif;
 ?>
     <tr class="table-dark fw-bold">
-        <td></td>
+        <td class="d-none d-lg-table-cell"></td>
         <td class="text-center">GASTOS:</td>
         <td class="text-center">$<?= number_format($totalImporte, 2, ',', '.') ?></td>
-        <td colspan="5" class="text-center"><button type="button" id="btnAbrirModalMovimiento" class="btn btn-primary w-25"><img src="fotos/agregar.png" alt="Agregar movimiento"></button></td>
+        <td colspan="5" class="text-center"><button type="button" id="btnAbrirModalMovimiento" class="btn btn-primary mx-4"><img src="fotos/agregar.png" alt="Agregar movimiento"></button></td>
     </tr>
 </table>
 
@@ -296,8 +296,96 @@ endif;
   </div>
 </div>
 
+<!-- ========================= -->
+<!-- 🔸 MODAL CONFIRMAR ELIMINACIÓN -->
+<!-- ========================= -->
+<div id="modalOverlayConfirmacion" class="overlay-modal"></div>
+<div id="modalConfirmarEliminacion" class="modal-form w-75" style="text-align: center;">
+  <div class="card shadow-lg mx-auto border-danger">
+    <div class="card-header bg-danger text-white">
+      <h5 class="mb-0">⚠️ Confirmar Eliminación ⚠️</h5>
+    </div>
+    <div class="card-body">
+      <p id="mensajeConfirmacion" class="mb-4 lead">
+        ¿Estás seguro de que quieres eliminar este movimiento de forma permanente?
+      </p>
+      <div class="d-flex justify-content-around">
+        <button id="btnEliminarConfirmado" class="btn btn-danger btn-lg flex-fill me-2">Eliminar</button>
+        <button id="btnCancelarEliminacion" class="btn btn-secondary btn-lg flex-fill ms-2">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
+
+// ======================================
+// 🔹 SISTEMA DE CONFIRMACIÓN DE ELIMINACIÓN
+// ======================================
+
+let idMovimientoEliminar = null; // ID temporal
+
+// 🔸 Interceptar clic en botones "Eliminar"
+document.querySelectorAll('.delete').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault(); // evita la redirección inmediata
+    const href = e.currentTarget.getAttribute('href');
+    const params = new URLSearchParams(href.split('?')[1]);
+    idMovimientoEliminar = params.get('id_movimiento');
+    abrirModalConfirmacion();
+  });
+});
+
+// 🔸 Elementos del modal
+const modalConf = document.getElementById('modalConfirmarEliminacion');
+const overlayConf = document.getElementById('modalOverlayConfirmacion');
+const btnEliminarConf = document.getElementById('btnEliminarConfirmado');
+const btnCancelarConf = document.getElementById('btnCancelarEliminacion');
+
+function abrirModalConfirmacion() {
+  modalConf.style.display = 'block';
+  overlayConf.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarModalConfirmacion() {
+  modalConf.style.display = 'none';
+  overlayConf.style.display = 'none';
+  document.body.style.overflow = 'auto';
+  idMovimientoEliminar = null;
+}
+
+btnCancelarConf.addEventListener('click', cerrarModalConfirmacion);
+overlayConf.addEventListener('click', cerrarModalConfirmacion);
+
+// 🔸 Confirmar eliminación
+btnEliminarConf.addEventListener('click', async () => {
+  if (!idMovimientoEliminar) return;
+
+  try {
+    const res = await fetch(`eliminar_movimiento.php?id_movimiento=${idMovimientoEliminar}`, {
+      method: 'GET'
+    });
+
+    // Intentamos leer respuesta JSON si la hay
+    let data = {};
+    try { data = await res.json(); } catch {}
+
+    if (res.ok && data.success) {
+      cerrarModalConfirmacion();
+      showToast("✅ Movimiento eliminado correctamente", "success", 2000, () => location.reload());
+    } else {
+      cerrarModalConfirmacion();
+      showToast("❌ Error al eliminar el movimiento", "error");
+    }
+
+  } catch (err) {
+    console.error(err);
+    cerrarModalConfirmacion();
+    showToast("⚠️ Error de conexión con la base de datos", "error");
+  }
+});
+
 // ==========================
 // 🔹 SISTEMA DE TOASTS
 // ==========================

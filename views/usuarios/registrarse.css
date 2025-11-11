@@ -1,0 +1,301 @@
+@font-face{
+    font-family: "Hero";
+    font-weight: bold;
+    src: url(../../fonts/Hero-Bold.otf) format('opentype');
+}
+
+:root {
+    --interior-menu: #DDE5FA;
+    --texto-menu: #031427ea;
+    --family: #e8eeff;
+    --calc: #d0dcff;
+    --color-fondo-claro: #DDE5FA; /* Color de fondo principal de la sección */
+    --color-barra-navegacion-claro: #000616; /* Color de la barra de navegación */
+    --color-box-claro: #031427ea; /* Color de los botones de la barra de navegación*/
+    --gastos-fondo: #d9ebfc;
+    --gastos-titulo-fondo: #000616;
+    --resumen: #0061c9;
+    --color-texto-claro: #ffffff; /* Color de texto gastos */
+    --botones: #161616e1;
+    --texto-botones: #000616;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+    /* Colores para el tema OSCURO */
+    
+    --interior-menu: #020114;
+    --texto-menu: #dddddd;
+    --family: #111213;
+    --calc: #25272e;
+    --color-fondo-claro: #010016e8; /* Fondo más oscuro */
+    --color-barra-navegacion-claro: #f3f3f3; /* Barra de navegación más oscura */
+    --color-box-claro: #000000dc; /* Botones de la barra en oscuro */
+    --gastos-fondo: #ffffffcb;
+    --gastos-titulo-fondo: #1f2335;
+    --resumen: #0003b6e0;
+    --color-texto-claro: #ffffffee; /* Color de texto gastos */
+    --botones: #0000008c;
+    --texto-botones:#ffffff;
+    }
+}
+
+
+body{
+    background-color: var(--color-fondo-claro);
+}
+
+.glass{
+    background: #2c2c2c40;
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+::-webkit-scrollbar { width: 0px; height: 9px;}
+::-webkit-scrollbar-button { width: 0px; height: 0px;}
+::-webkit-scrollbar-thumb { background: transparent; border: 0px none #fff; border-radius: 10px;}
+::-webkit-scrollbar-thumb:hover { background: #3a77a1;}
+::-webkit-scrollbar-thumb:active { background: #8dd0d8;}
+::-webkit-scrollbar-track {background: transparent;border: 0px solid #aaa; border-radius: 5px;}
+::-webkit-scrollbar-track:hover { background: #e4e4e4;}
+::-webkit-scrollbar-track:active { background: #d2d2d2;}
+::-webkit-scrollbar-corner { background: transparent;}
+
+.scrollcontainer{
+    width: fit-content;
+    height: fit-content;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+nav{
+    background-color: var(--color-barra-navegacion-claro);
+    width: 100% !important;
+}
+
+.logo{
+    text-decoration: none;
+    letter-spacing: 1.5px;
+}
+
+.family{
+    font-family: montserrat;
+    font-weight: bold;
+    color: var(--family);
+    font-size: 3.8dvh;
+}
+
+.calc{
+    font-size: 4.4dvh;
+    font-family: fira sans;
+    font-weight: bold;
+    color: var(--calc);
+    letter-spacing: 1px;
+}
+
+.menu{                  
+    background-color: var(--color-box-claro);
+    border: none;
+    padding: 4px;
+}
+
+.btn img{
+    width: 4.8dvh;
+}
+
+.menu:hover{
+    background-color: rgba(144, 165, 223, 0.336);
+    border: none;
+}
+
+.interiorMenu{
+    background-color: var(--interior-menu);
+    padding: 0;
+    height: 100%;
+}
+
+.interiorMenu a{
+    color: var(--texto-menu);
+    text-decoration: none;
+    display: block;
+    font-size: 2.1dvh;
+    padding: 12px 0 12px 15px;
+    font-family: "Work Sans";
+    font-weight:normal;
+}
+
+.interiorMenu a:hover{
+    background-color: #10195e67;
+}
+
+.interiorMenu .explorar h4{
+    color: var(--texto-menu);
+    font-size: 5dvh;
+    margin-left: 2dvh;
+    font-family: "Oswald";
+    font-weight: bold;
+}
+
+.interiorMenu .explorar img{
+    margin-right: 3dvh;
+    width: 7dvh;
+    background-color: rgba(0, 0, 0, 0.795);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.contactos{
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(0, 0, 0, 0.795);
+    border-radius: 10px;
+}
+
+.contactos img{
+    width: 2.5rem;
+}
+
+.contactos-box{
+    position: absolute;
+    margin-bottom: 1rem;
+}
+
+.menu:hover{
+    background-color: rgb(144, 165, 223);
+    border: none;
+}
+
+
+.container {
+  min-height: calc(100vh - 75px); /* Ajusta 100px según la altura real del navbar */
+}
+
+.formulario{
+    width: 30rem;
+    height: 32rem;
+    border-radius: 2rem;
+}
+
+.card-header{
+    border-top-left-radius: 2rem !important;
+    border-top-right-radius: 2rem !important;
+    background-color: #0061c9;
+}
+
+.formulario h2{
+    font-family: "Poppins";
+    font-weight: bold;
+    color:black;
+    text-align: center;
+}
+
+.formulario form{
+    padding: 0 3rem;
+    box-sizing: border-box;
+}
+
+form .username{
+    position: relative;
+    border-bottom: 2px solid rgba(6, 71, 141, 0.322);
+    margin: 48px 0;
+}
+
+.username input{
+    color: rgb(99, 99, 99);
+    width: 100%;
+    padding: 0 5px;
+    height: 1rem;
+    font-size: 20px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.username label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #CFD3F2;
+    transform: translateY(-50%);
+    font-size: 19px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.username span::before{
+    content: '';
+    position:absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: rgb(27, 141, 216) ;
+    transition: .5s;
+}
+
+.username input:focus ~ label,
+.username input:focus ~ label{
+    top: -5px;
+    color: rgb(27, 141, 216);
+}
+
+.username input:focus ~ span::before,
+.username input:focus ~ span::before{
+    width: 100%;
+}
+
+input[type="submit"]{
+    width: 100%;
+    height: 50px;
+    border: 1px solid rgb(6, 72, 141);
+    background: rgb(6, 72, 141);
+    border-radius: 25px;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+    color: #CFD3F2;
+}
+
+input[type="submit"]:hover{
+    border-color: rgb(4, 42, 82);
+    transition: .5s;
+}
+
+.registrarse{
+    text-align: center;
+    color: #CFD3F2;
+    margin: 0.3rem;
+}
+
+.registrarse a{
+    color: rgb(74, 74, 255);
+    text-decoration: none;
+}
+
+.registrarse a:hover{
+    text-decoration: underline;
+}
+
+
+body::-webkit-scrollbar{
+    width: 10px;
+    background-color: rgb(51, 51, 51);
+}
+body::-webkit-scrollbar-thumb{
+    border-radius: 15px;
+    background-color: rgb(36, 36, 36);
+}
+
+body::-webkit-scrollbar-thumb:hover{
+    background-color: rgb(24, 24, 24);
+}
+
+.username input:focus ~ label,
+.username input:not(:placeholder-shown) ~ label {
+    top: -5px;
+    color: rgb(6, 72, 141);
+    font-size: 14px;
+}

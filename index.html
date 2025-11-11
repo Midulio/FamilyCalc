@@ -56,15 +56,15 @@
                 <div id="bot-tooltip">
                     👋 Haz clic AQUÍ para ABRIR el CHAT con el BOT 🤖
                 </div>
-                <a href="views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="src/user-circle.svg"></a>
+                <div class="btn menu" id="userMenu"></div>
             </div>
         </div>
     </nav>
     <section class="container-sm">
-        <a href="views/movimientos/index_movimientos.php" class="animacionHover">
+        <a href="views/movimientos/index_movimientos.php" class="animacionHover" id="movimientos">
             <div class="gastos position-relative">
                 <div class="gastosTitulo position-relative">
-                    <h2> Gasto total </h2>
+                    <h2> Gasto Total </h2>
                     <h3 class="position-absolute top-50 end-0 translate-middle-y">Resumen de gastos</h3>
                 </div>
                 <div class="numeroGastos sco mx-auto">
@@ -82,7 +82,7 @@
             </div>
 
             <div class="btnChicos col-6 col-sm-4 mb-3">
-                <a href="" class="btnChicos animacionHover" id="estadisticas"><img src="src/chart-barwhite.svg"></a>
+                <a href="#" class="btnChicos animacionHover" id="estadisticas"><img src="src/chart-barwhite.svg"></a>
                 <p>Estadísticas de gastos</p>
             </div>
 
@@ -93,126 +93,130 @@
         </div>
     </div>
     </section>
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {  // Espera a que el DOM cargue completamente antes de ejecutar el script
 
-  const tooltip = document.getElementById("bot-tooltip");  // Obtiene el elemento del tooltip por su ID
 
-  // Cantidad máxima de veces que se mostrará
-  const maxShows = 3;  // Define el límite de veces que el tooltip puede aparecer
 
-  // Obtener valores de localStorage
-  let shows = localStorage.getItem("botTooltipShows") || 0;  // Recupera cuántas veces ya se mostró el tooltip (si no existe, arranca en 0)
 
-  let lastShown = localStorage.getItem("botTooltipLastShown");  // Recupera la última fecha en la que se mostró el tooltip
+<script src="api/sessionMenu.js"></script>
+<!-- JS -->
+<script>
+window.addEventListener("DOMContentLoaded", async () => {
+  // --- TOOLTIP (sin cambios) ---
+  const tooltip = document.getElementById("bot-tooltip");
+  const maxShows = 3;
+  let shows = localStorage.getItem("botTooltipShows") || 0;
+  let lastShown = localStorage.getItem("botTooltipLastShown");
+  const today = new Date().toDateString();
 
-  const today = new Date().toDateString();  // Obtiene la fecha de hoy en formato de texto (ej: "Fri Sep 19 2025")
-
-  // Verificar si ya se mostró demasiadas veces o si ya se mostró hoy
-  if (shows < maxShows && lastShown !== today) {  // Condición: solo mostrar si aún no alcanzó el límite y no se mostró hoy
-
-    // Mostrar tooltip
-    tooltip.style.display = "block";  // Cambia el estilo a "block" para hacerlo visible
-
-    // Guardar en localStorage
-    localStorage.setItem("botTooltipShows", ++shows);  // Incrementa el contador y lo guarda en localStorage
-
-    localStorage.setItem("botTooltipLastShown", today);  // Guarda la fecha actual para que no vuelva a mostrarse hoy
-
-    // Ocultar después de 5 segundos
-    setTimeout(() => {  // Inicia un temporizador de 5 segundos
-      tooltip.style.display = "none";  // Cambia el estilo a "none" para ocultar el tooltip
-    }, 5000);  // Define el tiempo de espera de 5000 milisegundos (5 segundos)
+  if (shows < maxShows && lastShown !== today) {
+    tooltip.style.display = "block";
+    localStorage.setItem("botTooltipShows", ++shows);
+    localStorage.setItem("botTooltipLastShown", today);
+    setTimeout(() => tooltip.style.display = "none", 5000);
   }
-});
 
-// Hace una petición HTTP al archivo PHP que devuelve el total de importes
-fetch('views/movimientos/total_importe.php')
-  // Cuando llega la respuesta, la convierte a texto (no JSON)
-  .then(response => response.text())
-  // Luego, con ese texto ya obtenido (el total), se ejecuta esta función
-  .then(data => {
-    // Inserta el total dentro del elemento con id "totalImporte"
-    // Mostrando el valor con el prefijo "$" y el sufijo "ARS"
-    document.getElementById('totalImporte').innerHTML = '$' + data + '<span>ARS</span>';
-  });
+  // --- DETECCIÓN DE RUTA BASE AUTOMÁTICA ---
+  const origin = window.location.origin;
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+  const projectFolder = pathParts[0] || "FamilyCalc"; // si cambia el nombre, se adapta solo
+  const baseUrl = `${origin}/${projectFolder}`;
+  const loginUrl = `${baseUrl}/views/usuarios/iniciarSesion.html`;
 
+  // --- BOTONES ---
+  const btnResumen = document.querySelector("a#movimientos");
+  const btnCasas = document.querySelector("a#casas");
+  const btnEstadisticas = document.querySelector("a#estadisticas");
 
-// Hace otra petición HTTP al archivo PHP que devuelve un resumen de gastos
-fetch('views/movimientos/resumen_gastos.php')
-  // Convierte la respuesta en formato JSON (porque el PHP devuelve un array u objeto)
-  .then(response => response.json())
-  // Usa los datos obtenidos del JSON
-  .then(data => {
-    // Selecciona el contenedor donde se mostrará el resumen de gastos
-    const resumenContainer = document.querySelector('.resumenGastos');
-    // Limpia cualquier contenido anterior dentro del contenedor
-    resumenContainer.innerHTML = '';
+  // --- CHEQUEO DE SESIÓN ---
+  try {
+    const response = await fetch(`${baseUrl}/api/checkSession.php`);
+    const data = await response.json();
 
-    // Diccionario que asocia cada categoría con un ícono correspondiente
-    const iconos = {
-      "Entretenimiento": "src/popcorn.svg",
-      "Indumentaria": "src/bag.svg",
-      "Salud": "src/first-aid.svg",
-      "Videojuegos o Suscripciones": "src/game-controller.svg",
-      "Viajes": "src/airplane.svg",
-      "Cuentas Bancarias": "src/bank2.svg",
-      "Regalos": "src/gift.svg"
-    };
+    const totalImporte = document.getElementById("totalImporte");
+    const resumenContainer = document.querySelector(".resumenGastos");
 
-    // Si el arreglo `data` tiene elementos (es decir, hay gastos registrados)
-    if (data.length > 0) {
-      // Calcula el total general de todos los importes para usarlo en porcentajes
-      const totalGeneral = data.reduce((acc, item) => {
-        // Convierte el texto del total (que puede tener puntos o comas) a número flotante
-        return acc + parseFloat(item.total.replace('.', '').replace(',', '.'));
-      }, 0);
+    // Si el usuario NO está logueado
+    if (!data.logged) {
+      totalImporte.innerHTML = `<span class="fw-bold deslogueado">Debe iniciar sesión para ver los gastos</span>`;
+      resumenContainer.innerHTML = "";
 
-      // Recorre cada elemento del resumen de gastos
-      data.forEach(item => {
-        // Crea un contenedor (div) para cada ítem del resumen
-        const div = document.createElement('div');
-        // Le agrega clases y estilos básicos
-        div.classList.add('resumen-item');
-        div.style.display = 'flex';
-        div.style.gap = '10px';
-        div.style.marginBottom = '20px';
+      const botones = [btnResumen, btnCasas, btnEstadisticas];
 
-        // Crea un elemento <img> para mostrar el ícono de la categoría
-        const img = document.createElement('img');
-        // Usa el ícono correspondiente al servicio, o uno genérico si no existe
-        img.src = iconos[item.servicio] || "src/other.svg";
-        img.alt = item.servicio; // texto alternativo
-        // Aplica estilos de tamaño y margen
-        img.style.width = '60px';
-        img.style.height = '60px';
-        img.style.marginLeft = '.1rem';
-        img.style.marginTop = '.2rem';
-
-        // Crea un elemento <span> para mostrar el importe del gasto
-        const texto = document.createElement('span');
-        // Calcula el porcentaje que representa este gasto del total general
-        const porcentaje = ((parseFloat(item.total.replace('.', '').replace(',', '.')) / totalGeneral) * 100).toFixed(1);
-        // Inserta el texto con formato — muestra el total en pesos
-        texto.innerHTML = `<span class="pos-img mx-auto mx-md-2 mt-md-2">$${item.total}</span>`;
-
-        // Agrega la imagen y el texto al contenedor del ítem
-        div.appendChild(img);
-        div.appendChild(texto);
-        // Y finalmente agrega el ítem al contenedor principal del resumen
-        resumenContainer.appendChild(div);
+      // ⚡ Fuerza el comportamiento correcto de redirección
+      botones.forEach(boton => {
+        if (!boton) return;
+        boton.setAttribute("href", "#");
+        boton.addEventListener("click", e => {
+          e.preventDefault();
+          window.location.href = loginUrl;
+        });
       });
 
-    } else {
-      // Si no hay datos, muestra un mensaje indicando que no hay movimientos registrados
-      resumenContainer.innerHTML = '<p class="text-muted mx-auto my-3">No hay movimientos registrados.</p>';
+      return; // Detiene el resto del script
     }
-  })
-  // Si ocurre un error en la petición (por ejemplo, el PHP no responde)
-  .catch(error => {
-    // Muestra el error en la consola para depuración
-    console.error('Error al cargar el resumen de gastos:', error);
-  });
-    </script>
+
+    // --- SI HAY SESIÓN ACTIVA ---
+
+    // FETCH total_importe.php
+    fetch(`${baseUrl}/views/movimientos/total_importe.php`)
+      .then(response => response.text())
+      .then(data => {
+        totalImporte.innerHTML = `$${data}<span>ARS</span>`;
+      });
+
+    // FETCH resumen_gastos.php
+    fetch(`${baseUrl}/views/movimientos/resumen_gastos.php`)
+      .then(response => response.json())
+      .then(data => {
+        resumenContainer.innerHTML = "";
+
+        const iconos = {
+          "Entretenimiento": "src/popcorn.svg",
+          "Indumentaria": "src/bag.svg",
+          "Salud": "src/first-aid.svg",
+          "Videojuegos o Suscripciones": "src/game-controller.svg",
+          "Viajes": "src/airplane.svg",
+          "Cuentas Bancarias": "src/bank2.svg",
+          "Regalos": "src/gift.svg"
+        };
+
+        if (data.length > 0) {
+          const totalGeneral = data.reduce((acc, item) =>
+            acc + parseFloat(item.total.replace('.', '').replace(',', '.')), 0);
+
+          data.forEach(item => {
+            const div = document.createElement('div');
+            div.classList.add('resumen-item');
+            div.style.display = 'flex';
+            div.style.gap = '10px';
+            div.style.marginBottom = '20px';
+
+            const img = document.createElement('img');
+            img.src = iconos[item.servicio] || "src/other.svg";
+            img.alt = item.servicio;
+            img.style.width = '60px';
+            img.style.height = '60px';
+            img.style.marginLeft = '.1rem';
+            img.style.marginTop = '.2rem';
+
+            const texto = document.createElement('span');
+            texto.innerHTML = `<span class="pos-img mx-auto mx-md-2 mt-md-2">$${item.total}</span>`;
+
+            div.appendChild(img);
+            div.appendChild(texto);
+            resumenContainer.appendChild(div);
+          });
+        } else {
+          resumenContainer.innerHTML = '<p class="text-muted mx-auto my-3">No hay movimientos registrados.</p>';
+        }
+      })
+      .catch(error => console.error('Error al cargar el resumen de gastos:', error));
+
+  } catch (error) {
+    console.error("Error verificando sesión:", error);
+  }
+});
+</script>
+
 </body>
 </html>

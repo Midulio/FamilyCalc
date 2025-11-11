@@ -245,6 +245,14 @@ nav{
     letter-spacing: 9px;
 }
 
+.numeroGastos #totalImporte span.deslogueado{
+    position:sticky;
+    font-family: "Exo 2";
+    font-size: 4dvh;
+    letter-spacing: 1.5px;
+    word-spacing: -2px;
+}
+
 .gastosTitulo{
     text-align: center;
     background-color: var(--gastos-titulo-fondo);
@@ -317,12 +325,10 @@ nav{
 
 .pos-img  {
     display: flex;
-    align-items: center;
     font-size: 3.3dvh;
     color: var(--resumen);
     padding: 0.2rem 0;
-    margin-top: 0.5rem;
-    background: none;
+    margin-top: 0.3rem;
     font-family: "Fira Sans";
 }
 
@@ -346,6 +352,10 @@ nav{
     transform: scale(1.02);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+}
+
+.dropdown-toggle::after {
+    color: white;
 }
 
 @media screen and (max-width:649px) {
@@ -476,6 +486,10 @@ nav{
         right: 55px;
         font-size: 1.5dvh;
     }
+
+    .numeroGastos #totalImporte span.deslogueado{
+    font-size: 2.5dvh;
+}
 }
 @media screen and (min-width:650px) and (max-width:1279px) {
     .menu img{

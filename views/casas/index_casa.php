@@ -1,7 +1,29 @@
 <?php
-// Incluye el archivo de conexión a la base de datos para acceder a $conexion.
-include ("../../conexion.php");
+session_start();
+include("../../conexion.php");
+
+if (!isset($_SESSION['id_usuarios'])) {
+    header("Location: ../usuarios/iniciarSesion.html");
+    exit;
+}
+
+$id_usuario = $_SESSION['id_usuarios'];
+
+// Obtener la casa del usuario logueado
+$sqlCasaUsuario = "SELECT id_casa FROM casa WHERE id_usuarios = ?";
+$stmt = $conexion->prepare($sqlCasaUsuario);
+$stmt->bind_param("i", $id_usuario);
+$stmt->execute();
+$resultCasa = $stmt->get_result();
+$casaUsuario = $resultCasa->fetch_assoc();
+$id_casa_usuario = $casaUsuario ? $casaUsuario['id_casa'] : null;
+
+$sinCasa = false;
+if (!$id_casa_usuario) {
+    $sinCasa = true; // No se corta la ejecución
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
@@ -59,10 +81,18 @@ include ("../../conexion.php");
             <a href="../../index.html" class="logo"><h1 class="mb-1 fs-2"><span class="family">Family</span><span class="calc">Calc</span></h1></a>
             <div> 
                 <a href="../chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
-                <a href="../iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="../../src/user-circle.svg"></a>
+                <div class="btn menu" id="userMenu"></div> 
             </div>
         </div>
     </nav>
+
+<?php if ($sinCasa): ?>
+<div class="alert alert-warning text-center mx-auto my-3 w-75" role="alert">
+    ⚠️ No tenés ninguna casa asociada todavía. Creá una para empezar.
+</div>
+<?php endif; ?>
+
+
     <div class="row">
             <div class="text-center col-12 col-md-6">
       <h2 class="my-3 p-3"> CASA/S </h2>
@@ -78,11 +108,11 @@ include ("../../conexion.php");
                     </thead>
                     <tbody id="tablaCasasCuerpo">
                     <?php
-$sql = "SELECT * FROM casa"; // Consulta SQL para obtener todos los registros de la tabla casa
-
-$stmt = $conexion->prepare($sql); // Prepara la consulta para su ejecución segura (Sentencia preparada)
-$stmt->execute(); // Ejecuta la consulta preparada
-$resultado = $stmt->get_result(); // Obtiene el resultado de la ejecución
+$sql = "SELECT * FROM casa WHERE id_casa = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("i", $id_casa_usuario);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
 if($resultado && $resultado->num_rows > 0) { // Verifica si hay resultados disponibles
 while($r = $resultado->fetch_assoc()): // Recorre cada fila del resultado como array asociativo
@@ -122,12 +152,14 @@ $stmt->close(); // Cierra la sentencia preparada de casas
                     <tbody>
                     <?php
 // Consulta SQL para obtener personas con su casa relacionada
-$sql = "SELECT p.nombre as nombre_persona, c.nombre as nombre_casa, apellido, sexo, id_persona 
-FROM persona as p 
-INNER JOIN casa as c ON p.id_casa = c.id_casa";
-$stmt = $conexion->prepare($sql); // Prepara la consulta para su ejecución segura
-$stmt->execute(); // Ejecuta la consulta preparada
-$resultado = $stmt->get_result(); // Obtiene el resultado de la ejecución de la consulta
+$sql = "SELECT p.nombre AS nombre_persona, c.nombre AS nombre_casa, p.apellido, p.sexo, p.id_persona
+        FROM persona AS p
+        INNER JOIN casa AS c ON p.id_casa = c.id_casa
+        WHERE p.id_casa = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("i", $id_casa_usuario);
+$stmt->execute();
+$resultado = $stmt->get_result();
 if($resultado && $resultado->num_rows > 0) { // Verifica si existen resultados
 while($r = $resultado->fetch_assoc()):// Recorre cada fila de resultados
 ?>
@@ -257,8 +289,11 @@ $stmt->close(); // Cierra la sentencia preparada de personas
             <option value="" disabled selected>-- Elegí una casa --</option>
             <?php
 // Consulta para llenar el select de casas
-$query_casas = "SELECT id_casa, nombre FROM casa";
-$resultado_casas = $conexion->query($query_casas); // Ejecuta la consulta directamente
+$query_casas = "SELECT id_casa, nombre FROM casa WHERE id_casa = ?";
+$stmtCasas = $conexion->prepare($query_casas);
+$stmtCasas->bind_param("i", $id_casa_usuario);
+$stmtCasas->execute();
+$resultado_casas = $stmtCasas->get_result();
 if ($resultado_casas && $resultado_casas->num_rows > 0) { // Verifica si hay resultados
 while ($row = $resultado_casas->fetch_assoc()) { // Recorre cada casa
 echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre']) . '</option>'; // Imprime la opción
@@ -315,8 +350,11 @@ echo '<option disabled>No hay casas disponibles</option>'; // Opción si no hay 
             <option value="" disabled selected>-- Cargando casas --</option>
             <?php
 // Reutilizamos la lógica de casas para llenar el select inicialmente
-$query_casas = "SELECT id_casa, nombre FROM casa";
-$resultado_casas = $conexion->query($query_casas); // Ejecuta la consulta
+$query_casas = "SELECT id_casa, nombre FROM casa WHERE id_casa = ?";
+$stmtCasas = $conexion->prepare($query_casas);
+$stmtCasas->bind_param("i", $id_casa_usuario);
+$stmtCasas->execute();
+$resultado_casas = $stmtCasas->get_result();
 if ($resultado_casas && $resultado_casas->num_rows > 0) { // Verifica si hay resultados
 while ($row = $resultado_casas->fetch_assoc()) { // Recorre cada casa
 echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre']) . '</option>'; // Imprime la opción
@@ -374,6 +412,9 @@ echo '<option value="' . $row['id_casa'] . '">' . htmlspecialchars($row['nombre'
 </div>
 
 <div id="toastMessage" class="toast-message"></div>
+
+<!-- JS -->
+<script src="../../api/sessionMenu.js"></script>
 
 <script>
 

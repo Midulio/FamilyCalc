@@ -1,38 +1,46 @@
 <?php
-// Incluye el archivo de conexión a la base de datos (se asume que contiene la variable $conexion).
+// Inicia la sesión para acceder a los datos del usuario logueado
+session_start();
+
+// Incluye la conexión a la base de datos
 include("../../conexion.php");
 
-// --- Recepción de datos del formulario (POST) ---
-// Obtiene el valor del campo 'nombre' enviado por el formulario POST.
-$nombre = $_POST['nombre'];
-// Obtiene el valor del campo 'Calle' enviado por el formulario POST.
-$calle = $_POST['Calle'];
-// Obtiene el valor del campo 'Numero' enviado por el formulario POST.
-$numero = $_POST['Numero'];
-// Obtiene el valor del campo 'Localidad' enviado por el formulario POST.
-$localidad = $_POST['Localidad'];
-// Obtiene el valor del campo 'Provincia' enviado por el formulario POST.
-$provincia = $_POST['Provincia'];
+// --- Verifica si el usuario está logueado ---
+if (!isset($_SESSION['id_usuarios'])) {
+    echo "Error: No hay un usuario logueado.";
+    exit;
+}
+
+// Obtiene el ID del usuario actual desde la sesión
+$id_usuario = $_SESSION['id_usuarios'];
+
+// --- Recepción de datos del formulario ---
+$nombre = $_POST['nombre'] ?? null;
+$calle = $_POST['Calle'] ?? null;
+$numero = $_POST['Numero'] ?? null;
+$localidad = $_POST['Localidad'] ?? null;
+$provincia = $_POST['Provincia'] ?? null;
+
+// --- Validación básica ---
+if (empty($nombre) || empty($provincia)) {
+    echo "Error: faltan datos obligatorios.";
+    exit;
+}
 
 // --- Sentencia preparada (INSERT) ---
-// Define la consulta SQL para INSERTAR una nueva fila en la tabla 'casa'.
-// Se utilizan marcadores de posición '?' en lugar de los valores reales.
-$sql = "INSERT INTO casa (nombre, calle, numero, localidad, provincia) VALUES (?, ?, ?, ?, ?)";
-// Prepara la sentencia SQL para su ejecución, lo que ayuda a prevenir la inyección SQL.
+$sql = "INSERT INTO casa (id_usuarios, nombre, calle, numero, localidad, provincia) 
+        VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conexion->prepare($sql);
-// Vincula las variables a los marcadores de posición, especificando sus tipos:
-// "ssiss" = string, string, integer, string, string.
-$stmt->bind_param("ssiss", $nombre, $calle, $numero, $localidad, $provincia);
+$stmt->bind_param("ississ", $id_usuario, $nombre, $calle, $numero, $localidad, $provincia);
 
-// --- Ejecución y manejo de errores ---
-// Ejecuta la sentencia preparada.
+// --- Ejecución ---
 if ($stmt->execute()) {
-    // Si la inserción fue exitosa, imprime "OK" (generalmente para ser detectado por JavaScript).
     echo "OK";
-// Si la ejecución falló.
 } else {
-    // Imprime un mensaje de error detallado, incluyendo el error específico de la sentencia.
     echo "Error: " . $stmt->error;
 }
-// Nota: Es recomendable cerrar $stmt y $conexion después de las operaciones si no se hace globalmente.
+
+// Cierre de recursos
+$stmt->close();
+$conexion->close();
 ?>

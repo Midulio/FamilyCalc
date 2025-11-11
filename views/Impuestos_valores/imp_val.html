@@ -55,8 +55,8 @@
             </div>
             <a href="../../index.html" class="logo"><h1 class="mb-1 fs-2"> <span class="family">Family</span><span class="calc">Calc</span>  </h1></a>
             <div>
-                <a href="../../views/chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
-                <a href="../../views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="../../src/user-circle.svg"></a>
+                <a href="../chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
+                <div class="btn menu" id="userMenu"></div> 
             </div>
         </div>
     </nav>
@@ -620,6 +620,9 @@ const mostrarData2 = (data) => { // Función para mostrar datos en la página
     </section>
 
     <script src="serviciosPrecios.js"></script>
+
+<!-- JS -->
+<script src="../../api/sessionMenu.js"></script>
 
     <script>
 // Agrega un 'listener' que espera hasta que todo el contenido HTML de la página haya cargado completamente.

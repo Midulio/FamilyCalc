@@ -334,6 +334,10 @@ body{
     margin-left: 0;
 }
 
+.dropdown-toggle::after {
+    color: white;
+}
+
 @media screen and (max-width:649px) {
 
     .contactos-box{

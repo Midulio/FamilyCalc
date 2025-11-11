@@ -1,4 +1,5 @@
 <?php
+        session_start();
 // Incluye el archivo "conexion.php" que contiene los datos y funciones necesarias
 // para conectar con la base de datos MySQL. Gracias a esto, la variable $conexion estará disponible.
 include ("../../conexion.php");
@@ -59,8 +60,8 @@ include ("../../conexion.php");
             </div>
             <a href="../../index.html" class="logo"><h1 class="mb-1 fs-2"> <span class="family">Family</span><span class="calc">Calc</span>  </h1></a>
             <div>
-                <a href="../../views/chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
-                <a href="../../views/iniciarSesion/iniciarSesion.html" class="btn menu" type="button"><img src="../../src/user-circle.svg"></a>
+                <a href="../chatbot/chatbot.html" class="btn menu" type="button"><img src="../../src/robot.svg"></a>
+                <div class="btn menu" id="userMenu"></div> 
             </div>
         </div>
     </nav>
@@ -69,32 +70,62 @@ include ("../../conexion.php");
         <h2 class="mb-4">Listado de Movimientos</h2>
 
         <?php
-// Consulta SQL unificada con los JOIN correctos
-$sql = "
-    SELECT 
-        m.id_movimientos AS id_movimiento,
-        c.nombre AS nombre_casa,
-        p.nombre AS nombre_persona,
-        p.apellido AS apellido_persona,
-        s.Servicio AS nombre_servicio,
-        m.importe,
-        m.fecha_ingreso,
-        m.estados,
-        m.tipo_de_gastos
-    FROM movimientos AS m
-    LEFT JOIN casa AS c ON m.id_casa = c.id_casa
-    LEFT JOIN persona AS p ON m.id_persona = p.id_persona
-    LEFT JOIN servicios AS s ON m.id_servicio = s.id_servicio
-    ORDER BY m.fecha_ingreso DESC
-";
 
-$stmt = $conexion->prepare($sql);
-$stmt->execute();
-$resultado = $stmt->get_result();
+// Verificar que el usuario esté logueado
+if (!isset($_SESSION['id_usuarios'])) {
+    echo "<div class='alert alert-danger text-center mt-3'>Debes iniciar sesión para ver tus movimientos.</div>";
+    exit;
+}
 
-$totalImporte = 0;
+$id_usuario = $_SESSION['id_usuarios'];
+
+// 🔹 Obtener la casa asociada al usuario
+$sqlCasa = "SELECT id_casa FROM casa WHERE id_usuarios = ?";
+$stmtCasa = $conexion->prepare($sqlCasa);
+$stmtCasa->bind_param("i", $id_usuario);
+$stmtCasa->execute();
+$resultCasa = $stmtCasa->get_result();
+$casa = $resultCasa->fetch_assoc();
+
+// 🔹 Control de usuario sin casa
+if (!$casa) {
+    echo "<div class='alert alert-warning text-center mt-3'>⚠️ No tienes una casa asociada aún.</div>";
+    $sinCasa = true;
+} else {
+    $id_casa_usuario = $casa['id_casa'];
+    $sinCasa = false;
+}
+
+// 🔹 Solo ejecutar consulta si el usuario tiene casa
+if (!$sinCasa) {
+    $sql = "
+        SELECT 
+            m.id_movimientos AS id_movimiento,
+            c.nombre AS nombre_casa,
+            p.nombre AS nombre_persona,
+            p.apellido AS apellido_persona,
+            s.Servicio AS nombre_servicio,
+            m.importe,
+            m.fecha_ingreso,
+            m.estados,
+            m.tipo_de_gastos
+        FROM movimientos AS m
+        LEFT JOIN casa AS c ON m.id_casa = c.id_casa
+        LEFT JOIN persona AS p ON m.id_persona = p.id_persona
+        LEFT JOIN servicios AS s ON m.id_servicio = s.id_servicio
+        WHERE m.id_casa = ?
+        ORDER BY m.fecha_ingreso DESC
+    ";
+
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("i", $id_casa_usuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $totalImporte = 0;
+}
 ?>
 
+<?php if (!$sinCasa): ?>
 <table class="table table-hover">
     <tr class="table-secondary text-center">
         <th class="d-none d-lg-table-cell">Casa</th>
@@ -140,6 +171,7 @@ endif;
         <td colspan="5" class="text-center"><button type="button" id="btnAbrirModalMovimiento" class="btn btn-primary mx-4"><img src="fotos/agregar.png" alt="Agregar movimiento"></button></td>
     </tr>
 </table>
+<?php endif; ?>
 
     </div>
 
@@ -316,6 +348,9 @@ endif;
     </div>
   </div>
 </div>
+
+<!-- JS -->
+<script src="../../api/sessionMenu.js"></script>
 
 <script>
 

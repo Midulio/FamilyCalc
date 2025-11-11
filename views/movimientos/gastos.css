@@ -475,6 +475,10 @@ td .btn.delete{
     height: 30px;
 }
 
+.dropdown-toggle::after {
+    color: white;
+}
+
 @media screen and (max-width:649px) {
 
     .contactos-box{

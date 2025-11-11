@@ -1,20 +1,42 @@
 <?php
-// Incluye el archivo de conexión a la base de datos (donde se crea la variable $conexion)
 include("../../conexion.php");
+session_start();
 
-// Define la consulta SQL: obtiene la suma total de la columna 'importe' de la tabla 'movimientos'
-$sql = "SELECT SUM(importe) AS total FROM movimientos";
+// Verificamos si hay un usuario logueado
+if (!isset($_SESSION['id_usuarios'])) {
+    echo "0,00"; // No hay sesión → sin total
+    exit;
+}
 
-// Ejecuta la consulta en la base de datos y guarda el resultado en $result
-$result = $conexion->query($sql);
+$id_usuario = $_SESSION['id_usuarios'];
 
-// Verifica si la consulta se ejecutó correctamente y si devolvió al menos una fila
-if ($result && $row = $result->fetch_assoc()) {
-    // Si hay resultados, muestra el total formateado con 2 decimales,
-    // coma como separador decimal y punto como separador de miles
+// 1️⃣ Obtenemos la casa asociada al usuario
+$sqlCasa = "SELECT id_casa FROM casa WHERE id_usuarios = ?";
+$stmtCasa = $conexion->prepare($sqlCasa);
+$stmtCasa->bind_param("i", $id_usuario);
+$stmtCasa->execute();
+$resultCasa = $stmtCasa->get_result();
+$casa = $resultCasa->fetch_assoc();
+
+if (!$casa) {
+    echo "0,00"; // El usuario no tiene casa asociada
+    exit;
+}
+
+$id_casa = $casa['id_casa'];
+
+// 2️⃣ Sumamos los importes solo de esa casa
+$sqlTotal = "SELECT SUM(importe) AS total FROM movimientos WHERE id_casa = ?";
+$stmtTotal = $conexion->prepare($sqlTotal);
+$stmtTotal->bind_param("i", $id_casa);
+$stmtTotal->execute();
+$resultTotal = $stmtTotal->get_result();
+$row = $resultTotal->fetch_assoc();
+
+// 3️⃣ Mostramos el resultado
+if ($row && $row['total'] !== null) {
     echo number_format($row['total'], 2, ',', '.');
 } else {
-    // Si no hay resultados o hubo error, muestra "0,00" como valor por defecto
     echo "0,00";
 }
 ?>
